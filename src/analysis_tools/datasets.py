@@ -14,15 +14,23 @@ progress_cm = LogProgressContextManager(logger, cooldown=timedelta(minutes=2))
 def analyze_dataset(loader : 'torch_data.DataLoader',
                     destination : 'Path',
                     dataset_description : str,
-                    class_names : list[str]):
+                    class_names : list[str],
+                    multiclass_column: bool = False):
     hist = torch.zeros(len(class_names), 2)
     with progress_cm.track(f'Analyzing dataset {dataset_description}', 'batches', loader) as progress_tracker:
         for _, y in loader:
-            for j in range(len(class_names)):
-                col : torch.Tensor= y[:, j]
-                pos = y[:, j].sum(0)
-                hist[j][1] += pos
-                hist[j][0] += col.size(0) - pos
+            if multiclass_column:
+                # y[:, 0] contains integer class indices 0..n-1
+                for j in range(len(class_names)):
+                    hist[j][1] += (y[:, 0] == j).sum().item()  # positives for this class
+                    hist[j][0] += (y[:, 0] != j).sum().item()  # negatives for this class
+            else:
+                # existing behavior for per-concept columns
+                for j in range(len(class_names)):
+                    col = y[:, j]
+                    pos = col.sum(0)
+                    hist[j][1] += pos
+                    hist[j][0] += col.size(0) - pos
             progress_tracker.tick()
     logger.info(f"Dataset {dataset_description} histogram:\n{hist}")
     densities = hist / hist.sum(-1, keepdim=True)

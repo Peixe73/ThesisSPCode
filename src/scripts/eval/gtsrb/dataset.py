@@ -21,6 +21,8 @@ if TYPE_CHECKING or DO_SCRIPT_IMPORTS:
     )
     from core.eval.metrics_crosser import MetricCrosser
     from analysis_tools.datasets import analyze_dataset
+    from analysis_tools.gtsrb_utils import CLASSES, CONCEPTS, SHORT_CONCEPTS, SIGNCLASS, CLASSID_BINARY, SIGNCLASS_BINARY
+    #log_short_class_correspondence(logger)
     from core.util.progress_trackers import LogProgressContextManager
 
     logger = logging.getLogger(__name__)
@@ -69,6 +71,8 @@ def main(options: Options):
             batch_size=options.batch_size,
             shuffle=False,
         )
+    
+    #log_short_class_correspondence(logger)
 
     destination = options.destination.joinpath(options.dataset_name)
     destination.mkdir(parents=True, exist_ok=True)
@@ -78,21 +82,24 @@ def main(options: Options):
     # Speed up analysis (no image loading needed)
     if hasattr(dataset, "skip_image_loading"):
         dataset.skip_image_loading = True  # type: ignore
-
-    # 🔥 Automatically get all target column names
-    target_names = dataset.get_column_references().get_target_names()
-    label_indices = dataset.get_column_references().get_label_indices(target_names)
+    
+    #column_refs = dataset.get_column_references()
+    #target_names = column_refs.labels.columns_to_names
+    #label_indices = dataset.get_column_references().get_label_indices(target_names)
+    target_hist_columns = CONCEPTS + SIGNCLASS_BINARY
+    label_indices = dataset.get_column_references().get_label_indices(target_hist_columns)
+    selected_dataset = dataset_wrappers.SelectCols(dataset, select_y=label_indices)
 
     selected_dataset = dataset_wrappers.SelectCols(
         dataset,
         select_y=label_indices,
     )
 
-    logger.info(f"Evaluating targets: {target_names}")
+    logger.info(f"Evaluating targets: {target_hist_columns}")
 
     crosser = MetricCrosser(
-        target_names,
-        target_names,
+        target_hist_columns,
+        target_hist_columns,
         {
             "correlation": PearsonCorrelationCoefficient,
             "balanced_accuracy": lambda: metric_wrappers.ToDtype(
@@ -125,12 +132,38 @@ def main(options: Options):
         make_loader(selected_dataset.for_training()),
         destination,
         "train",
-        target_names,
+        target_hist_columns
     )
 
     analyze_dataset(
         make_loader(selected_dataset.for_validation()),
         destination,
         "val",
-        target_names,
+        target_hist_columns
     )
+    
+    if (get_dataset(options.dataset_name).name == "gtsrb_with_concepts"):
+        logger.info("On official test set")
+
+        test_dataset = get_dataset(options.dataset_name + "_test")
+
+        if hasattr(test_dataset, "skip_image_loading"):
+            test_dataset.skip_image_loading = True  # type: ignore
+
+        test_selected_dataset = dataset_wrappers.SelectCols(
+            test_dataset,
+            select_y=label_indices,
+        )
+
+        cross_classes(
+            crosser,
+            make_loader(test_selected_dataset.for_training()),
+            destination.joinpath("test"),
+        )
+
+        analyze_dataset(
+            make_loader(test_selected_dataset.for_training()),
+            destination,
+            "test",
+            target_hist_columns
+        )
