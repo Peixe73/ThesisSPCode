@@ -1,0 +1,36 @@
+#!/usr/bin/bash
+TAG=speixe-thesis
+
+if DOCKER_PS_RESULT=$(docker ps); then
+    echo "Docker is running"
+else
+    echo $DOCKER_PS_RESULT
+    exit -1
+fi
+unset DOCKER_PS_RESULT
+
+OLD_IMAGE=$(docker images -q $TAG)
+if [ -z $OLD_IMAGE ]; then
+    echo No old image
+fi
+
+# Add version info
+echo Docker image built at $(date) > version.txt
+echo
+if which git > /dev/null ; then
+    echo "$ git status" >> version.txt
+    git status >> version.txt
+    echo "$ git log -1" >> version.txt
+    git log -1 >> version.txt
+else
+    echo "Git not found, skipping version info"
+fi
+echo "Version info:"
+cat version.txt
+echo
+
+docker build -t $TAG . && \
+NEW_IMAGE=$(docker images -q $TAG)
+rm -f version.txt
+echo Image successfully built with tag $TAG and id $NEW_IMAGE && \
+([[ -z $OLD_IMAGE &&  $OLD_IMAGE != $NEW_IMAGE ]] || (docker rmi -f $OLD_IMAGE; echo Old image $OLD_IMAGE deleted))

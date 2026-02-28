@@ -1,0 +1,13 @@
+.venv/
+__pycache__/
+logs/
+.env
+checkpoints/
+data/
+temp.py
+temp.sh
+temp/
+debug/
+target/
+*config.json
+Thumbs.db

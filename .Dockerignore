@@ -1,0 +1,11 @@
+storage/
+data/
+logs/
+debug/
+**/__pycache__/
+.venv/
+.vscode/
+.git/
+**/target/
+temp/
+README.md
