@@ -25,6 +25,20 @@ def _build_gtsrb_ontology():
     Diamond_Shape = gen.free_variable()
     Triangular_Shape = gen.free_variable()
     Octagonal_Shape = gen.free_variable()
+    
+    # Making Shapes Mutually Exclusive ============================
+
+    valid_shape = (
+        (Circular_Shape & ~Diamond_Shape & ~Triangular_Shape & ~Octagonal_Shape) |
+        (~Circular_Shape & Diamond_Shape & ~Triangular_Shape & ~Octagonal_Shape) |
+        (~Circular_Shape & ~Diamond_Shape & Triangular_Shape & ~Octagonal_Shape) |
+        (~Circular_Shape & ~Diamond_Shape & ~Triangular_Shape & Octagonal_Shape)
+    )
+
+    gen.labels.update(
+        ValidShape=valid_shape
+    )
+    # ===================================
 
     Red_Ground = gen.free_variable()
     White_Ground = gen.free_variable()
@@ -39,9 +53,44 @@ def _build_gtsrb_ontology():
     Red_Border = gen.free_variable()
     White_Border = gen.free_variable()
 
+    # Marking Borders Mutually Exclusive ============================
+    border_rule = (
+        (Border &
+            (
+                (Black_Border & ~Red_Border & ~White_Border) |
+                (~Black_Border & Red_Border & ~White_Border) |
+                (~Black_Border & ~Red_Border & White_Border)
+            )
+        )
+        |
+        (~Border & ~Black_Border & ~Red_Border & ~White_Border)
+    )
+
+    gen.labels.update(
+        ValidBorder=border_rule
+    )
+    # ==========================================================
+    
+    # Making Bars Mutually Exclusive ============================
     Bar = gen.free_variable()
     Black_Bar = gen.free_variable()
     White_Bar = gen.free_variable()
+    
+    bar_rule = (
+        (Bar &
+            (
+                (Black_Bar & ~White_Bar) |
+                (~Black_Bar & White_Bar)
+            )
+        )
+        |
+        (~Bar & ~Black_Bar & ~White_Bar)
+    )
+
+    gen.labels.update(
+        ValidBar=bar_rule
+    )
+    # ==========================================================
 
     Symbol = gen.free_variable()  # master symbol
     Post = gen.free_variable()
@@ -83,7 +132,23 @@ def _build_gtsrb_ontology():
     mandatory_sign = Circular_Shape & Blue & Symbol
 
     final_classes = [warning_sign, priority_sign, prohibitory_sign, mandatory_sign]
+    
+    # ==========================================================
+    # MUTUALLY EXCLUSIVE FINAL CLASSES
+    # ==========================================================
     class_a, class_b, class_c, class_d = final_classes
+
+    #exactly_one_final_class = (
+    #    (class_a | class_b | class_c | class_d) &     # at least one
+    #    ~(class_a & class_b) &
+    #    ~(class_a & class_c) &
+    #    ~(class_a & class_d) &
+    #    ~(class_b & class_c) &
+    #    ~(class_b & class_d) &
+    #    ~(class_c & class_d)
+    #)
+
+    #gen.constraints.append(exactly_one_final_class)
 
     # ==========================================================
     # LOAD ORIGINAL CSV FOR CLASSID
@@ -101,19 +166,31 @@ def _build_gtsrb_ontology():
         SignClass_B=class_b,
         SignClass_C=class_c,
         SignClass_D=class_d,
-        WarningSign=warning_sign,
-        PrioritySign=priority_sign,
-        ProhibitorySign=prohibitory_sign,
-        MandatorySign=mandatory_sign,
-        YieldSign=yield_sign,
-        StopSign=stop_sign,
-        PriorityRoad=priority_road,
+        #WarningSign=warning_sign,
+        #PrioritySign=priority_sign,
+        #ProhibitorySign=prohibitory_sign,
+        #MandatorySign=mandatory_sign,
+        #YieldSign=yield_sign,
+        #StopSign=stop_sign,
+        #PriorityRoad=priority_road,
     )
 
     # ==========================================================
     # BUILD GENERATOR
     # ==========================================================
     generator = gen.build()
+    
+    signclass_names = [
+        "SignClass_A",
+        "SignClass_B",
+        "SignClass_C",
+        "SignClass_D"
+    ]
+
+    signclass_indices = [generator.label_names.index(name) for name in signclass_names]
+    generator.signclass_indices = signclass_indices
+    
+    generator.classid_cols = classid_cols
 
     # ==========================================================
     # SYMBOL SPECIFICS (dynamic, not free variables)
@@ -132,28 +209,68 @@ def _build_gtsrb_ontology():
     original_generate = generator.generate_from_int
 
     def generate_with_classid(index: int, force_valid: bool = False):
-        # Clip index to CSV length
+
         row_index = index % len(original_rows)
-        row_tuple = original_generate(row_index, force_valid)
-        row_tensor = torch.cat(row_tuple)
+        row_tuple = original_generate(index, force_valid)
+
+        base_tensor = torch.cat(row_tuple)
+
+        feature_count = len(generator.feature_names)
+        label_count = len(generator.label_names)
+
+        features = base_tensor[:feature_count]
+        labels = base_tensor[feature_count:feature_count + label_count]
+        valid = base_tensor[-1:]
 
         # -----------------------------
-        # Symbols logic
+        # Symbol logic
         # -----------------------------
-        symbol_tensor = torch.zeros(len(symbol_specific_names), dtype=row_tensor.dtype)
+        symbol_tensor = torch.zeros(len(symbol_specific_names), dtype=base_tensor.dtype)
+
         symbol_idx = generator.feature_names.index("Symbol")
-        if row_tensor[symbol_idx].item():  # master Symbol active
-            chosen_idx = random.randrange(len(symbol_specific_names))
+
+        if features[symbol_idx].item() == 1:
+            chosen_idx = torch.randint(0, len(symbol_specific_names), (1,)).item()
             symbol_tensor[chosen_idx] = 1
 
-        row_tensor = torch.cat([row_tensor, symbol_tensor])
+        # -----------------------------
+        # Enforce exactly one SignClass
+        # -----------------------------
+        
+        #label_offset = 0
+        #active_classes = []
+
+        #for idx in generator.signclass_indices:
+        #    if labels[idx].item() == 1:
+        #        active_classes.append(idx)
+
+        #if len(active_classes) > 1:
+        #    for idx in active_classes[1:]:
+        #        labels[idx] = 0
+
+        #elif len(active_classes) == 0:
+        #    labels[random.choice(generator.signclass_indices)] = 1
 
         # -----------------------------
-        # Add ClassId dynamically
+        # ClassId logic
         # -----------------------------
-        for col in classid_cols:
-            val = int(original_rows[row_index][col])
-            row_tensor = torch.cat([row_tensor, torch.tensor([val], dtype=row_tensor.dtype)])
+        class_values = torch.zeros(len(classid_cols), dtype=base_tensor.dtype)
+
+        for i, col in enumerate(classid_cols):
+            if int(original_rows[row_index][col]) == 1:
+                class_values[i] = 1
+                break
+
+        # -----------------------------
+        # Final row assembly
+        # -----------------------------
+        row_tensor = torch.cat([
+            features,
+            symbol_tensor,
+            labels,
+            class_values,
+            valid
+        ])
 
         return row_tensor
 
@@ -175,15 +292,23 @@ def main():
         "D1a1", "D1a4", "D1a5", "D1a6", "D1a7", "D2a1", "D2a2", "D3"
     ]
 
-    feature_names = generator.feature_names + symbol_specific_names
+    feature_names = generator.feature_names
     label_names = generator.label_names
+    classid_cols = generator.classid_cols
     assert feature_names is not None and label_names is not None
 
     PATH_OUT = Path("data/gtsrb_ontology.csv")
     if PATH_OUT.exists():
         raise FileExistsError(f"{PATH_OUT} already exists")
 
-    header = feature_names + label_names + [generator.valid_label]
+    #header = feature_names + label_names + [generator.valid_label]
+    header = (
+        feature_names
+        + symbol_specific_names
+        + label_names
+        + classid_cols
+        + [generator.valid_label]
+    )
 
     # Logger and progress manager
     logger = logging.getLogger(__name__)
