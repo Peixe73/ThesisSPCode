@@ -11,6 +11,14 @@ from datetime import timedelta
 
 if TYPE_CHECKING or DO_SCRIPT_IMPORTS:
     from core.datasets.binary_generator import BinaryGeneratorBuilder
+    
+import importlib.util
+
+GENERATED_RULES_PATH = Path("data/generated_gtsrb_rules.py")
+
+spec = importlib.util.spec_from_file_location("gtsrb_rules", GENERATED_RULES_PATH)
+gtsrb_rules = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(gtsrb_rules)
 
 PATH_ORIG = Path("data/gtsrb_dataset/gtsrb_concepts_filtered_bin.csv")
 
@@ -26,7 +34,7 @@ def _build_gtsrb_ontology():
     Triangular_Shape = gen.free_variable()
     Octagonal_Shape = gen.free_variable()
     
-    # Making Shapes Mutually Exclusive ============================
+    # Marking Shapes Mutually Exclusive ============================
 
     valid_shape = (
         (Circular_Shape & ~Diamond_Shape & ~Triangular_Shape & ~Octagonal_Shape) |
@@ -71,7 +79,7 @@ def _build_gtsrb_ontology():
     )
     # ==========================================================
     
-    # Making Bars Mutually Exclusive ============================
+    # Marking Bars Mutually Exclusive ============================
     Bar = gen.free_variable()
     Black_Bar = gen.free_variable()
     White_Bar = gen.free_variable()
@@ -180,6 +188,27 @@ def _build_gtsrb_ontology():
     # ==========================================================
     generator = gen.build()
     
+    generator.classid_cols = classid_cols
+
+    for col in classid_cols:
+        rule_str = getattr(gtsrb_rules, f"{col}_rule", None)
+        if rule_str is None:
+            continue
+
+        eval_scope = {name: 0 for name in generator.feature_names}
+
+        for name in [
+            "Black_Symbol","White_Symbol","Symbol_NoEntryGoods","Symbol_Overtaking",
+            "Symbol_OvertakingGoods","Symbol_Speed20","Symbol_Speed30","Symbol_Speed50",
+            "Symbol_Speed60","Symbol_Speed70","Symbol_Speed80","Symbol_Speed100",
+            "Symbol_Speed120","Symbol_Stop",
+            "D1a1","D1a4","D1a5","D1a6","D1a7","D2a1","D2a2","D3"
+        ]:
+            eval_scope[name] = 0
+
+        label_idx = generator.label_names.index(col)
+        generator.labels[label_idx] = eval(rule_str, {}, eval_scope)
+    
     signclass_names = [
         "SignClass_A",
         "SignClass_B",
@@ -257,9 +286,20 @@ def _build_gtsrb_ontology():
         class_values = torch.zeros(len(classid_cols), dtype=base_tensor.dtype)
 
         for i, col in enumerate(classid_cols):
-            if int(original_rows[row_index][col]) == 1:
-                class_values[i] = 1
-                break
+            rule_str = getattr(gtsrb_rules, f"{col}_rule", None)
+            if rule_str is None:
+                continue
+
+            # Build eval scope using current sample features
+            eval_scope = {}
+
+            for j, fname in enumerate(generator.feature_names):
+                eval_scope[fname] = bool(features[j].item())
+
+            for j, sname in enumerate(symbol_specific_names):
+                eval_scope[sname] = bool(symbol_tensor[j].item())
+
+            class_values[i] = int(eval(rule_str, {}, eval_scope))
 
         # -----------------------------
         # Final row assembly

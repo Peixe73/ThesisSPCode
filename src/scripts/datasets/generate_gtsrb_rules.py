@@ -2,7 +2,7 @@ import json
 from pathlib import Path
 
 INPUT_JSON = Path("data/gtsrb_class_patterns.json")
-OUTPUT_PY = Path("src/scripts/datasets/generated_gtsrb_rules.py")
+OUTPUT_PY = Path("data/generated_gtsrb_rules.py")
 
 
 def build_rule_expr(must_true, must_false):
@@ -42,7 +42,7 @@ def main():
 
         rule_expr = build_rule_expr(must_true, must_false)
 
-        lines.append(f"{class_id}_rule = {rule_expr}\n")
+        lines.append(f'{class_id}_rule = """{rule_expr}"""\n')
 
     print(f"Writing rule file: {OUTPUT_PY}")
 
