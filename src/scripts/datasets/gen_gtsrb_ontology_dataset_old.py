@@ -11,76 +11,89 @@ from datetime import timedelta
 
 if TYPE_CHECKING or DO_SCRIPT_IMPORTS:
     from core.datasets.binary_generator import BinaryGeneratorBuilder
-    
+
 import importlib.util
 
-GENERATED_RULES_PATH = Path("data/generated_gtsrb_rules.py")
+
+GENERATED_RULES_PATH = Path("data/gtsrb_rules.py")
 
 spec = importlib.util.spec_from_file_location("gtsrb_rules", GENERATED_RULES_PATH)
 gtsrb_rules = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(gtsrb_rules)
 
+
 PATH_ORIG = Path("data/gtsrb_dataset/gtsrb_concepts_filtered_bin.csv")
 
+
 def _build_gtsrb_ontology():
+
     gen = BinaryGeneratorBuilder()
 
     # ==========================================================
-    # DEFINE FEATURE VARIABLES
+    # FEATURE VARIABLES
     # ==========================================================
+
     Circular_Shape = gen.free_variable()
     Diamond_Shape = gen.free_variable()
     Triangular_Shape = gen.free_variable()
     Octagonal_Shape = gen.free_variable()
-
-    # Shape mutual exclusion
-    valid_shape = (
-        (Circular_Shape & ~Diamond_Shape & ~Triangular_Shape & ~Octagonal_Shape) |
-        (~Circular_Shape & Diamond_Shape & ~Triangular_Shape & ~Octagonal_Shape) |
-        (~Circular_Shape & ~Diamond_Shape & Triangular_Shape & ~Octagonal_Shape) |
-        (~Circular_Shape & ~Diamond_Shape & ~Triangular_Shape & Octagonal_Shape)
-    )
-    gen.labels.update(ValidShape=valid_shape)
 
     Red_Ground = gen.free_variable()
     White_Ground = gen.free_variable()
     Yellow_Ground = gen.free_variable()
     Blue = gen.free_variable()
 
-    Start_Prohibition = gen.free_variable()
-    End_Prohibition = gen.free_variable()
-
     Border = gen.free_variable()
     Black_Border = gen.free_variable()
     Red_Border = gen.free_variable()
     White_Border = gen.free_variable()
 
-    # Border mutual exclusion
-    border_rule = (
-        (Border & ((Black_Border & ~Red_Border & ~White_Border) |
-                   (~Black_Border & Red_Border & ~White_Border) |
-                   (~Black_Border & ~Red_Border & White_Border))) |
-        (~Border & ~Black_Border & ~Red_Border & ~White_Border)
-    )
-    gen.labels.update(ValidBorder=border_rule)
-
-    # Bar mutual exclusion
     Bar = gen.free_variable()
     Black_Bar = gen.free_variable()
     White_Bar = gen.free_variable()
+
+    Symbol = gen.free_variable()
+    
+    Black_Symbol = gen.free_variable()
+    White_Symbol = gen.free_variable()
+
+    # ==========================================================
+    # VALIDITY RULES
+    # ==========================================================
+
+    valid_shape = (
+        (Circular_Shape & ~Diamond_Shape & ~Triangular_Shape & ~Octagonal_Shape)
+        | (~Circular_Shape & Diamond_Shape & ~Triangular_Shape & ~Octagonal_Shape)
+        | (~Circular_Shape & ~Diamond_Shape & Triangular_Shape & ~Octagonal_Shape)
+        | (~Circular_Shape & ~Diamond_Shape & ~Triangular_Shape & Octagonal_Shape)
+    )
+
+    gen.labels.update(ValidShape=valid_shape)
+
+    border_rule = (
+        (Border & (
+            (Black_Border & ~Red_Border & ~White_Border) |
+            (~Black_Border & Red_Border & ~White_Border) |
+            (~Black_Border & ~Red_Border & White_Border)
+        ))
+        |
+        (~Border & ~Black_Border & ~Red_Border & ~White_Border)
+    )
+
+    gen.labels.update(ValidBorder=border_rule)
+
     bar_rule = (
-        (Bar & ((Black_Bar & ~White_Bar) |
-                (~Black_Bar & White_Bar))) |
+        (Bar & ((Black_Bar & ~White_Bar) | (~Black_Bar & White_Bar)))
+        |
         (~Bar & ~Black_Bar & ~White_Bar)
     )
-    gen.labels.update(ValidBar=bar_rule)
 
-    Symbol = gen.free_variable()  # master symbol
-    Post = gen.free_variable()
+    gen.labels.update(ValidBar=bar_rule)
 
     # ==========================================================
     # STORE FEATURES
     # ==========================================================
+
     gen.features = OrderedDict(
         Circular_Shape=Circular_Shape,
         Diamond_Shape=Diamond_Shape,
@@ -98,59 +111,164 @@ def _build_gtsrb_ontology():
         Black_Bar=Black_Bar,
         White_Bar=White_Bar,
         Symbol=Symbol,
-        Start_Prohibition=Start_Prohibition,
-        End_Prohibition=End_Prohibition,
-        Post=Post,
+        Black_Symbol=Black_Symbol,
+        White_Symbol=White_Symbol,
     )
 
     # ==========================================================
-    # HIGH-LEVEL SIGN CLASSES
+    # SYMBOL FEATURES
     # ==========================================================
-    warning_sign = Triangular_Shape & (White_Ground | Yellow_Ground) & Red_Border
-    yield_sign = Triangular_Shape & Red_Border & ~Symbol
-    stop_sign = Octagonal_Shape & Red_Ground & Symbol
-    priority_road = Diamond_Shape & Yellow_Ground & White_Border
-    priority_sign = yield_sign | stop_sign | priority_road
-    prohibitory_sign = Circular_Shape & Start_Prohibition & Red_Border
-    mandatory_sign = Circular_Shape & Blue & Symbol
 
-    final_classes = [warning_sign, priority_sign, prohibitory_sign, mandatory_sign]
-    class_a, class_b, class_c, class_d = final_classes
-
-    gen.labels.update(
-        SignClass_A=class_a,
-        SignClass_B=class_b,
-        SignClass_C=class_c,
-        SignClass_D=class_d,
-    )
-
-    # ==========================================================
-    # LOAD ORIGINAL CSV FOR CLASSID
-    # ==========================================================
-    with open(PATH_ORIG, newline="") as f:
-        reader = csv.DictReader(f)
-        original_rows = [row for row in reader]
-        classid_cols = [h for h in reader.fieldnames if h.startswith("ClassId_")]
-
-    # ==========================================================
-    # BUILD GENERATOR
-    # ==========================================================
-    generator = gen.build()
-    generator.classid_cols = classid_cols
-
-    # Symbol-specific names (dynamic)
     symbol_specific_names = [
-        "Black_Symbol","White_Symbol","Symbol_NoEntryGoods","Symbol_Overtaking",
-        "Symbol_OvertakingGoods","Symbol_Speed20","Symbol_Speed30","Symbol_Speed50",
-        "Symbol_Speed60","Symbol_Speed70","Symbol_Speed80","Symbol_Speed100",
-        "Symbol_Speed120","Symbol_Stop",
-        "D1a1","D1a4","D1a5","D1a6","D1a7","D2a1","D2a2","D3"
+
+        # B
+        "Symbol_Stop",
+
+        # C
+        "Symbol_NoEntryGoods",
+        "Symbol_Overtaking",
+        "Symbol_OvertakingGoods",
+
+        # speed
+        "Symbol_Speed20",
+        "Symbol_Speed30",
+        "Symbol_Speed50",
+        "Symbol_Speed60",
+        "Symbol_Speed70",
+        "Symbol_Speed80",
+        "Symbol_Speed100",
+        "Symbol_Speed120",
+
+        # D signs (names exactly as in CSV)
+        "D1a1",
+        "D1a4",
+        "D1a5",
+        "D1a6",
+        "D1a7",
+        "D2a1",
+        "D2a2",
+        "D3",
     ]
+
+    # ==========================================================
+    # CLASSID RULES (ONTOLOGY MAPPING)
+    # ==========================================================
+    
+    """
+    ClassId_1: C14_20
+    ClassId_2: C14_30
+    ClassId_3: C14_50
+    ClassId_4: C14_60
+    ClassId_5: C14_70
+    ClassId_6: C14_80
+    ClassId_7: C17b_80
+    ClassId_8: C14_100
+    ClassId_9: C14_120
+    ClassId_10: C13aa
+    ClassId_11: C17bb
+    ClassId_12: A19a
+    ClassId_13: B3
+    ClassId_14: B1
+    ClassId_15: B2a
+    ClassId_16: C2
+    ClassId_17: C3e3
+    ClassId_18: C1a
+    ClassId_19: A32
+    ClassId_20: A1a
+    ClassId_21: A1b
+    ClassId_22: A1c
+    ClassId_23: A7a
+    ClassId_24: A9
+    ClassId_25: A4b2
+    ClassId_26: A16
+    ClassId_27: A17a
+    ClassId_28: A33
+    ClassId_29: A13
+    ClassId_30: A14
+    ClassId_31: A34
+    ClassId_32: A15b
+    ClassId_33: C17a
+    ClassId_34: D1a5
+    ClassId_35: D1a4
+    ClassId_36: D1a1
+    ClassId_37: D1a7
+    ClassId_38: D1a6
+    ClassId_39: D2a2
+    ClassId_40: D2a1
+    ClassId_41: D3
+    ClassId_42: C17c
+    ClassId_43: C17d
+    """
+
+    classid_rules = {
+
+        "ClassId_1": gtsrb_rules.C14_20,
+        "ClassId_2": gtsrb_rules.C14_30,
+        "ClassId_3": gtsrb_rules.C14_50,
+        "ClassId_4": gtsrb_rules.C14_60,
+        "ClassId_5": gtsrb_rules.C14_70,
+        "ClassId_6": gtsrb_rules.C14_80,
+        "ClassId_7": gtsrb_rules.C17b_80,
+        "ClassId_8": gtsrb_rules.C14_100,
+        "ClassId_9": gtsrb_rules.C14_120,
+
+        "ClassId_10": gtsrb_rules.C13aa,
+        "ClassId_11": gtsrb_rules.C13bb,
+
+        "ClassId_12": gtsrb_rules.A19a,
+
+        "ClassId_13": gtsrb_rules.B3,
+        "ClassId_14": gtsrb_rules.B1,
+        "ClassId_15": gtsrb_rules.B2a,
+
+        "ClassId_16": gtsrb_rules.C2,
+        "ClassId_17": gtsrb_rules.C3e3,
+        "ClassId_18": gtsrb_rules.C1a,
+
+        "ClassId_19": gtsrb_rules.A32,
+        "ClassId_20": gtsrb_rules.A1a,
+        "ClassId_21": gtsrb_rules.A1b,
+        "ClassId_22": gtsrb_rules.A1c,
+        "ClassId_23": gtsrb_rules.A7a,
+        "ClassId_24": gtsrb_rules.A9,
+        "ClassId_25": gtsrb_rules.A4b2,
+        "ClassId_26": gtsrb_rules.A16,
+        "ClassId_27": gtsrb_rules.A17a,
+        "ClassId_28": gtsrb_rules.A33,
+        "ClassId_29": gtsrb_rules.A13,
+        "ClassId_30": gtsrb_rules.A14,
+        "ClassId_31": gtsrb_rules.A34,
+        "ClassId_32": gtsrb_rules.A15b,
+
+        "ClassId_33": gtsrb_rules.C17a,
+
+        "ClassId_34": gtsrb_rules.D1a5,
+        "ClassId_35": gtsrb_rules.D1a4,
+        "ClassId_36": gtsrb_rules.D1a1,
+        "ClassId_37": gtsrb_rules.D1a7,
+        "ClassId_38": gtsrb_rules.D1a6,
+        "ClassId_39": gtsrb_rules.D2a2,
+        "ClassId_40": gtsrb_rules.D2a1,
+        "ClassId_41": gtsrb_rules.D3,
+
+        "ClassId_42": gtsrb_rules.C17c,
+        "ClassId_43": gtsrb_rules.C17d,
+    }
+
+    generator = gen.build()
+
+    generator.symbol_specific_names = symbol_specific_names
+    generator.classid_rules = classid_rules
+    generator.classid_cols = list(classid_rules.keys())
+
+    # ==========================================================
+    # OVERRIDE GENERATOR
+    # ==========================================================
 
     original_generate = generator.generate_from_int
 
-    def generate_with_classid(index: int, force_valid: bool = False):
-        row_index = index % len(original_rows)
+    def generate_with_classid(index: int, force_valid=False):
+
         row_tuple = original_generate(index, force_valid)
         base_tensor = torch.cat(row_tuple)
 
@@ -161,52 +279,48 @@ def _build_gtsrb_ontology():
         labels = base_tensor[feature_count:feature_count + label_count]
         valid = base_tensor[-1:]
 
-        # -----------------------------
-        # Symbol tensor
-        # -----------------------------
+        # ---------------------------------
+        # create empty symbol tensor
+        # ---------------------------------
+
         symbol_tensor = torch.zeros(len(symbol_specific_names), dtype=base_tensor.dtype)
-        symbol_idx = generator.feature_names.index("Symbol")
 
-        if features[symbol_idx].item() == 1:
-            chosen_idx = torch.randint(0, len(symbol_specific_names), (1,)).item()
-            symbol_tensor[chosen_idx] = 1
+        # ---------------------------------
+        # build ontology environment
+        # ---------------------------------
 
-        # -----------------------------
-        # ClassId logic
-        # -----------------------------
-        class_values = torch.zeros(len(classid_cols), dtype=base_tensor.dtype)
+        env = {}
 
-        for i, col in enumerate(classid_cols):
-            rule_str = getattr(gtsrb_rules, f"{col}_rule", None)
-            if rule_str is None:
-                continue
+        for j, name in enumerate(generator.feature_names):
+            env[name] = bool(features[j].item())
 
-            eval_scope = {}
-            for j, fname in enumerate(generator.feature_names):
-                eval_scope[fname] = bool(features[j].item())
-            for j, sname in enumerate(symbol_specific_names):
-                eval_scope[sname] = bool(symbol_tensor[j].item())
+        for j, name in enumerate(symbol_specific_names):
+            env[name] = False
 
-            class_values[i] = int(eval(rule_str, {}, eval_scope))
+        # ---------------------------------
+        # compute class values
+        # ---------------------------------
 
-        row_tensor = torch.cat([
+        class_values = torch.zeros(len(classid_rules), dtype=base_tensor.dtype)
+
+        for i, (cid, rule) in enumerate(classid_rules.items()):
+            class_values[i] = int(rule(env))
+
+        return torch.cat([
             features,
             symbol_tensor,
             labels,
             class_values,
             valid
         ])
-        return row_tensor
 
     generator.generate_from_int = generate_with_classid
-    generator.__len__ = lambda: len(original_rows)
-
-    generator.symbol_specific_names = symbol_specific_names
 
     return generator
 
 
 def main():
+
     generator = _build_gtsrb_ontology()
 
     feature_names = generator.feature_names
@@ -215,40 +329,58 @@ def main():
     classid_cols = generator.classid_cols
 
     PATH_OUT = Path("data/gtsrb_ontology.csv")
+
     if PATH_OUT.exists():
         raise FileExistsError(f"{PATH_OUT} already exists")
 
-    header = feature_names + symbol_specific_names + label_names + classid_cols + [generator.valid_label]
+    header = (
+        feature_names
+        + symbol_specific_names
+        + label_names
+        + classid_cols
+        + [generator.valid_label]
+    )
 
     logger = logging.getLogger(__name__)
-    progress_cm = LogProgressContextManager(logger, cooldown=timedelta(minutes=5))
+
+    progress_cm = LogProgressContextManager(
+        logger,
+        cooldown=timedelta(minutes=5)
+    )
 
     logger.info("Starting dataset generation with %d rows", len(generator))
 
-    # ==========================================================
-    # Write CSV incrementally, handling symbol expansion
-    # ==========================================================
     with open(PATH_OUT, "w", newline="") as f:
+
         writer = csv.writer(f)
         writer.writerow(header)
 
         with progress_cm.track("Dataset Generation", "rows") as progress:
+
             for i in range(len(generator)):
+
                 base_row = generator.generate_from_int(i, force_valid=False)
+
                 symbol_idx = feature_names.index("Symbol")
                 symbol_active = bool(base_row[symbol_idx].item())
 
                 if symbol_active:
-                    # Repeat row for each symbol
-                    for j, sym_name in enumerate(symbol_specific_names):
+
+                    for j in range(len(symbol_specific_names)):
+
                         row_copy = base_row.clone()
-                        start_sym = len(feature_names)
-                        end_sym = start_sym + len(symbol_specific_names)
-                        row_copy[start_sym:end_sym] = 0
-                        row_copy[start_sym + j] = 1
+
+                        start = len(feature_names)
+                        end = start + len(symbol_specific_names)
+
+                        row_copy[start:end] = 0
+                        row_copy[start + j] = 1
+
                         writer.writerow(row_copy.tolist())
                         progress.tick()
+
                 else:
+
                     writer.writerow(base_row.tolist())
                     progress.tick()
 
