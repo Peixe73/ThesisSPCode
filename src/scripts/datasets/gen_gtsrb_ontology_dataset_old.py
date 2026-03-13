@@ -14,13 +14,11 @@ if TYPE_CHECKING or DO_SCRIPT_IMPORTS:
 
 import importlib.util
 
-
 GENERATED_RULES_PATH = Path("data/gtsrb_rules.py")
 
 spec = importlib.util.spec_from_file_location("gtsrb_rules", GENERATED_RULES_PATH)
 gtsrb_rules = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(gtsrb_rules)
-
 
 PATH_ORIG = Path("data/gtsrb_dataset/gtsrb_concepts_filtered_bin.csv")
 
@@ -61,7 +59,6 @@ def _build_gtsrb_ontology():
     # VALIDITY RULES
     # ==========================================================
 
-    # Exactly one shape
     shape_rule = (
         (Circular_Shape & ~Diamond_Shape & ~Triangular_Shape & ~Octagonal_Shape)
         | (~Circular_Shape & Diamond_Shape & ~Triangular_Shape & ~Octagonal_Shape)
@@ -69,7 +66,6 @@ def _build_gtsrb_ontology():
         | (~Circular_Shape & ~Diamond_Shape & ~Triangular_Shape & Octagonal_Shape)
     )
 
-    # Exactly one ground
     ground_rule = (
         (Red_Ground & ~White_Ground & ~Yellow_Ground & ~Blue)
         | (~Red_Ground & White_Ground & ~Yellow_Ground & ~Blue)
@@ -77,7 +73,6 @@ def _build_gtsrb_ontology():
         | (~Red_Ground & ~White_Ground & ~Yellow_Ground & Blue)
     )
 
-    # Border rule
     border_rule = (
         (Border & (
             (Black_Border & ~Red_Border & ~White_Border) |
@@ -88,7 +83,6 @@ def _build_gtsrb_ontology():
         (~Border & ~Black_Border & ~Red_Border & ~White_Border)
     )
 
-    # Bar rule
     bar_rule = (
         (Bar & (
             (Black_Bar & ~White_Bar) |
@@ -98,7 +92,6 @@ def _build_gtsrb_ontology():
         (~Bar & ~Black_Bar & ~White_Bar)
     )
 
-    # Symbol colour rule
     symbol_colour_rule = (
         (Symbol & (
             (Black_Symbol & ~White_Symbol) |
@@ -116,39 +109,7 @@ def _build_gtsrb_ontology():
         & symbol_colour_rule
     )
 
-    #gen.labels.update(Valid=valid_rule)
     gen.valid = valid_rule
-
-    """
-    valid_shape = (
-        (Circular_Shape & ~Diamond_Shape & ~Triangular_Shape & ~Octagonal_Shape)
-        | (~Circular_Shape & Diamond_Shape & ~Triangular_Shape & ~Octagonal_Shape)
-        | (~Circular_Shape & ~Diamond_Shape & Triangular_Shape & ~Octagonal_Shape)
-        | (~Circular_Shape & ~Diamond_Shape & ~Triangular_Shape & Octagonal_Shape)
-    )
-
-    gen.labels.update(ValidShape=valid_shape)
-
-    border_rule = (
-        (Border & (
-            (Black_Border & ~Red_Border & ~White_Border) |
-            (~Black_Border & Red_Border & ~White_Border) |
-            (~Black_Border & ~Red_Border & White_Border)
-        ))
-        |
-        (~Border & ~Black_Border & ~Red_Border & ~White_Border)
-    )
-
-    gen.labels.update(ValidBorder=border_rule)
-
-    bar_rule = (
-        (Bar & ((Black_Bar & ~White_Bar) | (~Black_Bar & White_Bar)))
-        |
-        (~Bar & ~Black_Bar & ~White_Bar)
-    )
-
-    gen.labels.update(ValidBar=bar_rule)
-    """
 
     # ==========================================================
     # STORE FEATURES
@@ -199,7 +160,7 @@ def _build_gtsrb_ontology():
         "Symbol_Speed100",
         "Symbol_Speed120",
 
-        # D signs (names exactly as in CSV)
+        # D signs
         "D1a1",
         "D1a4",
         "D1a5",
@@ -213,52 +174,6 @@ def _build_gtsrb_ontology():
     # ==========================================================
     # CLASSID RULES (ONTOLOGY MAPPING)
     # ==========================================================
-    
-    """
-    ClassId_1: C14_20
-    ClassId_2: C14_30
-    ClassId_3: C14_50
-    ClassId_4: C14_60
-    ClassId_5: C14_70
-    ClassId_6: C14_80
-    ClassId_7: C17b_80
-    ClassId_8: C14_100
-    ClassId_9: C14_120
-    ClassId_10: C13aa
-    ClassId_11: C13bb
-    ClassId_12: A19a
-    ClassId_13: B3
-    ClassId_14: B1
-    ClassId_15: B2a
-    ClassId_16: C2
-    ClassId_17: C3e3
-    ClassId_18: C1a
-    ClassId_19: A32
-    ClassId_20: A1a
-    ClassId_21: A1b
-    ClassId_22: A1c
-    ClassId_23: A7a
-    ClassId_24: A9
-    ClassId_25: A4b2
-    ClassId_26: A16
-    ClassId_27: A17a
-    ClassId_28: A33
-    ClassId_29: A13
-    ClassId_30: A14
-    ClassId_31: A34
-    ClassId_32: A15b
-    ClassId_33: C17a
-    ClassId_34: D1a5
-    ClassId_35: D1a4
-    ClassId_36: D1a1
-    ClassId_37: D1a7
-    ClassId_38: D1a6
-    ClassId_39: D2a2
-    ClassId_40: D2a1
-    ClassId_41: D3
-    ClassId_42: C17c
-    ClassId_43: C17d
-    """
 
     classid_rules = {
 
@@ -340,37 +255,55 @@ def _build_gtsrb_ontology():
         valid = base_tensor[-1:]
 
         # ---------------------------------
-        # create empty symbol tensor
-        # ---------------------------------
-
-        symbol_tensor = torch.zeros(len(symbol_specific_names), dtype=base_tensor.dtype)
-
-        # ---------------------------------
         # build ontology environment
         # ---------------------------------
 
         env = {}
-
         for j, name in enumerate(generator.feature_names):
             env[name] = bool(features[j].item())
 
-        for j, name in enumerate(symbol_specific_names):
+        # Initialize all symbol-specific features to False
+        start = len(generator.feature_names)
+        for i, name in enumerate(symbol_specific_names):
             env[name] = False
+
+        # Sequential symbol activation if Symbol is active
+        symbol_idx = generator.feature_names.index("Symbol")
+        symbol_active = bool(features[symbol_idx].item())
+        chosen = None
+        if symbol_active:
+            chosen_idx = index % len(symbol_specific_names)
+            chosen = symbol_specific_names[chosen_idx]
+            env[chosen] = True
+
+        # ---------------------------------
+        # create symbol tensor
+        # ---------------------------------
+
+        symbol_tensor = torch.zeros(len(symbol_specific_names), dtype=base_tensor.dtype)
+        if chosen is not None:
+            chosen_idx = symbol_specific_names.index(chosen)
+            symbol_tensor[chosen_idx] = 1
 
         # ---------------------------------
         # compute class values
         # ---------------------------------
 
-        class_values = torch.zeros(len(classid_rules), dtype=base_tensor.dtype)
-
-        for i, (cid, rule) in enumerate(classid_rules.items()):
+        class_values = torch.zeros(len(generator.classid_rules), dtype=base_tensor.dtype)
+        for i, (cid, rule) in enumerate(generator.classid_rules.items()):
             class_values[i] = int(rule(env))
 
+        # Force A-class subclasses to 0
+        for cid in range(19, 33):
+            idx = generator.classid_cols.index(f"ClassId_{cid}")
+            class_values[idx] = 0
+
         # ---------------------------------
-        # check if at least one class fires
+        # check if exactly one class fires
         # ---------------------------------
 
-        has_class = int(class_values.sum().item() >= 1)
+        num_classes = int(class_values.sum().item())
+        has_class = int(num_classes == 1)
 
         # ---------------------------------
         # compute visual validity
@@ -394,7 +327,6 @@ def _build_gtsrb_ontology():
         )
 
         valid_value = int(visual_valid and has_class)
-
         valid = torch.tensor([valid_value], dtype=base_tensor.dtype)
 
         return torch.cat([
@@ -448,7 +380,7 @@ def main():
 
         with progress_cm.track("Dataset Generation", "rows") as progress:
             
-            valid_idx = header.index(generator.valid_label)
+            valid_idx = len(header) - 1
             
             valid_count = 0
             invalid_count = 0
@@ -457,36 +389,69 @@ def main():
 
                 base_row = generator.generate_from_int(i, force_valid=False)
                 
-                # skip invalid rows
-                if bool(base_row[valid_idx].item()):
-                    valid_count += 1
-                else:
+                if not bool(base_row[valid_idx].item()):
                     invalid_count += 1
                     continue
+                else:
+                    valid_count += 1
                 
                 symbol_idx = feature_names.index("Symbol")
                 symbol_active = bool(base_row[symbol_idx].item())
-
+                
                 if symbol_active:
-
-                    for j in range(len(symbol_specific_names)):
-
+                    for j, sym_name in enumerate(symbol_specific_names):
                         row_copy = base_row.clone()
-
+                        
+                        # zero out all specific symbols
                         start = len(feature_names)
                         end = start + len(symbol_specific_names)
-
                         row_copy[start:end] = 0
+                        
+                        # activate only the j-th symbol
                         row_copy[start + j] = 1
-
+                        
+                        # recompute class values with correct env mapping
+                        env = {name: bool(row_copy[k].item()) for k, name in enumerate(feature_names)}
+                        for k, name2 in enumerate(symbol_specific_names):
+                            env[name2] = bool(row_copy[start + k].item())
+                        
+                        class_values = torch.zeros(len(generator.classid_rules), dtype=row_copy.dtype)
+                        for k, (cid, rule) in enumerate(generator.classid_rules.items()):
+                            class_values[k] = int(rule(env))
+                        
+                        # force A-class subclasses to 0
+                        for cid in range(19, 33):
+                            idx = generator.classid_cols.index(f"ClassId_{cid}")
+                            class_values[idx] = 0
+                        
+                        # insert class values
+                        class_start = len(feature_names) + len(symbol_specific_names) + len(label_names)
+                        class_end = class_start + len(classid_cols)
+                        row_copy[class_start:class_end] = class_values
+                        
+                        # recompute valid column
+                        visual_valid = (
+                            (env["Circular_Shape"] + env["Diamond_Shape"] + env["Triangular_Shape"] + env["Octagonal_Shape"] == 1)
+                            and (env["Red_Ground"] + env["White_Ground"] + env["Yellow_Ground"] + env["Blue"] == 1)
+                            and ((env["Border"] and (env["Black_Border"] + env["Red_Border"] + env["White_Border"] == 1)) 
+                                or (not env["Border"] and (env["Black_Border"] + env["Red_Border"] + env["White_Border"] == 0)))
+                            and ((env["Bar"] and (env["Black_Bar"] + env["White_Bar"] == 1)) 
+                                or (not env["Bar"] and (env["Black_Bar"] + env["White_Bar"] == 0)))
+                            and ((env["Symbol"] and (env["Black_Symbol"] + env["White_Symbol"] == 1)) 
+                                or (not env["Symbol"] and (env["Black_Symbol"] + env["White_Symbol"] == 0)))
+                        )
+                        has_class = int(class_values.sum().item() == 1)
+                        row_copy[-1] = int(visual_valid and has_class)
+                        
                         writer.writerow(row_copy.tolist())
                         progress.tick()
-
                 else:
-
                     writer.writerow(base_row.tolist())
                     progress.tick()
                     
     logger.info("Dataset generation completed with %d valid rows and %d invalid rows", valid_count, invalid_count)
-
     logger.info("Dataset generation finished successfully!")
+
+
+if __name__ == "__main__":
+    main()
