@@ -268,6 +268,7 @@ def _build_gtsrb_ontology():
             env[name] = False
 
         # Sequential symbol activation if Symbol is active
+        """
         symbol_idx = generator.feature_names.index("Symbol")
         symbol_active = bool(features[symbol_idx].item())
         chosen = None
@@ -275,15 +276,23 @@ def _build_gtsrb_ontology():
             chosen_idx = index % len(symbol_specific_names)
             chosen = symbol_specific_names[chosen_idx]
             env[chosen] = True
+        """
+        symbol_idx = generator.feature_names.index("Symbol")
+        symbol_active = bool(features[symbol_idx].item())
+
+        chosen = None
 
         # ---------------------------------
         # create symbol tensor
         # ---------------------------------
 
+        """
         symbol_tensor = torch.zeros(len(symbol_specific_names), dtype=base_tensor.dtype)
         if chosen is not None:
             chosen_idx = symbol_specific_names.index(chosen)
             symbol_tensor[chosen_idx] = 1
+        """
+        symbol_tensor = torch.zeros(len(symbol_specific_names), dtype=base_tensor.dtype)
 
         # ---------------------------------
         # compute class values
@@ -389,12 +398,13 @@ def main():
 
                 base_row = generator.generate_from_int(i, force_valid=False)
                 
+                """
                 if not bool(base_row[valid_idx].item()):
                     invalid_count += 1
                     continue
                 else:
                     valid_count += 1
-                
+                """
                 symbol_idx = feature_names.index("Symbol")
                 symbol_active = bool(base_row[symbol_idx].item())
                 
