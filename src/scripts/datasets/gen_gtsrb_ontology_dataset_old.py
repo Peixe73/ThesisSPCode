@@ -382,84 +382,122 @@ def main():
 
     logger.info("Starting dataset generation with %d rows", len(generator))
 
+    symbol_idx = feature_names.index("Symbol")
+
     with open(PATH_OUT, "w", newline="") as f:
 
         writer = csv.writer(f)
         writer.writerow(header)
 
         with progress_cm.track("Dataset Generation", "rows") as progress:
-            
-            valid_idx = len(header) - 1
-            
+
             valid_count = 0
             invalid_count = 0
 
             for i in range(len(generator)):
 
                 base_row = generator.generate_from_int(i, force_valid=False)
-                
-                """
-                if not bool(base_row[valid_idx].item()):
-                    invalid_count += 1
-                    continue
-                else:
-                    valid_count += 1
-                """
-                symbol_idx = feature_names.index("Symbol")
+
                 symbol_active = bool(base_row[symbol_idx].item())
-                
+
+                # ==================================================
+                # CASE 1: Symbol active → expand all symbols
+                # ==================================================
+
                 if symbol_active:
+
                     for j, sym_name in enumerate(symbol_specific_names):
+
                         row_copy = base_row.clone()
-                        
-                        # zero out all specific symbols
+
                         start = len(feature_names)
                         end = start + len(symbol_specific_names)
+
+                        # reset all symbols
                         row_copy[start:end] = 0
-                        
-                        # activate only the j-th symbol
+
+                        # activate one symbol
                         row_copy[start + j] = 1
-                        
-                        # recompute class values with correct env mapping
+
+                        # ---------------------------------
+                        # rebuild env
+                        # ---------------------------------
+
                         env = {name: bool(row_copy[k].item()) for k, name in enumerate(feature_names)}
+
                         for k, name2 in enumerate(symbol_specific_names):
                             env[name2] = bool(row_copy[start + k].item())
-                        
+
+                        # ---------------------------------
+                        # recompute class values
+                        # ---------------------------------
+
                         class_values = torch.zeros(len(generator.classid_rules), dtype=row_copy.dtype)
+
                         for k, (cid, rule) in enumerate(generator.classid_rules.items()):
                             class_values[k] = int(rule(env))
-                        
+
                         # force A-class subclasses to 0
                         for cid in range(19, 33):
                             idx = generator.classid_cols.index(f"ClassId_{cid}")
                             class_values[idx] = 0
-                        
+
                         # insert class values
                         class_start = len(feature_names) + len(symbol_specific_names) + len(label_names)
                         class_end = class_start + len(classid_cols)
                         row_copy[class_start:class_end] = class_values
-                        
-                        # recompute valid column
+
+                        # ---------------------------------
+                        # recompute validity
+                        # ---------------------------------
+
                         visual_valid = (
                             (env["Circular_Shape"] + env["Diamond_Shape"] + env["Triangular_Shape"] + env["Octagonal_Shape"] == 1)
                             and (env["Red_Ground"] + env["White_Ground"] + env["Yellow_Ground"] + env["Blue"] == 1)
-                            and ((env["Border"] and (env["Black_Border"] + env["Red_Border"] + env["White_Border"] == 1)) 
-                                or (not env["Border"] and (env["Black_Border"] + env["Red_Border"] + env["White_Border"] == 0)))
-                            and ((env["Bar"] and (env["Black_Bar"] + env["White_Bar"] == 1)) 
-                                or (not env["Bar"] and (env["Black_Bar"] + env["White_Bar"] == 0)))
-                            and ((env["Symbol"] and (env["Black_Symbol"] + env["White_Symbol"] == 1)) 
-                                or (not env["Symbol"] and (env["Black_Symbol"] + env["White_Symbol"] == 0)))
+                            and ((env["Border"] and (env["Black_Border"] + env["Red_Border"] + env["White_Border"] == 1))
+                                 or (not env["Border"] and (env["Black_Border"] + env["Red_Border"] + env["White_Border"] == 0)))
+                            and ((env["Bar"] and (env["Black_Bar"] + env["White_Bar"] == 1))
+                                 or (not env["Bar"] and (env["Black_Bar"] + env["White_Bar"] == 0)))
+                            and ((env["Symbol"] and (env["Black_Symbol"] + env["White_Symbol"] == 1))
+                                 or (not env["Symbol"] and (env["Black_Symbol"] + env["White_Symbol"] == 0)))
                         )
+
                         has_class = int(class_values.sum().item() == 1)
+
                         row_copy[-1] = int(visual_valid and has_class)
-                        
+
+                        # ---------------------------------
+                        # final validity filter
+                        # ---------------------------------
+
+                        if not bool(row_copy[-1].item()):
+                            invalid_count += 1
+                            continue
+
+                        valid_count += 1
                         writer.writerow(row_copy.tolist())
                         progress.tick()
+
+                # ==================================================
+                # CASE 2: Symbol inactive
+                # ==================================================
+
                 else:
+
+                    if not bool(base_row[-1].item()):
+                        invalid_count += 1
+                        continue
+
+                    valid_count += 1
                     writer.writerow(base_row.tolist())
                     progress.tick()
-                    
-    logger.info("Dataset generation completed with %d valid rows and %d invalid rows", valid_count, invalid_count)
+
+    logger.info(
+        "Dataset generation completed with %d valid rows and %d invalid rows",
+        valid_count,
+        invalid_count
+    )
+
     logger.info("Dataset generation finished successfully!")
 
 
