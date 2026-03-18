@@ -12,7 +12,7 @@ import importlib.util
 if TYPE_CHECKING or DO_SCRIPT_IMPORTS:
     from core.datasets.binary_generator import BinaryGeneratorBuilder
 
-GENERATED_RULES_PATH = Path("data/gtsrb_rules.py")
+GENERATED_RULES_PATH = Path("src/analysis_tools/gtsrb_rules.py")
 
 spec = importlib.util.spec_from_file_location("gtsrb_rules", GENERATED_RULES_PATH)
 gtsrb_rules = importlib.util.module_from_spec(spec)
@@ -246,21 +246,22 @@ def main():
                     valid = int(visual_valid and has_class)
 
                     if valid:
+
                         valid_count += 1
+
+                        row = torch.cat([
+                            features,
+                            symbol_tensor,
+                            labels,
+                            class_values,
+                            torch.tensor([valid], dtype=base.dtype)
+                        ])
+
+                        writer.writerow(row.tolist())
+                        progress.tick()
+
                     else:
                         invalid_count += 1
-
-                    row = torch.cat([
-                        features,
-                        symbol_tensor,
-                        labels,
-                        class_values,
-                        torch.tensor([valid], dtype=base.dtype)
-                    ])
-
-                    writer.writerow(row.tolist())
-                    progress.tick()
-
     logger.info(
         "Dataset generation completed with %d valid rows and %d invalid rows",
         valid_count,

@@ -14,7 +14,7 @@ if TYPE_CHECKING or DO_SCRIPT_IMPORTS:
 
 import importlib.util
 
-GENERATED_RULES_PATH = Path("data/gtsrb_rules.py")
+GENERATED_RULES_PATH = Path("src/analysis_tools/gtsrb_rules.py")
 
 spec = importlib.util.spec_from_file_location("gtsrb_rules", GENERATED_RULES_PATH)
 gtsrb_rules = importlib.util.module_from_spec(spec)
@@ -470,11 +470,11 @@ def main():
                         # final validity filter
                         # ---------------------------------
 
-                        if bool(row_copy[-1].item()):
-                            valid_count += 1
-                        else:
+                        if not bool(row_copy[-1].item()):
                             invalid_count += 1
+                            continue
 
+                        valid_count += 1
                         writer.writerow(row_copy.tolist())
                         progress.tick()
 
@@ -484,11 +484,11 @@ def main():
 
                 else:
 
-                    if bool(base_row[-1].item()):
-                        valid_count += 1
-                    else:
+                    if not bool(base_row[-1].item()):
                         invalid_count += 1
+                        continue
 
+                    valid_count += 1
                     writer.writerow(base_row.tolist())
                     progress.tick()
 

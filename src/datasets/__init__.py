@@ -1,7 +1,8 @@
 from . import (
     xtrains_ontology,
     xtrains,
-    gtsrb
+    gtsrb,
+    gtsrb_ontology
 )
 
 import logging
