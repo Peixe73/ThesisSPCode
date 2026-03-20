@@ -34,6 +34,7 @@ def create_trainer_config(layer_sizes):
             "layer_sizes": layer_sizes,
             "dataset_size": 20000,
             "batch_size": 64,
+            "classid_rules": "gtsrb_v1",
         }
     )
 

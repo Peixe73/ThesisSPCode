@@ -2,7 +2,10 @@ import logging
 import torch
 from torch import nn
 
+from torch.utils.data import random_split
+
 from analysis_tools.random_reasoning_dataset import RandomReasoningDataset
+from analysis_tools.rule_registry import RULE_SETS
 
 from core.training import Trainer
 from core.training.metrics_recorder import TrainingRecorder
@@ -13,8 +16,6 @@ from core.eval.metrics import Elapsed
 from core.eval import metrics as core_metrics
 from core.eval.metrics import metric_wrappers
 from core.eval.objectives import Maximize, Minimize
-
-from torch.utils.data import random_split
 
 from core.datasets import SplitDataset
 
@@ -46,6 +47,7 @@ def create_trainer(
         valid_path: str,
         feature_cols: list[str],
         layer_sizes: list[int],
+        classid_rules: str,
         dataset_size: int = 20000,
         batch_size: int = 64,
         lr: float = 1e-3,
@@ -66,9 +68,12 @@ def create_trainer(
     logger.info("Dataset size: %d", len(dataset))
     logger.info("Model: %d -> %s -> %d", num_features, layer_sizes, num_outputs)
 
+    # =========================
+    # SPLIT DATASET
+    # =========================
     train_size = int(0.8 * len(dataset))
     val_size = len(dataset) - train_size
-    
+
     prev_device = torch.get_default_device()
     torch.set_default_device("cpu")
 
@@ -79,17 +84,16 @@ def create_trainer(
 
     torch.set_default_device(prev_device)
 
-    split_dataset = SplitDataset(
-        train_dataset,
-        val_dataset
-    )
+    split_dataset = SplitDataset(train_dataset, val_dataset)
+
     # =========================
-    # METRICS (same system as old version)
+    # METRICS (RESTORED OLD SYSTEM)
     # =========================
+
     metrics_per_class = {
         "balanced_accuracy": metric_wrappers.to_int(
             core_metrics.BinaryBalancedAccuracy
-        )
+        ),
     }
 
     def metrics_factory():
@@ -97,6 +101,7 @@ def create_trainer(
             "epoch_elapsed": Elapsed()
         }
 
+        # THIS is the key line that fixes everything
         metric_wrappers.SelectCol.col_wise(
             split_dataset,
             metrics_per_class,
@@ -123,7 +128,8 @@ def create_trainer(
         model=create_model(num_features, layer_sizes, num_outputs),
         loss_fn=nn.BCELoss(),
         optimizer=torch.optim.Adam,
-        training_set=dataset,
+        training_set=split_dataset,
+
         batch_size=batch_size,
 
         metric_loggers=[train_metrics],

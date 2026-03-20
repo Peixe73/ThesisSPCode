@@ -258,3 +258,41 @@ def D2a1(env): return D(env) and env["D2a1"]
 def D2a2(env): return D(env) and env["D2a2"]
 
 def D3(env): return D(env) and env["D3"]
+
+classid_rules = {
+    "ClassId_1": C14_20,
+    "ClassId_2": C14_30,
+    "ClassId_3": C14_50,
+    "ClassId_4": C14_60,
+    "ClassId_5": C14_70,
+    "ClassId_6": C14_80,
+    "ClassId_7": C17b_80,
+    "ClassId_8": C14_100,
+    "ClassId_9": C14_120,
+
+    "ClassId_10": C13aa,
+    "ClassId_11": C13bb,
+    "ClassId_12": A19a,
+
+    "ClassId_13": B3,
+    "ClassId_14": B1,
+    "ClassId_15": B2a,
+
+    "ClassId_16": C2,
+    "ClassId_17": C3e3,
+    "ClassId_18": C1a,
+
+    "ClassId_33": C17a,
+
+    "ClassId_34": D1a5,
+    "ClassId_35": D1a4,
+    "ClassId_36": D1a1,
+    "ClassId_37": D1a7,
+    "ClassId_38": D1a6,
+    "ClassId_39": D2a2,
+    "ClassId_40": D2a1,
+    "ClassId_41": D3,
+
+    "ClassId_42": C17c,
+    "ClassId_43": C17d,
+}
