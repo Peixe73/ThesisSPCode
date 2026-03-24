@@ -8,60 +8,57 @@ logger = logging.getLogger(__name__)
 
 
 class RandomReasoningDataset(Dataset):
-    def __init__(self, valid_path: str, feature_cols: list[str], dataset_size: int = 20000):
+    def __init__(
+        self,
+        valid_path: str,
+        feature_cols: list[str],
+        dataset_size: int = 640,
+        debug: bool = False
+    ):
         self.valid_df = pd.read_csv(valid_path)
         self.feature_cols = feature_cols
         self.dataset_size = dataset_size
-        self.num_outputs = 1  # binary classification
+        self.debug = debug
 
-        # store valid signatures for fast lookup
-        self.rows_set = {
-            tuple(row) for row in self.valid_df[self.feature_cols].values
-        }
+        self.num_outputs = 1
 
-        self.data, self.labels = self._generate_dataset()
+        self.valid_rows = self.valid_df[self.feature_cols].values.astype(np.float32)
+        self.rows_set = {tuple(row) for row in self.valid_rows}
 
-        logger.info(
-            "RandomReasoningDataset initialized with %d samples",
-            len(self.data)
-        )
+        logger.info("Loaded %d valid signatures", len(self.valid_rows))
 
-    def _generate_dataset(self):
-        data = []
-        labels = []
+    def _sample_valid(self):
+        idx = np.random.randint(0, len(self.valid_rows))
+        return self.valid_rows[idx]
 
-        n_valid = len(self.valid_df)
-        logger.info("%d valid signatures loaded", n_valid)
+    def _sample_invalid(self):
+        if np.random.rand() < 0.5:
+            while True:
+                row = np.random.randint(0, 2, size=len(self.feature_cols)).astype(np.float32)
+                if tuple(row) not in self.rows_set:
+                    return row
+        else:
+            row = self._sample_valid().copy()
+            idx = np.random.randint(0, len(row))
+            row[idx] = 1 - row[idx]
 
-        for _ in range(self.dataset_size):
-            if np.random.rand() < 0.5:
-                # valid sample
-                idx = np.random.randint(0, n_valid)
-                row = self.valid_df.iloc[idx][self.feature_cols].values.astype(np.float32)
-                label = 1
-            else:
-                # invalid sample
-                while True:
-                    row = np.random.randint(0, 2, size=len(self.feature_cols)).astype(np.float32)
-                    if tuple(row) not in self.rows_set:
-                        break
-                label = 0
+            if tuple(row) not in self.rows_set:
+                return row
 
-            data.append(row)
-            labels.append(label)
-
-        # IMPORTANT: keep dataset on CPU only
-        data = np.array(data, dtype=np.float32)
-        labels = np.array(labels, dtype=np.float32)
-
-        return (
-            torch.from_numpy(data).float(),                 # CPU tensor
-            torch.from_numpy(labels).unsqueeze(1).float()   # CPU tensor
-        )
+            return self._sample_invalid()
 
     def __len__(self):
-        return len(self.data)
+        return self.dataset_size
 
     def __getitem__(self, idx):
-        # NEVER move to CUDA here
-        return self.data[idx], self.labels[idx]
+        if idx % 2 == 0:
+            row = self._sample_valid()
+            label = 1.0
+        else:
+            row = self._sample_invalid()
+            label = 0.0
+
+        x = torch.from_numpy(row).float()
+        y = torch.tensor([label], dtype=torch.float32)
+
+        return x, y

@@ -20,6 +20,13 @@ FEATURE_COLS = [
     "Symbol_Speed100", "Symbol_Speed120",
     "D1a1", "D1a4", "D1a5", "D1a6", "D1a7",
     "D2a1", "D2a2", "D3",
+    "ClassId_1", "ClassId_2", "ClassId_3", "ClassId_4", "ClassId_5",
+    "ClassId_6", "ClassId_7", "ClassId_8", "ClassId_9", "ClassId_10",
+    "ClassId_11", "ClassId_12", "ClassId_13","ClassId_14", "ClassId_15",
+    "ClassId_16", "ClassId_17", "ClassId_18", "ClassId_33", "ClassId_34",
+    "ClassId_35", "ClassId_36", "ClassId_37", "ClassId_38", "ClassId_39",
+    "ClassId_40", "ClassId_41", "ClassId_42", "ClassId_43",
+    "SignClass_A", "SignClass_B", "SignClass_C", "SignClass_D",
 ]
 
 LAYER_CONFIGS = [[16], [32], [64], [16,16], [32,32]]
@@ -32,7 +39,7 @@ def create_trainer_config(layer_sizes):
             "valid_path": DATASET_PATH,
             "feature_cols": FEATURE_COLS,
             "layer_sizes": layer_sizes,
-            "dataset_size": 20000,
+            "dataset_size": 640,
             "batch_size": 64,
             "classid_rules": "gtsrb_v1",
         }
@@ -47,9 +54,9 @@ def main():
         for layers in LAYER_CONFIGS:
             yield f"L{layers}", create_trainer_config(layers)
 
-    logger.info("Starting RN study with multiple layer configurations...")
+    logger.info("Starting RN study...")
     study_manager.run(config_generator())
-    logger.info("RN study completed.")
+    logger.info("Done.")
 
 
 if __name__ == "__main__":
