@@ -42,35 +42,36 @@ def create_model(num_features: int, layer_sizes: list[int], num_outputs: int):
         layers.append(nn.ReLU())
         in_features = size
 
-    layers.append(nn.Linear(in_features, num_outputs))
-    layers.append(nn.Sigmoid())
+    layers.append(nn.Linear(in_features, num_outputs))  # NO sigmoid
 
     return nn.Sequential(*layers)
 
 
 # =========================
-# DEBUG DUMP
+# DEBUG DUMP (FIXED)
 # =========================
-def dump_epoch_dataset(dataset, feature_cols, path):
+def dump_epoch_dataset(dataset, feature_cols, class_cols, path):
     rows = []
 
     for i in range(len(dataset)):
         x, y = dataset[i]
 
-        x = x.detach().cpu()
-        y = y.detach().cpu()
-
-        row = x.numpy()
+        x = x.detach().cpu().numpy()
+        y = y.detach().cpu().numpy()
 
         entry = {
-            feature_cols[j]: float(row[j])
+            feature_cols[j]: float(x[j])
             for j in range(len(feature_cols))
         }
-        entry["label"] = float(y.item())
+
+        entry["valid"] = float(y[0])
+
+        for j, col in enumerate(class_cols):
+            entry[col] = float(y[j + 1])
+
         rows.append(entry)
 
     os.makedirs(os.path.dirname(path), exist_ok=True)
-
     pd.DataFrame(rows).to_csv(path, index=False)
 
 
@@ -80,8 +81,8 @@ def dump_epoch_dataset(dataset, feature_cols, path):
 def create_trainer(
         valid_path: str,
         feature_cols: list[str],
+        class_cols: list[str],
         layer_sizes: list[int],
-        classid_rules: str,
         dataset_size: int = 640,
         batch_size: int = 64,
         lr: float = 1e-3,
@@ -93,38 +94,26 @@ def create_trainer(
     model_tag = f"L{layer_sizes}"
     debug_dir = f"debug_runs/{model_tag}"
 
-    # =========================
-    # FORCE CPU CONTEXT BEFORE DATASET SPLIT
-    # =========================
-    device_backup = torch.get_default_device() if hasattr(torch, "get_default_device") else None
+    # datasets
+    train_dataset = RandomReasoningDataset(
+        valid_path=valid_path,
+        feature_cols=feature_cols,
+        class_cols=class_cols,
+        dataset_size=dataset_size
+    )
 
-    try:
-        if hasattr(torch, "set_default_device"):
-            torch.set_default_device("cpu")
-
-        dataset = RandomReasoningDataset(
-            valid_path=valid_path,
-            feature_cols=feature_cols,
-            dataset_size=dataset_size,
-            debug=True
-        )
-
-        num_features = len(feature_cols)
-        num_outputs = dataset.num_outputs
-
-        train_len = int(0.8 * len(dataset))
-        val_len = len(dataset) - train_len
-
-        train_dataset, val_dataset = torch.utils.data.random_split(
-            dataset,
-            [train_len, val_len]
-        )
-
-    finally:
-        if device_backup is not None and hasattr(torch, "set_default_device"):
-            torch.set_default_device(device_backup)
+    val_dataset = RandomReasoningDataset(
+        valid_path=valid_path,
+        feature_cols=feature_cols,
+        class_cols=class_cols,
+        dataset_size=dataset_size // 4,
+        seed=42  # fixed validation
+    )
 
     split_dataset = SplitDataset(train_dataset, val_dataset)
+
+    num_features = len(feature_cols)
+    num_outputs = train_dataset.num_outputs
 
     # =========================
     # METRICS
@@ -135,6 +124,7 @@ def create_trainer(
         ),
     }
 
+    """
     def metrics_factory():
 
         class EpochDebugTrigger:
@@ -148,8 +138,9 @@ def create_trainer(
                     path = f"{debug_dir}/epoch_{epoch}.csv"
 
                     dump_epoch_dataset(
-                        dataset=dataset,
+                        dataset=train_dataset,  # ONLY TRAIN SET
                         feature_cols=feature_cols,
+                        class_cols=class_cols,
                         path=path
                     )
 
@@ -167,9 +158,216 @@ def create_trainer(
         metric_wrappers.SelectCol.col_wise(
             split_dataset,
             metrics_per_class,
-            reduction="min",
+            reduction="none",  # per class!
             out_dict=metrics
         )
+
+        return metrics
+    """
+    """
+    def metrics_factory():
+
+        class MultiTaskBalancedAccuracy:
+            def __init__(self):
+                self.metrics = None
+                self.num_outputs = None
+
+            def reset(self):
+                if self.metrics is not None:
+                    for m in self.metrics:
+                        m.reset()
+
+            def update(self, y_pred, y_true):
+                if self.metrics is None:
+                    self.num_outputs = y_true.shape[1]
+                    self.metrics = [
+                        core_metrics.BinaryBalancedAccuracy()
+                        for _ in range(self.num_outputs)
+                    ]
+
+                y_pred = torch.sigmoid(y_pred)
+
+                for i, metric in enumerate(self.metrics):
+                    metric.update(y_pred[:, i], y_true[:, i])
+
+            def compute(self):
+                results = {}
+
+                # ✅ CRITICAL FIX
+                if self.metrics is None:
+                    # no data was seen → return NaNs but DO NOT crash
+                    results["balanced_accuracy"] = torch.tensor(float("nan"))
+                    return results
+
+                values = []
+
+                for i, metric in enumerate(self.metrics):
+                    val = metric.compute()
+
+                    if i == 0:
+                        name = "balanced_accuracy_valid"
+                    else:
+                        class_name = class_cols[i - 1]
+                        name = f"balanced_accuracy_{class_name}"
+
+                    results[name] = val
+
+                    if not torch.isnan(val):
+                        values.append(val)
+
+                # global average
+                if values:
+                    results["balanced_accuracy"] = torch.stack(values).mean()
+                else:
+                    results["balanced_accuracy"] = torch.tensor(float("nan"))
+
+                return results
+
+        class EpochDebugTrigger:
+            def reset(self): pass
+            def update(self, *args, **kwargs): pass
+
+            def compute(self):
+                with EpochDebugState.lock:
+                    epoch = EpochDebugState.epoch
+
+                    path = f"{debug_dir}/epoch_{epoch}.csv"
+
+                    dump_epoch_dataset(
+                        dataset=train_dataset,
+                        feature_cols=feature_cols,
+                        class_cols=class_cols,
+                        path=path
+                    )
+
+                    logger.info(f"[DEBUG] epoch {epoch} → {path}")
+
+                    EpochDebugState.epoch += 1
+
+                return 0.0
+
+        metrics = {
+            "epoch_elapsed": Elapsed(),
+            "epoch_debug": EpochDebugTrigger(),
+            "multi_balanced_accuracy": MultiTaskBalancedAccuracy(),
+        }
+
+        return metrics
+    """
+    
+    def metrics_factory():
+
+        metrics = {
+            "epoch_elapsed": Elapsed(),
+        }
+
+        # =========================
+        # DEBUG
+        # =========================
+        class EpochDebugTrigger:
+            def reset(self): pass
+            def update(self, *args, **kwargs): pass
+
+            def compute(self):
+                with EpochDebugState.lock:
+                    epoch = EpochDebugState.epoch
+
+                    path = f"{debug_dir}/epoch_{epoch}.csv"
+
+                    dump_epoch_dataset(
+                        dataset=train_dataset,
+                        feature_cols=feature_cols,
+                        class_cols=class_cols,
+                        path=path
+                    )
+
+                    logger.info(f"[DEBUG] epoch {epoch} → {path}")
+
+                    EpochDebugState.epoch += 1
+
+                return 0.0
+
+        metrics["epoch_debug"] = EpochDebugTrigger()
+
+        # =========================
+        # SHARED STORAGE
+        # =========================
+        class MultiOutputBalancedAccuracy:
+            def __init__(self):
+                self.metrics = None
+
+            def reset(self):
+                if self.metrics is not None:
+                    for m in self.metrics:
+                        m.reset()
+
+            def update(self, y_pred, y_true):
+                if self.metrics is None:
+                    num_outputs = y_true.shape[1]
+                    self.metrics = [
+                        core_metrics.BinaryBalancedAccuracy()
+                        for _ in range(num_outputs)
+                    ]
+
+                y_pred = torch.sigmoid(y_pred)
+
+                for i in range(len(self.metrics)):
+                    self.metrics[i].update(y_pred[:, i], y_true[:, i])
+
+            def compute(self):
+                if self.metrics is None:
+                    return None
+
+                return [m.compute() for m in self.metrics]
+
+        shared_metric = MultiOutputBalancedAccuracy()
+
+        # wrapper to expose each column separately
+        def make_column_metric(idx, name):
+
+            class ColumnMetric:
+                def reset(self):
+                    pass  # handled globally
+
+                def update(self, y_pred, y_true):
+                    shared_metric.update(y_pred, y_true)
+
+                def compute(self):
+                    values = shared_metric.compute()
+                    if values is None:
+                        return torch.tensor(float("nan"))
+                    return values[idx]
+
+            return ColumnMetric()
+
+        # valid
+        metrics["balanced_accuracy_valid"] = make_column_metric(0, "valid")
+
+        # classes
+        for i, class_name in enumerate(class_cols):
+            metrics[f"balanced_accuracy_{class_name}"] = make_column_metric(i + 1, class_name)
+
+        # global metric
+        class GlobalMetric:
+            def reset(self):
+                pass
+
+            def update(self, y_pred, y_true):
+                shared_metric.update(y_pred, y_true)
+
+            def compute(self):
+                values = shared_metric.compute()
+                if values is None:
+                    return torch.tensor(float("nan"))
+
+                valid_values = [v for v in values if not torch.isnan(v)]
+
+                if valid_values:
+                    return torch.stack(valid_values).mean()
+                else:
+                    return torch.tensor(float("nan"))
+
+        metrics["balanced_accuracy"] = GlobalMetric()
 
         return metrics
 
@@ -182,7 +380,7 @@ def create_trainer(
 
     trainer = Trainer(
         model=create_model(num_features, layer_sizes, num_outputs),
-        loss_fn=nn.BCELoss(),
+        loss_fn=nn.BCEWithLogitsLoss(),
         optimizer=torch.optim.Adam,
 
         training_set=split_dataset,
