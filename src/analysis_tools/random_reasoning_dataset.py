@@ -21,8 +21,8 @@ class RandomReasoningDataset(Dataset):
         self.class_cols = class_cols
         self.dataset_size = dataset_size
 
-        if seed is not None:
-            np.random.seed(seed)
+        self.rng = np.random.default_rng(seed)
+            
 
         # Extract arrays
         self.valid_features = self.valid_df[self.feature_cols].values.astype(np.float32)
@@ -33,19 +33,19 @@ class RandomReasoningDataset(Dataset):
         logger.info("Loaded %d valid signatures", len(self.valid_features))
 
     def _sample_valid(self):
-        idx = np.random.randint(0, len(self.valid_features))
+        idx = self.rng.integers(0, len(self.valid_features))
         return self.valid_features[idx], self.valid_classes[idx]
 
     def _sample_invalid(self):
-        if np.random.rand() < 0.5:
+        if self.rng.random() < 0.5:
             while True:
-                row = np.random.randint(0, 2, size=len(self.feature_cols)).astype(np.float32)
+                row = self.rng.integers(0, 2, size=len(self.feature_cols)).astype(np.float32)
                 if tuple(row) not in self.rows_set:
                     break
         else:
             row, _ = self._sample_valid()
             row = row.copy()
-            idx = np.random.randint(0, len(row))
+            idx = self.rng.integers(0, len(row))
             row[idx] = 1 - row[idx]
             if tuple(row) in self.rows_set:
                 return self._sample_invalid()

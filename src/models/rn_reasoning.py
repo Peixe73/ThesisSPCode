@@ -64,11 +64,12 @@ class MaskedBCELoss(nn.Module):
 
 
 class EpochDatasetUpdater:
-    def __init__(self, valid_path, feature_cols, class_cols, dataset_size):
+    def __init__(self, valid_path, feature_cols, class_cols, dataset_size, base_seed):
         self.valid_path = valid_path
         self.feature_cols = feature_cols
         self.class_cols = class_cols
         self.dataset_size = dataset_size
+        self.base_seed = base_seed
         self.epoch = 0
 
     def reset(self):
@@ -80,15 +81,18 @@ class EpochDatasetUpdater:
     def compute(self):
         path = DEBUG_DIR / "train.csv"
 
+        epoch_seed = self.base_seed * 1000003 + self.epoch # large prime to ensure different seeds across epochs and large differences between seeds
+
         ds = RandomReasoningDataset(
             self.valid_path,
             self.feature_cols,
             self.class_cols,
-            self.dataset_size
+            self.dataset_size,
+            seed=epoch_seed
         )
         ds.to_csv(path)
 
-        logger.info(f"[DATASET] Regenerated dataset for epoch {self.epoch}")
+        logger.info(f"[DATASET] Epoch {self.epoch} | Seed {epoch_seed}")
 
         self.epoch += 1
         return 0.0
@@ -99,19 +103,24 @@ def create_trainer(
     feature_cols: list[str],
     class_cols: list[str],
     layer_sizes: list[int],
-    dataset_size: int = 6400
+    dataset_size: int = 6400,
     batch_size: int = 64,
     patience: int = 20,
+    base_seed: int = 42,
 ) -> Trainer:
 
     train_csv = DEBUG_DIR / "train.csv"
+    
+    initial_seed = base_seed * 1000003 + 0
 
     init_ds = RandomReasoningDataset(
         valid_path,
         feature_cols,
         class_cols,
-        dataset_size
+        dataset_size,
+        seed=initial_seed
     )
+
     init_ds.to_csv(train_csv)
 
     train_dataset = CSVDataset(
@@ -123,12 +132,13 @@ def create_trainer(
     metrics_per_class = {
         "balanced_accuracy": metric_wrappers.to_int(core.eval.metrics.BinaryBalancedAccuracy)
     }
-
+    
     dataset_updater = EpochDatasetUpdater(
         valid_path,
         feature_cols,
         class_cols,
-        dataset_size
+        dataset_size,
+        base_seed
     )
 
     def metrics_factory():
