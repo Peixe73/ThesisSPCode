@@ -3,6 +3,7 @@ from typing import Optional, Callable, TYPE_CHECKING, Literal
 import torch
 import torchvision
 import torchvision.transforms.v2 as transforms
+from PIL import Image
 
 from torchvision.transforms.v2 import Transform
 from pathlib import Path
@@ -55,7 +56,15 @@ class CSVImageDataset(CSVDataset):
                         return path.relative_to(self.images_path)
                     else:
                         return torch.full((1,), float('nan'))
-                image : torch.Tensor = torchvision.io.decode_image(path) # type: ignore # (documentation claims method supports Path)
+                try:
+                    # Fast path (existing behavior)
+                    image: torch.Tensor = torchvision.io.decode_image(path)
+                except RuntimeError:
+                    # Fallback for unsupported formats like .ppm
+                    from PIL import Image
+                    img = Image.open(path).convert("RGB")
+                    image = transforms.functional.to_image(img)  # keeps v2 pipeline compatibility
+                #image : torch.Tensor = torchvision.io.decode_image(path) # type: ignore # (documentation claims method supports Path)
                 if self.dtype is not None:
                     image = transforms.functional.to_dtype(image, dtype = self.dtype, scale=True)
                 image = self.global_transform(image)

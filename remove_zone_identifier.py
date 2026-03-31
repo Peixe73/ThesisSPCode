@@ -1,6 +1,6 @@
 from pathlib import Path
 
-TARGET_DIR = Path(r"\\wsl.localhost\Ubuntu\home\sp73\ThesisSPCode")")
+TARGET_DIR = Path(r"\\wsl.localhost\Ubuntu\home\sp73\ThesisSPCode\sharpSAT\src")
 
 deleted = 0
 

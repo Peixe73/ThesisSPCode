@@ -7,7 +7,7 @@ from core.datasets.csv_dataset import CSVDataset
 
 logger = logging.getLogger(__name__)
 
-PATH = Path("data/gtsrb_ontology.csv")
+PATH = Path("data/gtsrb_ontology_Final.csv")
 SPLIT = (1.0, 0.0)
 
 
@@ -168,6 +168,8 @@ CLASS_TO_CATEGORY = {
 
 # ADD CATEGORY COLUMNS
 
+"""
+
 def _ensure_category_columns():
 
     df = pd.read_csv(PATH)
@@ -189,6 +191,7 @@ def _ensure_category_columns():
 
 
 _ensure_category_columns()
+"""
 
 
 # DATASET DEFINITIONS

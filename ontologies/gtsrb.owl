@@ -1,0 +1,1831 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#"
+     xml:base="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
+    <owl:Ontology rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Object Properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#hasBar -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#hasBar"/>
+    
+
+
+    <!-- http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#hasBorder -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#hasBorder"/>
+    
+
+
+    <!-- http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#hasGround -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#hasGround"/>
+    
+
+
+    <!-- http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#hasShape -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#hasShape"/>
+    
+
+
+    <!-- http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#hasSymbol -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#hasSymbol"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#A -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#A">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:unionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#A28"/>
+                    <rdf:Description rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#A29"/>
+                    <rdf:Description rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#A_a"/>
+                    <rdf:Description rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#A_b"/>
+                </owl:unionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#A1 -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#A1">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#A"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#A13 -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#A13">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#A"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#hasSymbol"/>
+                        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#Children"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#A"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#A14 -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#A14">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#A"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#hasSymbol"/>
+                        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#Cyclists"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#A"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#A15 -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#A15">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#A"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#A15b -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#A15b">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#A"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#hasSymbol"/>
+                        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#WildAnimals"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#A15"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#A16 -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#A16">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#A"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#hasSymbol"/>
+                        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#RoadWorks"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#A"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#A17 -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#A17">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#A"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#A17a -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#A17a">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#A"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#hasSymbol"/>
+                        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#VerticalLightSignals"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#A17"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#A19 -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#A19">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#A"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#A19a -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#A19a">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#A"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#hasSymbol"/>
+                        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#IntersectionPriority"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#A19"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#A1a -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#A1a">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#A"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#hasSymbol"/>
+                        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#SingleLeftBend"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#A1"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#A1b -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#A1b">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#A"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#hasSymbol"/>
+                        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#SingleRightBend"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#A1"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#A1c -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#A1c">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#A"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#hasSymbol"/>
+                        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#TwoOrMoreLeftBend"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#A1"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#A28 -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#A28"/>
+    
+
+
+    <!-- http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#A29 -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#A29"/>
+    
+
+
+    <!-- http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#A32 -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#A32">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#A"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#hasSymbol"/>
+                        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#Danger"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#A"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#A33 -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#A33">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#A"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#hasSymbol"/>
+                        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#Pedestrians"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#A"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#A34 -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#A34">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#A"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#hasSymbol"/>
+                        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#IceSnow"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#A"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#A4 -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#A4">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#A"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#A4b2 -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#A4b2">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#A"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#hasSymbol"/>
+                        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#RightNarrow"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#A4"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#A7 -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#A7">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#A"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#A7a -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#A7a">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#A"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#hasSymbol"/>
+                        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#RoadDeformities"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#A7"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#A9 -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#A9">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#A"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#hasSymbol"/>
+                        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#SlipperyRoad"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#A"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#A_a -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#A_a">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#hasBorder"/>
+                        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#Red"/>
+                    </owl:Restriction>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#hasGround"/>
+                        <owl:someValuesFrom>
+                            <owl:Class>
+                                <owl:unionOf rdf:parseType="Collection">
+                                    <rdf:Description rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#White"/>
+                                    <rdf:Description rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#Yellow"/>
+                                </owl:unionOf>
+                            </owl:Class>
+                        </owl:someValuesFrom>
+                    </owl:Restriction>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#hasShape"/>
+                        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#Triangle"/>
+                    </owl:Restriction>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#hasSymbol"/>
+                        <owl:someValuesFrom rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#A_b -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#A_b"/>
+    
+
+
+    <!-- http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#B -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#B"/>
+    
+
+
+    <!-- http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#B1 -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#B1">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <owl:Class>
+                        <owl:complementOf>
+                            <owl:Restriction>
+                                <owl:onProperty rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#hasSymbol"/>
+                                <owl:someValuesFrom rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+                            </owl:Restriction>
+                        </owl:complementOf>
+                    </owl:Class>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#hasBorder"/>
+                        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#Red"/>
+                    </owl:Restriction>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#hasGround"/>
+                        <owl:someValuesFrom>
+                            <owl:Class>
+                                <owl:unionOf rdf:parseType="Collection">
+                                    <rdf:Description rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#White"/>
+                                    <rdf:Description rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#Yellow"/>
+                                </owl:unionOf>
+                            </owl:Class>
+                        </owl:someValuesFrom>
+                    </owl:Restriction>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#hasShape"/>
+                        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#Triangle"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#B"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#B2 -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#B2">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:unionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#B2a"/>
+                    <rdf:Description rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#B2b"/>
+                </owl:unionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#B"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#B2a -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#B2a">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#hasGround"/>
+                        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#Red"/>
+                    </owl:Restriction>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#hasShape"/>
+                        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#Octagon"/>
+                    </owl:Restriction>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#hasSymbol"/>
+                        <owl:someValuesFrom>
+                            <owl:Class>
+                                <owl:intersectionOf rdf:parseType="Collection">
+                                    <rdf:Description rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#Stop"/>
+                                    <rdf:Description rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#White"/>
+                                </owl:intersectionOf>
+                            </owl:Class>
+                        </owl:someValuesFrom>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#B2b -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#B2b"/>
+    
+
+
+    <!-- http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#B3 -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#B3">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#hasBorder"/>
+                        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#White"/>
+                    </owl:Restriction>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#hasGround"/>
+                        <owl:someValuesFrom>
+                            <owl:Class>
+                                <owl:unionOf rdf:parseType="Collection">
+                                    <rdf:Description rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#Orange"/>
+                                    <rdf:Description rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#Yellow"/>
+                                </owl:unionOf>
+                            </owl:Class>
+                        </owl:someValuesFrom>
+                    </owl:Restriction>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#hasShape"/>
+                        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#Diamond"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#B"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#Black -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#Black">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#Color"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#Blue -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#Blue">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#Color"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#C -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#C">
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#hasShape"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#Circle"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#C1 -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#C1">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#C"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#C13 -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#C13">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#C"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#C13aa -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#C13aa">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#StartProhibition"/>
+                    <owl:Class>
+                        <owl:complementOf>
+                            <owl:Restriction>
+                                <owl:onProperty rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#hasBar"/>
+                                <owl:someValuesFrom rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+                            </owl:Restriction>
+                        </owl:complementOf>
+                    </owl:Class>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#hasSymbol"/>
+                        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#Overtaking"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#C13"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#C13bb -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#C13bb">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#StartProhibition"/>
+                    <owl:Class>
+                        <owl:complementOf>
+                            <owl:Restriction>
+                                <owl:onProperty rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#hasBar"/>
+                                <owl:someValuesFrom rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+                            </owl:Restriction>
+                        </owl:complementOf>
+                    </owl:Class>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#hasSymbol"/>
+                        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#OvertakingGoods"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#C13"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#C14 -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#C14">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#C"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#C14_100 -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#C14_100">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#StartProhibition"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#hasSymbol"/>
+                        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#Speed100"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#C14"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#C14_120 -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#C14_120">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#StartProhibition"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#hasSymbol"/>
+                        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#Speed120"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#C14"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#C14_20 -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#C14_20">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#StartProhibition"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#hasSymbol"/>
+                        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#Speed20"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#C14"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#C14_30 -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#C14_30">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#StartProhibition"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#hasSymbol"/>
+                        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#Speed30"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#C14"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#C14_50 -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#C14_50">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#StartProhibition"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#hasSymbol"/>
+                        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#Speed50"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#C14"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#C14_60 -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#C14_60">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#StartProhibition"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#hasSymbol"/>
+                        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#Speed60"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#C14"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#C14_70 -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#C14_70">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#StartProhibition"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#hasSymbol"/>
+                        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#Speed70"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#C14"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#C14_80 -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#C14_80">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#StartProhibition"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#hasSymbol"/>
+                        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#Speed80"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#C14"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#C17 -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#C17">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#C"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#C17a -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#C17a">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <owl:Class>
+                        <owl:complementOf>
+                            <owl:Restriction>
+                                <owl:onProperty rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#hasBorder"/>
+                                <owl:someValuesFrom rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+                            </owl:Restriction>
+                        </owl:complementOf>
+                    </owl:Class>
+                    <owl:Class>
+                        <owl:complementOf>
+                            <owl:Restriction>
+                                <owl:onProperty rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#hasSymbol"/>
+                                <owl:someValuesFrom rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+                            </owl:Restriction>
+                        </owl:complementOf>
+                    </owl:Class>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#hasBar"/>
+                        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#Black"/>
+                    </owl:Restriction>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#hasGround"/>
+                        <owl:someValuesFrom>
+                            <owl:Class>
+                                <owl:unionOf rdf:parseType="Collection">
+                                    <rdf:Description rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#White"/>
+                                    <rdf:Description rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#Yellow"/>
+                                </owl:unionOf>
+                            </owl:Class>
+                        </owl:someValuesFrom>
+                    </owl:Restriction>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#hasShape"/>
+                        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#Circle"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#C17"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#C17b_80 -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#C17b_80">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <owl:Class>
+                        <owl:complementOf>
+                            <owl:Restriction>
+                                <owl:onProperty rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#hasBorder"/>
+                                <owl:someValuesFrom rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+                            </owl:Restriction>
+                        </owl:complementOf>
+                    </owl:Class>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#hasBar"/>
+                        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#Black"/>
+                    </owl:Restriction>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#hasGround"/>
+                        <owl:someValuesFrom>
+                            <owl:Class>
+                                <owl:unionOf rdf:parseType="Collection">
+                                    <rdf:Description rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#White"/>
+                                    <rdf:Description rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#Yellow"/>
+                                </owl:unionOf>
+                            </owl:Class>
+                        </owl:someValuesFrom>
+                    </owl:Restriction>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#hasShape"/>
+                        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#Circle"/>
+                    </owl:Restriction>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#hasSymbol"/>
+                        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#Speed80"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#C17"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#C17c -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#C17c">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <owl:Class>
+                        <owl:complementOf>
+                            <owl:Restriction>
+                                <owl:onProperty rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#hasBorder"/>
+                                <owl:someValuesFrom rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+                            </owl:Restriction>
+                        </owl:complementOf>
+                    </owl:Class>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#hasBar"/>
+                        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#Black"/>
+                    </owl:Restriction>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#hasGround"/>
+                        <owl:someValuesFrom>
+                            <owl:Class>
+                                <owl:unionOf rdf:parseType="Collection">
+                                    <rdf:Description rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#White"/>
+                                    <rdf:Description rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#Yellow"/>
+                                </owl:unionOf>
+                            </owl:Class>
+                        </owl:someValuesFrom>
+                    </owl:Restriction>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#hasShape"/>
+                        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#Circle"/>
+                    </owl:Restriction>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#hasSymbol"/>
+                        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#Overtaking"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#C17"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#C17d -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#C17d">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <owl:Class>
+                        <owl:complementOf>
+                            <owl:Restriction>
+                                <owl:onProperty rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#hasBorder"/>
+                                <owl:someValuesFrom rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+                            </owl:Restriction>
+                        </owl:complementOf>
+                    </owl:Class>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#hasBar"/>
+                        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#Black"/>
+                    </owl:Restriction>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#hasGround"/>
+                        <owl:someValuesFrom>
+                            <owl:Class>
+                                <owl:unionOf rdf:parseType="Collection">
+                                    <rdf:Description rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#White"/>
+                                    <rdf:Description rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#Yellow"/>
+                                </owl:unionOf>
+                            </owl:Class>
+                        </owl:someValuesFrom>
+                    </owl:Restriction>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#hasShape"/>
+                        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#Circle"/>
+                    </owl:Restriction>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#hasSymbol"/>
+                        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#OvertakingGoods"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#C17"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#C1a -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#C1a">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <owl:Class>
+                        <owl:complementOf>
+                            <owl:Restriction>
+                                <owl:onProperty rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#hasSymbol"/>
+                                <owl:someValuesFrom rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+                            </owl:Restriction>
+                        </owl:complementOf>
+                    </owl:Class>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#hasBar"/>
+                        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#White"/>
+                    </owl:Restriction>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#hasGround"/>
+                        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#Red"/>
+                    </owl:Restriction>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#hasShape"/>
+                        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#Circle"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#C1"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#C2 -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#C2">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <owl:Class>
+                        <owl:complementOf>
+                            <owl:Restriction>
+                                <owl:onProperty rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#hasSymbol"/>
+                                <owl:someValuesFrom rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+                            </owl:Restriction>
+                        </owl:complementOf>
+                    </owl:Class>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#hasBorder"/>
+                        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#Red"/>
+                    </owl:Restriction>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#hasGround"/>
+                        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#White"/>
+                    </owl:Restriction>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#hasShape"/>
+                        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#Circle"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#C"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#C3 -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#C3">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#C"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#C3e3 -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#C3e3">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#StartProhibition"/>
+                    <owl:Class>
+                        <owl:complementOf>
+                            <owl:Restriction>
+                                <owl:onProperty rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#hasBar"/>
+                                <owl:someValuesFrom rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+                            </owl:Restriction>
+                        </owl:complementOf>
+                    </owl:Class>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#hasSymbol"/>
+                        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#NoEntryGoods"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#C3"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#Children -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#Children">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#Symbol"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#Circle -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#Circle">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#Shape"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#Color -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#Color"/>
+    
+
+
+    <!-- http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#Cyclists -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#Cyclists">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#Symbol"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#D -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#D">
+        <rdfs:subClassOf>
+            <owl:Class>
+                <owl:unionOf rdf:parseType="Collection">
+                    <owl:Class>
+                        <owl:intersectionOf rdf:parseType="Collection">
+                            <owl:Restriction>
+                                <owl:onProperty rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#hasGround"/>
+                                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#Blue"/>
+                            </owl:Restriction>
+                            <owl:Restriction>
+                                <owl:onProperty rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#hasSymbol"/>
+                                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#White"/>
+                            </owl:Restriction>
+                        </owl:intersectionOf>
+                    </owl:Class>
+                    <owl:Class>
+                        <owl:intersectionOf rdf:parseType="Collection">
+                            <owl:Restriction>
+                                <owl:onProperty rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#hasGround"/>
+                                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#White"/>
+                            </owl:Restriction>
+                            <owl:Restriction>
+                                <owl:onProperty rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#hasSymbol"/>
+                                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#Black"/>
+                            </owl:Restriction>
+                        </owl:intersectionOf>
+                    </owl:Class>
+                </owl:unionOf>
+            </owl:Class>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#hasShape"/>
+                <owl:someValuesFrom>
+                    <owl:Class>
+                        <owl:unionOf rdf:parseType="Collection">
+                            <rdf:Description rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#Circle"/>
+                            <rdf:Description rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#Rectangle"/>
+                        </owl:unionOf>
+                    </owl:Class>
+                </owl:someValuesFrom>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#D1 -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#D1">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#D"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#D1a1 -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#D1a1">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#D"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#hasSymbol"/>
+                        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#DirectionStraight"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#D1"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#D1a4 -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#D1a4">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#D"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#hasSymbol"/>
+                        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#DirectionLeft"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#D1"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#D1a5 -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#D1a5">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#D"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#hasSymbol"/>
+                        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#DirectionRight"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#D1"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#D1a6 -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#D1a6">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#D"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#hasSymbol"/>
+                        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#DirectionLeftStraight"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#D1"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#D1a7 -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#D1a7">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#D"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#hasSymbol"/>
+                        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#DirectionRightStraight"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#D1"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#D2 -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#D2">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#D"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#D2a1 -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#D2a1">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#D"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#hasSymbol"/>
+                        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#PassLeft"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#D2"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#D2a2 -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#D2a2">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#D"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#hasSymbol"/>
+                        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#PassRight"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#D2"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#D3 -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#D3">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#D"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#hasSymbol"/>
+                        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#Roundabout"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#D"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#Danger -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#Danger">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#Symbol"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#Diamond -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#Diamond">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#Shape"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#DirectionLeft -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#DirectionLeft">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#Symbol"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#DirectionLeftStraight -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#DirectionLeftStraight">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#Symbol"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#DirectionRight -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#DirectionRight">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#Symbol"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#DirectionRightStraight -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#DirectionRightStraight">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#Symbol"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#DirectionStraight -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#DirectionStraight">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#Symbol"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#EndProhibition -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#EndProhibition"/>
+    
+
+
+    <!-- http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#IceSnow -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#IceSnow">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#Symbol"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#IntersectionPriority -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#IntersectionPriority">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#Symbol"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#NoEntryGoods -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#NoEntryGoods">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#Symbol"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#Octagon -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#Octagon">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#Shape"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#Orange -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#Orange">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#Color"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#Overtaking -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#Overtaking">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#Symbol"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#OvertakingGoods -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#OvertakingGoods">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#Symbol"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#PassLeft -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#PassLeft">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#Symbol"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#PassRight -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#PassRight">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#Symbol"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#Pedestrians -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#Pedestrians">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#Symbol"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#Rectangle -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#Rectangle">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#Shape"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#Red -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#Red">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#Color"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#RightNarrow -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#RightNarrow">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#Symbol"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#RoadDeformities -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#RoadDeformities">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#Symbol"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#RoadWorks -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#RoadWorks">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#Symbol"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#Roundabout -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#Roundabout">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#Symbol"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#Shape -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#Shape"/>
+    
+
+
+    <!-- http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#SingleLeftBend -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#SingleLeftBend">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#Symbol"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#SingleRightBend -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#SingleRightBend">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#Symbol"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#SlipperyRoad -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#SlipperyRoad">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#Symbol"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#Speed100 -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#Speed100">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#Symbol"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#Speed120 -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#Speed120">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#Symbol"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#Speed20 -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#Speed20">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#Symbol"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#Speed30 -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#Speed30">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#Symbol"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#Speed50 -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#Speed50">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#Symbol"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#Speed60 -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#Speed60">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#Symbol"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#Speed70 -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#Speed70">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#Symbol"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#Speed80 -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#Speed80">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#Symbol"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#StartProhibition -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#StartProhibition">
+        <rdfs:subClassOf>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <owl:Class>
+                        <owl:unionOf rdf:parseType="Collection">
+                            <owl:Class>
+                                <owl:intersectionOf rdf:parseType="Collection">
+                                    <owl:Restriction>
+                                        <owl:onProperty rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#hasBorder"/>
+                                        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#Red"/>
+                                    </owl:Restriction>
+                                    <owl:Restriction>
+                                        <owl:onProperty rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#hasGround"/>
+                                        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#Blue"/>
+                                    </owl:Restriction>
+                                </owl:intersectionOf>
+                            </owl:Class>
+                            <owl:Restriction>
+                                <owl:onProperty rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#hasGround"/>
+                                <owl:someValuesFrom>
+                                    <owl:Class>
+                                        <owl:unionOf rdf:parseType="Collection">
+                                            <rdf:Description rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#White"/>
+                                            <rdf:Description rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#Yellow"/>
+                                        </owl:unionOf>
+                                    </owl:Class>
+                                </owl:someValuesFrom>
+                            </owl:Restriction>
+                        </owl:unionOf>
+                    </owl:Class>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#hasBar"/>
+                        <owl:allValuesFrom>
+                            <owl:Class>
+                                <owl:unionOf rdf:parseType="Collection">
+                                    <rdf:Description rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#Red"/>
+                                    <rdf:Description rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#White"/>
+                                </owl:unionOf>
+                            </owl:Class>
+                        </owl:allValuesFrom>
+                    </owl:Restriction>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#hasSymbol"/>
+                        <owl:allValuesFrom>
+                            <owl:Class>
+                                <owl:unionOf rdf:parseType="Collection">
+                                    <rdf:Description rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#Black"/>
+                                    <rdf:Description rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#Red"/>
+                                </owl:unionOf>
+                            </owl:Class>
+                        </owl:allValuesFrom>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#Stop -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#Stop">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#Symbol"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#Symbol -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#Symbol"/>
+    
+
+
+    <!-- http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#Triangle -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#Triangle">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#Shape"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#TwoOrMoreLeftBend -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#TwoOrMoreLeftBend">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#Symbol"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#VerticalLightSignals -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#VerticalLightSignals">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#Symbol"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#White -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#White">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#Color"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#WildAnimals -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#WildAnimals">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#Symbol"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#Yellow -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#Yellow">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#Color"/>
+    </owl:Class>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Individuals
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#__input__ -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#__input__"/>
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 4.2.8.20170104-2310) https://github.com/owlcs/owlapi -->

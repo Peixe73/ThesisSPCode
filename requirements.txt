@@ -4,3 +4,4 @@ numpy
 torcheval
 pandas
 matplotlib
+python-sat
