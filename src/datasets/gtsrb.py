@@ -4,6 +4,8 @@ from collections import defaultdict
 from analysis_tools.gtsrb_utils import CLASSID_BINARY, SIGNCLASS_BINARY
 import numpy as np
 
+from core.datasets.csv_img_dataset_gtsrb import CSVImageDatasetGTSRB
+
 PATH = Path("data/gtsrb_dataset")
 SEED = 42
 
@@ -82,7 +84,7 @@ def test_filter(row):
 register_datasets(
 
     # ----- CLASSES ONLY -----
-    gtsrb = CSVImageDataset(
+    gtsrb = CSVImageDatasetGTSRB(
         csv_path=PATH.joinpath("gtsrb_concepts_filtered_bin.csv"),
         #images_path=PATH.joinpath("train"),
         images_path=PATH,
@@ -94,7 +96,7 @@ register_datasets(
     ),
 
     # ----- CLASSES + CONCEPTS -----
-    gtsrb_with_concepts = CSVImageDataset(
+    gtsrb_with_concepts = CSVImageDatasetGTSRB(
         csv_path=PATH.joinpath("gtsrb_concepts_filtered_bin.csv"),
         #images_path=PATH.joinpath("train"),
         images_path=PATH,
@@ -107,7 +109,7 @@ register_datasets(
         random_state=SEED
     ),
     
-    gtsrb_with_concepts_test = CSVImageDataset(
+    gtsrb_with_concepts_test = CSVImageDatasetGTSRB(
         csv_path=PATH.joinpath("gtsrb_concepts_filtered_bin.csv"),
         images_path=PATH,
         image_columns=[(IMAGE_COLUMN, path_getter)],
@@ -119,7 +121,7 @@ register_datasets(
     ),
 
     # ----- CONCEPTS ONLY -----
-    gtsrb_concepts_only = CSVImageDataset(
+    gtsrb_concepts_only = CSVImageDatasetGTSRB(
         csv_path=PATH.joinpath("gtsrb_concepts_filtered_bin.csv"),
         #images_path=PATH.joinpath("train"),~
         images_path=PATH,
