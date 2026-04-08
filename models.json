@@ -1,0 +1,3865 @@
+{
+  "Solver": "clingo version 5.6.2",
+  "Input": [
+    "prove_valid_ontology_rows_gtsrb.lp"
+  ],
+  "Call": [
+    {
+      "Witnesses": [
+        {
+          "Value": [
+            "yellow_ground", "border", "valid(13)", "white_border", "diamond", "class(13)"
+          ]
+        },
+        {
+          "Value": [
+            "bar", "white_bar", "yellow_ground", "border", "valid(13)", "white_border", "diamond", "class(13)"
+          ]
+        },
+        {
+          "Value": [
+            "bar", "yellow_ground", "border", "black_bar", "valid(13)", "white_border", "diamond", "class(13)"
+          ]
+        },
+        {
+          "Value": [
+            "white_ground", "red_border", "border", "triangular", "valid(14)", "class(14)"
+          ]
+        },
+        {
+          "Value": [
+            "bar", "white_bar", "white_ground", "red_border", "border", "triangular", "valid(14)", "class(14)"
+          ]
+        },
+        {
+          "Value": [
+            "bar", "white_ground", "red_border", "border", "black_bar", "triangular", "valid(14)", "class(14)"
+          ]
+        },
+        {
+          "Value": [
+            "yellow_ground", "red_border", "border", "triangular", "valid(14)", "class(14)"
+          ]
+        },
+        {
+          "Value": [
+            "bar", "white_bar", "yellow_ground", "red_border", "border", "triangular", "valid(14)", "class(14)"
+          ]
+        },
+        {
+          "Value": [
+            "bar", "yellow_ground", "red_border", "border", "black_bar", "triangular", "valid(14)", "class(14)"
+          ]
+        },
+        {
+          "Value": [
+            "bar", "white_bar", "circular", "red_ground", "valid(18)", "class(18)"
+          ]
+        },
+        {
+          "Value": [
+            "bar", "white_ground", "circular", "black_bar", "valid(33)", "class(33)"
+          ]
+        },
+        {
+          "Value": [
+            "bar", "yellow_ground", "circular", "black_bar", "valid(33)", "class(33)"
+          ]
+        },
+        {
+          "Value": [
+            "bar", "white_bar", "circular", "border", "red_ground", "valid(18)", "class(18)", "black_border"
+          ]
+        },
+        {
+          "Value": [
+            "bar", "white_bar", "circular", "border", "white_border", "red_ground", "valid(18)", "class(18)"
+          ]
+        },
+        {
+          "Value": [
+            "bar", "white_bar", "red_border", "circular", "border", "red_ground", "valid(18)", "class(18)"
+          ]
+        },
+        {
+          "Value": [
+            "yellow_ground", "red_border", "circular", "border", "valid(16)", "class(16)"
+          ]
+        },
+        {
+          "Value": [
+            "bar", "white_bar", "yellow_ground", "red_border", "circular", "border", "valid(16)", "class(16)"
+          ]
+        },
+        {
+          "Value": [
+            "bar", "yellow_ground", "red_border", "circular", "border", "black_bar", "valid(16)", "class(16)"
+          ]
+        },
+        {
+          "Value": [
+            "white_ground", "red_border", "circular", "border", "valid(16)", "class(16)"
+          ]
+        },
+        {
+          "Value": [
+            "bar", "white_bar", "white_ground", "red_border", "circular", "border", "valid(16)", "class(16)"
+          ]
+        },
+        {
+          "Value": [
+            "bar", "white_ground", "red_border", "circular", "border", "black_bar", "valid(16)", "class(16)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "valid(15)", "symbol_stop", "white_symbol", "red_ground", "octagonal", "class(15)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "valid(15)", "symbol_stop", "white_symbol", "red_ground", "octagonal", "class(15)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "black_bar", "valid(15)", "symbol_stop", "white_symbol", "red_ground", "octagonal", "class(15)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "border", "valid(15)", "symbol_stop", "white_symbol", "red_ground", "octagonal", "class(15)", "black_border"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "border", "white_border", "valid(15)", "symbol_stop", "white_symbol", "red_ground", "octagonal", "class(15)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "border", "valid(15)", "symbol_stop", "white_symbol", "red_ground", "octagonal", "class(15)", "black_border"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "border", "white_border", "valid(15)", "symbol_stop", "white_symbol", "red_ground", "octagonal", "class(15)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "border", "black_bar", "valid(15)", "symbol_stop", "white_symbol", "red_ground", "octagonal", "class(15)", "black_border"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "border", "black_bar", "white_border", "valid(15)", "symbol_stop", "white_symbol", "red_ground", "octagonal", "class(15)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "yellow_ground", "border", "valid(13)", "white_border", "diamond", "d1a7", "class(13)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "yellow_ground", "border", "valid(13)", "white_border", "diamond", "d2a2", "class(13)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "yellow_ground", "border", "valid(13)", "white_border", "diamond", "d1a1", "class(13)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "yellow_ground", "border", "valid(13)", "white_border", "diamond", "d1a4", "class(13)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "yellow_ground", "border", "valid(13)", "white_border", "diamond", "d2a1", "class(13)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "yellow_ground", "border", "symbol_speed100", "valid(13)", "white_border", "diamond", "class(13)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "yellow_ground", "border", "valid(13)", "white_border", "diamond", "d1a6", "class(13)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "yellow_ground", "symbol_speed70", "border", "valid(13)", "white_border", "diamond", "class(13)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "yellow_ground", "border", "symbol_speed120", "valid(13)", "white_border", "diamond", "class(13)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "yellow_ground", "symbol_speed30", "border", "valid(13)", "white_border", "diamond", "class(13)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "yellow_ground", "symbol_speed20", "border", "valid(13)", "white_border", "diamond", "class(13)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "yellow_ground", "symbol_speed50", "border", "valid(13)", "white_border", "diamond", "class(13)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "yellow_ground", "border", "valid(13)", "white_border", "diamond", "d1a5", "class(13)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "yellow_ground", "border", "valid(13)", "white_border", "diamond", "symbol_noentrygoods", "class(13)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "yellow_ground", "symbol_speed60", "border", "valid(13)", "white_border", "diamond", "class(13)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "yellow_ground", "border", "valid(13)", "white_border", "diamond", "d3", "class(13)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "yellow_ground", "border", "valid(13)", "white_border", "diamond", "symbol_stop", "class(13)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "yellow_ground", "symbol_speed80", "border", "valid(13)", "white_border", "diamond", "class(13)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "yellow_ground", "border", "symbol_overtakinggoods", "valid(13)", "white_border", "diamond", "class(13)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "yellow_ground", "border", "symbol_overtaking", "valid(13)", "white_border", "diamond", "class(13)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "yellow_ground", "symbol_speed60", "border", "valid(13)", "white_border", "diamond", "white_symbol", "class(13)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "yellow_ground", "border", "valid(13)", "white_border", "diamond", "white_symbol", "symbol_noentrygoods", "class(13)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "yellow_ground", "border", "valid(13)", "white_border", "diamond", "white_symbol", "d1a5", "class(13)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "yellow_ground", "symbol_speed20", "border", "valid(13)", "white_border", "diamond", "white_symbol", "class(13)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "yellow_ground", "symbol_speed30", "border", "valid(13)", "white_border", "diamond", "white_symbol", "class(13)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "yellow_ground", "border", "symbol_speed120", "valid(13)", "white_border", "diamond", "white_symbol", "class(13)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "yellow_ground", "symbol_speed70", "border", "valid(13)", "white_border", "diamond", "white_symbol", "class(13)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "yellow_ground", "border", "valid(13)", "white_border", "diamond", "white_symbol", "d1a6", "class(13)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "yellow_ground", "border", "symbol_speed100", "valid(13)", "white_border", "diamond", "white_symbol", "class(13)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "yellow_ground", "border", "valid(13)", "white_border", "diamond", "white_symbol", "d2a1", "class(13)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "yellow_ground", "symbol_speed50", "border", "valid(13)", "white_border", "diamond", "white_symbol", "class(13)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "yellow_ground", "border", "valid(13)", "white_border", "diamond", "white_symbol", "d1a4", "class(13)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "yellow_ground", "border", "valid(13)", "white_border", "diamond", "white_symbol", "d1a1", "class(13)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "yellow_ground", "border", "valid(13)", "white_border", "diamond", "white_symbol", "d1a7", "class(13)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "yellow_ground", "border", "valid(13)", "white_border", "diamond", "white_symbol", "d3", "class(13)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "yellow_ground", "border", "valid(13)", "white_border", "diamond", "white_symbol", "d2a2", "class(13)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "yellow_ground", "border", "valid(13)", "white_border", "diamond", "symbol_stop", "white_symbol", "class(13)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "yellow_ground", "border", "symbol_overtaking", "valid(13)", "white_border", "diamond", "white_symbol", "class(13)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "yellow_ground", "border", "symbol_overtakinggoods", "valid(13)", "white_border", "diamond", "white_symbol", "class(13)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "yellow_ground", "symbol_speed80", "border", "valid(13)", "white_border", "diamond", "white_symbol", "class(13)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "yellow_ground", "border", "valid(13)", "white_border", "diamond", "d3", "class(13)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "yellow_ground", "border", "valid(13)", "white_border", "diamond", "d1a7", "class(13)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "yellow_ground", "border", "valid(13)", "white_border", "diamond", "d1a1", "class(13)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "yellow_ground", "symbol_speed50", "border", "valid(13)", "white_border", "diamond", "class(13)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "yellow_ground", "border", "valid(13)", "white_border", "diamond", "d2a1", "class(13)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "yellow_ground", "border", "symbol_speed100", "valid(13)", "white_border", "diamond", "class(13)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "yellow_ground", "border", "valid(13)", "white_border", "diamond", "d1a6", "class(13)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "yellow_ground", "symbol_speed70", "border", "valid(13)", "white_border", "diamond", "class(13)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "yellow_ground", "border", "symbol_speed120", "valid(13)", "white_border", "diamond", "class(13)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "yellow_ground", "symbol_speed30", "border", "valid(13)", "white_border", "diamond", "class(13)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "yellow_ground", "border", "valid(13)", "white_border", "diamond", "d1a4", "class(13)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "yellow_ground", "symbol_speed20", "border", "valid(13)", "white_border", "diamond", "class(13)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "yellow_ground", "border", "valid(13)", "white_border", "diamond", "d1a5", "class(13)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "yellow_ground", "symbol_speed60", "border", "valid(13)", "white_border", "diamond", "class(13)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "yellow_ground", "border", "valid(13)", "white_border", "diamond", "d2a2", "class(13)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "yellow_ground", "border", "valid(13)", "white_border", "diamond", "symbol_noentrygoods", "class(13)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "yellow_ground", "border", "valid(13)", "white_border", "diamond", "symbol_stop", "class(13)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "yellow_ground", "border", "valid(13)", "white_border", "diamond", "white_symbol", "d2a2", "class(13)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "yellow_ground", "symbol_speed60", "border", "valid(13)", "white_border", "diamond", "white_symbol", "class(13)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "yellow_ground", "border", "valid(13)", "white_border", "diamond", "white_symbol", "d1a5", "class(13)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "yellow_ground", "border", "valid(13)", "white_border", "diamond", "white_symbol", "d1a4", "class(13)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "yellow_ground", "symbol_speed30", "border", "valid(13)", "white_border", "diamond", "white_symbol", "class(13)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "yellow_ground", "border", "symbol_speed120", "valid(13)", "white_border", "diamond", "white_symbol", "class(13)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "yellow_ground", "symbol_speed70", "border", "valid(13)", "white_border", "diamond", "white_symbol", "class(13)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "yellow_ground", "border", "valid(13)", "white_border", "diamond", "white_symbol", "d1a6", "class(13)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "yellow_ground", "border", "symbol_speed100", "valid(13)", "white_border", "diamond", "white_symbol", "class(13)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "yellow_ground", "border", "valid(13)", "white_border", "diamond", "white_symbol", "d2a1", "class(13)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "yellow_ground", "symbol_speed20", "border", "valid(13)", "white_border", "diamond", "white_symbol", "class(13)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "yellow_ground", "symbol_speed50", "border", "valid(13)", "white_border", "diamond", "white_symbol", "class(13)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "yellow_ground", "border", "valid(13)", "white_border", "diamond", "white_symbol", "d1a1", "class(13)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "yellow_ground", "border", "valid(13)", "white_border", "diamond", "white_symbol", "d3", "class(13)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "yellow_ground", "border", "valid(13)", "white_border", "diamond", "white_symbol", "symbol_noentrygoods", "class(13)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "yellow_ground", "border", "valid(13)", "white_border", "diamond", "symbol_stop", "white_symbol", "class(13)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "yellow_ground", "border", "valid(13)", "white_border", "diamond", "white_symbol", "d1a7", "class(13)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "yellow_ground", "symbol_speed80", "border", "valid(13)", "white_border", "diamond", "class(13)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "yellow_ground", "symbol_speed80", "border", "valid(13)", "white_border", "diamond", "white_symbol", "class(13)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "yellow_ground", "border", "symbol_overtakinggoods", "valid(13)", "white_border", "diamond", "class(13)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "yellow_ground", "border", "symbol_overtakinggoods", "valid(13)", "white_border", "diamond", "white_symbol", "class(13)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "yellow_ground", "border", "symbol_overtaking", "valid(13)", "white_border", "diamond", "class(13)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "yellow_ground", "border", "symbol_overtaking", "valid(13)", "white_border", "diamond", "white_symbol", "class(13)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "black_symbol", "yellow_ground", "border", "black_bar", "valid(13)", "white_border", "diamond", "symbol_noentrygoods", "class(13)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "black_symbol", "yellow_ground", "border", "black_bar", "valid(13)", "white_border", "diamond", "d3", "class(13)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "black_symbol", "yellow_ground", "border", "black_bar", "valid(13)", "white_border", "diamond", "d1a1", "class(13)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "black_symbol", "yellow_ground", "symbol_speed20", "border", "black_bar", "valid(13)", "white_border", "diamond", "class(13)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "black_symbol", "yellow_ground", "border", "black_bar", "valid(13)", "white_border", "diamond", "d2a1", "class(13)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "black_symbol", "yellow_ground", "border", "black_bar", "symbol_speed100", "valid(13)", "white_border", "diamond", "class(13)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "black_symbol", "yellow_ground", "border", "black_bar", "valid(13)", "white_border", "diamond", "d1a6", "class(13)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "black_symbol", "yellow_ground", "symbol_speed70", "border", "black_bar", "valid(13)", "white_border", "diamond", "class(13)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "black_symbol", "yellow_ground", "border", "black_bar", "symbol_speed120", "valid(13)", "white_border", "diamond", "class(13)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "black_symbol", "yellow_ground", "symbol_speed30", "border", "black_bar", "valid(13)", "white_border", "diamond", "class(13)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "black_symbol", "yellow_ground", "symbol_speed50", "border", "black_bar", "valid(13)", "white_border", "diamond", "class(13)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "black_symbol", "yellow_ground", "border", "black_bar", "valid(13)", "white_border", "diamond", "d1a4", "class(13)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "black_symbol", "yellow_ground", "border", "black_bar", "valid(13)", "white_border", "diamond", "d1a5", "class(13)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "black_symbol", "yellow_ground", "border", "black_bar", "valid(13)", "white_border", "diamond", "d2a2", "class(13)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "black_symbol", "yellow_ground", "border", "black_bar", "valid(13)", "white_border", "diamond", "symbol_stop", "class(13)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "black_symbol", "yellow_ground", "symbol_speed60", "border", "black_bar", "valid(13)", "white_border", "diamond", "class(13)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "black_symbol", "yellow_ground", "border", "black_bar", "valid(13)", "white_border", "diamond", "d1a7", "class(13)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "black_symbol", "yellow_ground", "border", "black_bar", "symbol_overtaking", "valid(13)", "white_border", "diamond", "class(13)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "black_symbol", "yellow_ground", "symbol_speed80", "border", "black_bar", "valid(13)", "white_border", "diamond", "class(13)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "black_symbol", "yellow_ground", "border", "black_bar", "symbol_overtakinggoods", "valid(13)", "white_border", "diamond", "class(13)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "yellow_ground", "border", "black_bar", "valid(13)", "white_border", "diamond", "symbol_stop", "white_symbol", "class(13)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "yellow_ground", "border", "black_bar", "valid(13)", "white_border", "diamond", "white_symbol", "d2a2", "class(13)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "yellow_ground", "border", "black_bar", "valid(13)", "white_border", "diamond", "white_symbol", "d1a5", "class(13)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "yellow_ground", "symbol_speed50", "border", "black_bar", "valid(13)", "white_border", "diamond", "white_symbol", "class(13)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "yellow_ground", "symbol_speed30", "border", "black_bar", "valid(13)", "white_border", "diamond", "white_symbol", "class(13)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "yellow_ground", "border", "black_bar", "symbol_speed120", "valid(13)", "white_border", "diamond", "white_symbol", "class(13)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "yellow_ground", "symbol_speed70", "border", "black_bar", "valid(13)", "white_border", "diamond", "white_symbol", "class(13)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "yellow_ground", "border", "black_bar", "valid(13)", "white_border", "diamond", "white_symbol", "d1a6", "class(13)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "yellow_ground", "border", "black_bar", "symbol_speed100", "valid(13)", "white_border", "diamond", "white_symbol", "class(13)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "yellow_ground", "border", "black_bar", "valid(13)", "white_border", "diamond", "white_symbol", "d2a1", "class(13)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "yellow_ground", "border", "black_bar", "valid(13)", "white_border", "diamond", "white_symbol", "d1a4", "class(13)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "yellow_ground", "symbol_speed20", "border", "black_bar", "valid(13)", "white_border", "diamond", "white_symbol", "class(13)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "yellow_ground", "border", "black_bar", "valid(13)", "white_border", "diamond", "white_symbol", "d1a1", "class(13)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "yellow_ground", "border", "black_bar", "valid(13)", "white_border", "diamond", "white_symbol", "symbol_noentrygoods", "class(13)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "yellow_ground", "symbol_speed60", "border", "black_bar", "valid(13)", "white_border", "diamond", "white_symbol", "class(13)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "yellow_ground", "border", "black_bar", "valid(13)", "white_border", "diamond", "white_symbol", "d3", "class(13)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "yellow_ground", "border", "black_bar", "valid(13)", "white_border", "diamond", "white_symbol", "d1a7", "class(13)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "yellow_ground", "border", "black_bar", "symbol_overtakinggoods", "valid(13)", "white_border", "diamond", "white_symbol", "class(13)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "yellow_ground", "symbol_speed80", "border", "black_bar", "valid(13)", "white_border", "diamond", "white_symbol", "class(13)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "yellow_ground", "border", "black_bar", "symbol_overtaking", "valid(13)", "white_border", "diamond", "white_symbol", "class(13)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "red_border", "border", "valid(15)", "symbol_stop", "white_symbol", "red_ground", "octagonal", "class(15)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "red_border", "border", "valid(15)", "symbol_stop", "white_symbol", "red_ground", "octagonal", "class(15)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "red_border", "border", "black_bar", "valid(15)", "symbol_stop", "white_symbol", "red_ground", "octagonal", "class(15)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "white_ground", "red_border", "symbol_speed60", "border", "valid(12)", "triangular", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "white_ground", "red_border", "border", "valid(12)", "triangular", "symbol_noentrygoods", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "white_ground", "red_border", "border", "valid(12)", "triangular", "d1a1", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "white_ground", "red_border", "border", "valid(12)", "triangular", "d1a4", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "white_ground", "red_border", "border", "symbol_speed100", "valid(12)", "triangular", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "white_ground", "red_border", "border", "valid(12)", "triangular", "d2a1", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "white_ground", "red_border", "symbol_speed70", "border", "valid(12)", "triangular", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "white_ground", "red_border", "symbol_speed30", "border", "valid(12)", "triangular", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "white_ground", "red_border", "border", "symbol_speed120", "valid(12)", "triangular", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "white_ground", "red_border", "symbol_speed20", "border", "valid(12)", "triangular", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "white_ground", "red_border", "border", "valid(12)", "triangular", "symbol_stop", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "white_ground", "red_border", "symbol_speed50", "border", "valid(12)", "triangular", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "white_ground", "red_border", "border", "valid(12)", "triangular", "d3", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "white_ground", "red_border", "border", "valid(12)", "triangular", "d1a5", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "white_ground", "red_border", "border", "valid(12)", "triangular", "d1a6", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "white_ground", "red_border", "border", "valid(12)", "triangular", "d2a2", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "white_ground", "red_border", "border", "valid(12)", "triangular", "d1a7", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "white_ground", "red_border", "border", "valid(12)", "triangular", "white_symbol", "d1a6", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "white_ground", "red_border", "border", "valid(12)", "triangular", "white_symbol", "d1a5", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "white_ground", "red_border", "border", "valid(12)", "triangular", "white_symbol", "d3", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "white_ground", "red_border", "border", "valid(12)", "triangular", "symbol_stop", "white_symbol", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "white_ground", "red_border", "symbol_speed20", "border", "valid(12)", "triangular", "white_symbol", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "white_ground", "red_border", "border", "symbol_speed120", "valid(12)", "triangular", "white_symbol", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "white_ground", "red_border", "symbol_speed30", "border", "valid(12)", "triangular", "white_symbol", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "white_ground", "red_border", "symbol_speed70", "border", "valid(12)", "triangular", "white_symbol", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "white_ground", "red_border", "border", "valid(12)", "triangular", "white_symbol", "d2a1", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "white_ground", "red_border", "border", "symbol_speed100", "valid(12)", "triangular", "white_symbol", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "white_ground", "red_border", "symbol_speed50", "border", "valid(12)", "triangular", "white_symbol", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "white_ground", "red_border", "border", "valid(12)", "triangular", "white_symbol", "d1a4", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "white_ground", "red_border", "border", "valid(12)", "triangular", "white_symbol", "d1a1", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "white_ground", "red_border", "symbol_speed60", "border", "valid(12)", "triangular", "white_symbol", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "white_ground", "red_border", "border", "valid(12)", "triangular", "white_symbol", "d2a2", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "white_ground", "red_border", "border", "valid(12)", "triangular", "white_symbol", "d1a7", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "white_ground", "red_border", "border", "valid(12)", "triangular", "white_symbol", "symbol_noentrygoods", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "white_ground", "red_border", "border", "symbol_overtaking", "valid(12)", "triangular", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "white_ground", "red_border", "border", "symbol_overtaking", "valid(12)", "triangular", "white_symbol", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "white_ground", "red_border", "symbol_speed80", "border", "valid(12)", "triangular", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "white_ground", "red_border", "symbol_speed80", "border", "valid(12)", "triangular", "white_symbol", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "white_ground", "red_border", "border", "symbol_overtakinggoods", "valid(12)", "triangular", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "white_ground", "red_border", "border", "symbol_overtakinggoods", "valid(12)", "triangular", "white_symbol", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "white_ground", "red_border", "border", "valid(12)", "triangular", "d2a2", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "white_ground", "red_border", "symbol_speed60", "border", "valid(12)", "triangular", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "white_ground", "red_border", "border", "valid(12)", "triangular", "d1a1", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "white_ground", "red_border", "symbol_speed50", "border", "valid(12)", "triangular", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "white_ground", "red_border", "border", "symbol_speed100", "valid(12)", "triangular", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "white_ground", "red_border", "border", "valid(12)", "triangular", "d2a1", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "white_ground", "red_border", "symbol_speed70", "border", "valid(12)", "triangular", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "white_ground", "red_border", "symbol_speed30", "border", "valid(12)", "triangular", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "white_ground", "red_border", "border", "symbol_speed120", "valid(12)", "triangular", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "white_ground", "red_border", "symbol_speed20", "border", "valid(12)", "triangular", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "white_ground", "red_border", "border", "valid(12)", "triangular", "d1a4", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "white_ground", "red_border", "border", "valid(12)", "triangular", "symbol_stop", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "white_ground", "red_border", "border", "valid(12)", "triangular", "d3", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "white_ground", "red_border", "border", "valid(12)", "triangular", "d1a6", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "white_ground", "red_border", "border", "valid(12)", "triangular", "d1a7", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "white_ground", "red_border", "border", "valid(12)", "triangular", "d1a5", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "white_ground", "red_border", "border", "valid(12)", "triangular", "symbol_noentrygoods", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "white_ground", "red_border", "border", "symbol_overtakinggoods", "valid(12)", "triangular", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "white_ground", "red_border", "border", "symbol_overtaking", "valid(12)", "triangular", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "white_ground", "red_border", "symbol_speed80", "border", "valid(12)", "triangular", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "white_ground", "red_border", "border", "valid(12)", "triangular", "white_symbol", "d1a7", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "white_ground", "red_border", "border", "valid(12)", "triangular", "white_symbol", "d1a6", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "white_ground", "red_border", "border", "valid(12)", "triangular", "white_symbol", "d3", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "white_ground", "red_border", "border", "valid(12)", "triangular", "white_symbol", "d1a4", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "white_ground", "red_border", "symbol_speed20", "border", "valid(12)", "triangular", "white_symbol", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "white_ground", "red_border", "border", "symbol_speed120", "valid(12)", "triangular", "white_symbol", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "white_ground", "red_border", "symbol_speed30", "border", "valid(12)", "triangular", "white_symbol", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "white_ground", "red_border", "symbol_speed70", "border", "valid(12)", "triangular", "white_symbol", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "white_ground", "red_border", "border", "valid(12)", "triangular", "white_symbol", "d2a1", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "white_ground", "red_border", "border", "symbol_speed100", "valid(12)", "triangular", "white_symbol", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "white_ground", "red_border", "border", "valid(12)", "triangular", "symbol_stop", "white_symbol", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "white_ground", "red_border", "symbol_speed50", "border", "valid(12)", "triangular", "white_symbol", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "white_ground", "red_border", "border", "valid(12)", "triangular", "white_symbol", "d1a1", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "white_ground", "red_border", "border", "valid(12)", "triangular", "white_symbol", "d2a2", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "white_ground", "red_border", "border", "valid(12)", "triangular", "white_symbol", "d1a5", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "white_ground", "red_border", "symbol_speed60", "border", "valid(12)", "triangular", "white_symbol", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "white_ground", "red_border", "border", "valid(12)", "triangular", "white_symbol", "symbol_noentrygoods", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "white_ground", "red_border", "symbol_speed80", "border", "valid(12)", "triangular", "white_symbol", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "white_ground", "red_border", "border", "symbol_overtaking", "valid(12)", "triangular", "white_symbol", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "white_ground", "red_border", "border", "symbol_overtakinggoods", "valid(12)", "triangular", "white_symbol", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "black_symbol", "white_ground", "red_border", "border", "black_bar", "valid(12)", "triangular", "d1a5", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "black_symbol", "white_ground", "red_border", "border", "black_bar", "valid(12)", "triangular", "d2a2", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "black_symbol", "white_ground", "red_border", "border", "black_bar", "valid(12)", "triangular", "d1a1", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "black_symbol", "white_ground", "red_border", "border", "black_bar", "valid(12)", "triangular", "symbol_stop", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "black_symbol", "white_ground", "red_border", "border", "black_bar", "symbol_speed100", "valid(12)", "triangular", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "black_symbol", "white_ground", "red_border", "border", "black_bar", "valid(12)", "triangular", "d2a1", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "black_symbol", "white_ground", "red_border", "symbol_speed70", "border", "black_bar", "valid(12)", "triangular", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "black_symbol", "white_ground", "red_border", "symbol_speed30", "border", "black_bar", "valid(12)", "triangular", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "black_symbol", "white_ground", "red_border", "border", "black_bar", "symbol_speed120", "valid(12)", "triangular", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "black_symbol", "white_ground", "red_border", "symbol_speed20", "border", "black_bar", "valid(12)", "triangular", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "black_symbol", "white_ground", "red_border", "symbol_speed50", "border", "black_bar", "valid(12)", "triangular", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "black_symbol", "white_ground", "red_border", "border", "black_bar", "valid(12)", "triangular", "d1a4", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "black_symbol", "white_ground", "red_border", "border", "black_bar", "valid(12)", "triangular", "d3", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "black_symbol", "white_ground", "red_border", "border", "black_bar", "valid(12)", "triangular", "d1a7", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "black_symbol", "white_ground", "red_border", "symbol_speed60", "border", "black_bar", "valid(12)", "triangular", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "black_symbol", "white_ground", "red_border", "border", "black_bar", "valid(12)", "triangular", "d1a6", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "black_symbol", "white_ground", "red_border", "border", "black_bar", "valid(12)", "triangular", "symbol_noentrygoods", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_ground", "red_border", "symbol_speed60", "border", "black_bar", "valid(12)", "triangular", "white_symbol", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_ground", "red_border", "border", "black_bar", "valid(12)", "triangular", "white_symbol", "d1a7", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_ground", "red_border", "border", "black_bar", "valid(12)", "triangular", "white_symbol", "d3", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_ground", "red_border", "symbol_speed50", "border", "black_bar", "valid(12)", "triangular", "white_symbol", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_ground", "red_border", "symbol_speed20", "border", "black_bar", "valid(12)", "triangular", "white_symbol", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_ground", "red_border", "border", "black_bar", "symbol_speed120", "valid(12)", "triangular", "white_symbol", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_ground", "red_border", "symbol_speed30", "border", "black_bar", "valid(12)", "triangular", "white_symbol", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_ground", "red_border", "symbol_speed70", "border", "black_bar", "valid(12)", "triangular", "white_symbol", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_ground", "red_border", "border", "black_bar", "valid(12)", "triangular", "white_symbol", "d2a1", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_ground", "red_border", "border", "black_bar", "symbol_speed100", "valid(12)", "triangular", "white_symbol", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_ground", "red_border", "border", "black_bar", "valid(12)", "triangular", "white_symbol", "d1a4", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_ground", "red_border", "border", "black_bar", "valid(12)", "triangular", "symbol_stop", "white_symbol", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_ground", "red_border", "border", "black_bar", "valid(12)", "triangular", "white_symbol", "d1a1", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_ground", "red_border", "border", "black_bar", "valid(12)", "triangular", "white_symbol", "d1a5", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_ground", "red_border", "border", "black_bar", "valid(12)", "triangular", "white_symbol", "d1a6", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_ground", "red_border", "border", "black_bar", "valid(12)", "triangular", "white_symbol", "symbol_noentrygoods", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_ground", "red_border", "border", "black_bar", "valid(12)", "triangular", "white_symbol", "d2a2", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "black_symbol", "white_ground", "red_border", "border", "black_bar", "symbol_overtakinggoods", "valid(12)", "triangular", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_ground", "red_border", "border", "black_bar", "symbol_overtakinggoods", "valid(12)", "triangular", "white_symbol", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "black_symbol", "white_ground", "red_border", "border", "black_bar", "symbol_overtaking", "valid(12)", "triangular", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_ground", "red_border", "border", "black_bar", "symbol_overtaking", "valid(12)", "triangular", "white_symbol", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "black_symbol", "white_ground", "red_border", "symbol_speed80", "border", "black_bar", "valid(12)", "triangular", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_ground", "red_border", "symbol_speed80", "border", "black_bar", "valid(12)", "triangular", "white_symbol", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "yellow_ground", "red_border", "border", "valid(12)", "triangular", "d1a6", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "yellow_ground", "red_border", "border", "valid(12)", "triangular", "d1a5", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "yellow_ground", "red_border", "border", "valid(12)", "triangular", "d1a1", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "yellow_ground", "red_border", "border", "valid(12)", "triangular", "d1a4", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "yellow_ground", "red_border", "border", "symbol_speed100", "valid(12)", "triangular", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "yellow_ground", "red_border", "border", "valid(12)", "triangular", "d2a1", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "yellow_ground", "red_border", "symbol_speed70", "border", "valid(12)", "triangular", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "yellow_ground", "red_border", "symbol_speed30", "border", "valid(12)", "triangular", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "yellow_ground", "red_border", "border", "symbol_speed120", "valid(12)", "triangular", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "yellow_ground", "red_border", "border", "valid(12)", "triangular", "symbol_stop", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "yellow_ground", "red_border", "symbol_speed60", "border", "valid(12)", "triangular", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "yellow_ground", "red_border", "symbol_speed50", "border", "valid(12)", "triangular", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "yellow_ground", "red_border", "border", "valid(12)", "triangular", "symbol_noentrygoods", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "yellow_ground", "red_border", "border", "valid(12)", "triangular", "d3", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "yellow_ground", "red_border", "symbol_speed20", "border", "valid(12)", "triangular", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "yellow_ground", "red_border", "border", "valid(12)", "triangular", "d1a7", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "yellow_ground", "red_border", "border", "valid(12)", "triangular", "d2a2", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "yellow_ground", "red_border", "symbol_speed80", "border", "valid(12)", "triangular", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "yellow_ground", "red_border", "border", "symbol_overtakinggoods", "valid(12)", "triangular", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "yellow_ground", "red_border", "border", "symbol_overtaking", "valid(12)", "triangular", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "yellow_ground", "red_border", "symbol_speed20", "border", "valid(12)", "triangular", "white_symbol", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "yellow_ground", "red_border", "border", "valid(12)", "triangular", "white_symbol", "d3", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "yellow_ground", "red_border", "border", "valid(12)", "triangular", "white_symbol", "symbol_noentrygoods", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "yellow_ground", "red_border", "symbol_speed60", "border", "valid(12)", "triangular", "white_symbol", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "yellow_ground", "red_border", "border", "valid(12)", "triangular", "symbol_stop", "white_symbol", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "yellow_ground", "red_border", "border", "symbol_speed120", "valid(12)", "triangular", "white_symbol", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "yellow_ground", "red_border", "symbol_speed30", "border", "valid(12)", "triangular", "white_symbol", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "yellow_ground", "red_border", "symbol_speed70", "border", "valid(12)", "triangular", "white_symbol", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "yellow_ground", "red_border", "border", "valid(12)", "triangular", "white_symbol", "d2a1", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "yellow_ground", "red_border", "border", "symbol_speed100", "valid(12)", "triangular", "white_symbol", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "yellow_ground", "red_border", "symbol_speed50", "border", "valid(12)", "triangular", "white_symbol", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "yellow_ground", "red_border", "border", "valid(12)", "triangular", "white_symbol", "d1a4", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "yellow_ground", "red_border", "border", "valid(12)", "triangular", "white_symbol", "d1a1", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "yellow_ground", "red_border", "border", "valid(12)", "triangular", "white_symbol", "d1a6", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "yellow_ground", "red_border", "border", "valid(12)", "triangular", "white_symbol", "d1a7", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "yellow_ground", "red_border", "border", "valid(12)", "triangular", "white_symbol", "d1a5", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "yellow_ground", "red_border", "border", "valid(12)", "triangular", "white_symbol", "d2a2", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "yellow_ground", "red_border", "border", "symbol_overtaking", "valid(12)", "triangular", "white_symbol", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "yellow_ground", "red_border", "border", "symbol_overtakinggoods", "valid(12)", "triangular", "white_symbol", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "yellow_ground", "red_border", "symbol_speed80", "border", "valid(12)", "triangular", "white_symbol", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "yellow_ground", "red_border", "border", "valid(12)", "triangular", "d1a7", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "yellow_ground", "red_border", "border", "valid(12)", "triangular", "d1a6", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "yellow_ground", "red_border", "border", "valid(12)", "triangular", "d1a1", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "yellow_ground", "red_border", "symbol_speed50", "border", "valid(12)", "triangular", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "yellow_ground", "red_border", "border", "symbol_speed100", "valid(12)", "triangular", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "yellow_ground", "red_border", "border", "valid(12)", "triangular", "d2a1", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "yellow_ground", "red_border", "symbol_speed70", "border", "valid(12)", "triangular", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "yellow_ground", "red_border", "symbol_speed30", "border", "valid(12)", "triangular", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "yellow_ground", "red_border", "border", "symbol_speed120", "valid(12)", "triangular", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "yellow_ground", "red_border", "border", "valid(12)", "triangular", "symbol_stop", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "yellow_ground", "red_border", "border", "valid(12)", "triangular", "d1a4", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "yellow_ground", "red_border", "symbol_speed60", "border", "valid(12)", "triangular", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "yellow_ground", "red_border", "border", "valid(12)", "triangular", "symbol_noentrygoods", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "yellow_ground", "red_border", "symbol_speed20", "border", "valid(12)", "triangular", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "yellow_ground", "red_border", "border", "valid(12)", "triangular", "d1a5", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "yellow_ground", "red_border", "border", "valid(12)", "triangular", "d3", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "yellow_ground", "red_border", "border", "valid(12)", "triangular", "d2a2", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "yellow_ground", "red_border", "border", "valid(12)", "triangular", "white_symbol", "d1a5", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "yellow_ground", "red_border", "symbol_speed20", "border", "valid(12)", "triangular", "white_symbol", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "yellow_ground", "red_border", "border", "valid(12)", "triangular", "white_symbol", "symbol_noentrygoods", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "yellow_ground", "red_border", "border", "valid(12)", "triangular", "white_symbol", "d1a4", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "yellow_ground", "red_border", "border", "valid(12)", "triangular", "symbol_stop", "white_symbol", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "yellow_ground", "red_border", "border", "symbol_speed120", "valid(12)", "triangular", "white_symbol", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "yellow_ground", "red_border", "symbol_speed30", "border", "valid(12)", "triangular", "white_symbol", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "yellow_ground", "red_border", "symbol_speed70", "border", "valid(12)", "triangular", "white_symbol", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "yellow_ground", "red_border", "border", "valid(12)", "triangular", "white_symbol", "d2a1", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "yellow_ground", "red_border", "border", "symbol_speed100", "valid(12)", "triangular", "white_symbol", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "yellow_ground", "red_border", "symbol_speed60", "border", "valid(12)", "triangular", "white_symbol", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "yellow_ground", "red_border", "symbol_speed50", "border", "valid(12)", "triangular", "white_symbol", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "yellow_ground", "red_border", "border", "valid(12)", "triangular", "white_symbol", "d1a1", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "yellow_ground", "red_border", "border", "valid(12)", "triangular", "white_symbol", "d1a7", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "yellow_ground", "red_border", "border", "valid(12)", "triangular", "white_symbol", "d3", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "yellow_ground", "red_border", "border", "valid(12)", "triangular", "white_symbol", "d2a2", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "yellow_ground", "red_border", "border", "valid(12)", "triangular", "white_symbol", "d1a6", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "yellow_ground", "red_border", "symbol_speed80", "border", "valid(12)", "triangular", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "yellow_ground", "red_border", "symbol_speed80", "border", "valid(12)", "triangular", "white_symbol", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "yellow_ground", "red_border", "border", "symbol_overtakinggoods", "valid(12)", "triangular", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "yellow_ground", "red_border", "border", "symbol_overtakinggoods", "valid(12)", "triangular", "white_symbol", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "yellow_ground", "red_border", "border", "symbol_overtaking", "valid(12)", "triangular", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "yellow_ground", "red_border", "border", "symbol_overtaking", "valid(12)", "triangular", "white_symbol", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "black_symbol", "yellow_ground", "red_border", "border", "black_bar", "valid(12)", "triangular", "d3", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "black_symbol", "yellow_ground", "red_border", "border", "black_bar", "valid(12)", "triangular", "d1a7", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "black_symbol", "yellow_ground", "red_border", "border", "black_bar", "valid(12)", "triangular", "d1a1", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "black_symbol", "yellow_ground", "red_border", "symbol_speed60", "border", "black_bar", "valid(12)", "triangular", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "black_symbol", "yellow_ground", "red_border", "border", "black_bar", "symbol_speed100", "valid(12)", "triangular", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "black_symbol", "yellow_ground", "red_border", "border", "black_bar", "valid(12)", "triangular", "d2a1", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "black_symbol", "yellow_ground", "red_border", "symbol_speed70", "border", "black_bar", "valid(12)", "triangular", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "black_symbol", "yellow_ground", "red_border", "symbol_speed30", "border", "black_bar", "valid(12)", "triangular", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "black_symbol", "yellow_ground", "red_border", "border", "black_bar", "symbol_speed120", "valid(12)", "triangular", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "black_symbol", "yellow_ground", "red_border", "border", "black_bar", "valid(12)", "triangular", "symbol_stop", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "black_symbol", "yellow_ground", "red_border", "symbol_speed50", "border", "black_bar", "valid(12)", "triangular", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "black_symbol", "yellow_ground", "red_border", "border", "black_bar", "valid(12)", "triangular", "d1a4", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "black_symbol", "yellow_ground", "red_border", "border", "black_bar", "valid(12)", "triangular", "symbol_noentrygoods", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "black_symbol", "yellow_ground", "red_border", "border", "black_bar", "valid(12)", "triangular", "d1a5", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "black_symbol", "yellow_ground", "red_border", "border", "black_bar", "valid(12)", "triangular", "d2a2", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "black_symbol", "yellow_ground", "red_border", "symbol_speed20", "border", "black_bar", "valid(12)", "triangular", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "black_symbol", "yellow_ground", "red_border", "border", "black_bar", "valid(12)", "triangular", "d1a6", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "black_symbol", "yellow_ground", "red_border", "border", "black_bar", "symbol_overtaking", "valid(12)", "triangular", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "black_symbol", "yellow_ground", "red_border", "symbol_speed80", "border", "black_bar", "valid(12)", "triangular", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "black_symbol", "yellow_ground", "red_border", "border", "black_bar", "symbol_overtakinggoods", "valid(12)", "triangular", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "yellow_ground", "red_border", "border", "black_bar", "valid(12)", "triangular", "white_symbol", "d2a2", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "yellow_ground", "red_border", "border", "black_bar", "valid(12)", "triangular", "white_symbol", "d1a5", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "yellow_ground", "red_border", "border", "black_bar", "valid(12)", "triangular", "white_symbol", "symbol_noentrygoods", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "yellow_ground", "red_border", "symbol_speed50", "border", "black_bar", "valid(12)", "triangular", "white_symbol", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "yellow_ground", "red_border", "border", "black_bar", "valid(12)", "triangular", "symbol_stop", "white_symbol", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "yellow_ground", "red_border", "border", "black_bar", "symbol_speed120", "valid(12)", "triangular", "white_symbol", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "yellow_ground", "red_border", "symbol_speed30", "border", "black_bar", "valid(12)", "triangular", "white_symbol", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "yellow_ground", "red_border", "symbol_speed70", "border", "black_bar", "valid(12)", "triangular", "white_symbol", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "yellow_ground", "red_border", "border", "black_bar", "valid(12)", "triangular", "white_symbol", "d2a1", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "yellow_ground", "red_border", "border", "black_bar", "symbol_speed100", "valid(12)", "triangular", "white_symbol", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "yellow_ground", "red_border", "border", "black_bar", "valid(12)", "triangular", "white_symbol", "d1a4", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "yellow_ground", "red_border", "symbol_speed60", "border", "black_bar", "valid(12)", "triangular", "white_symbol", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "yellow_ground", "red_border", "border", "black_bar", "valid(12)", "triangular", "white_symbol", "d1a1", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "yellow_ground", "red_border", "border", "black_bar", "valid(12)", "triangular", "white_symbol", "d3", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "yellow_ground", "red_border", "symbol_speed20", "border", "black_bar", "valid(12)", "triangular", "white_symbol", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "yellow_ground", "red_border", "border", "black_bar", "valid(12)", "triangular", "white_symbol", "d1a7", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "yellow_ground", "red_border", "border", "black_bar", "valid(12)", "triangular", "white_symbol", "d1a6", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "yellow_ground", "red_border", "border", "black_bar", "symbol_overtakinggoods", "valid(12)", "triangular", "white_symbol", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "yellow_ground", "red_border", "symbol_speed80", "border", "black_bar", "valid(12)", "triangular", "white_symbol", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "yellow_ground", "red_border", "border", "black_bar", "symbol_overtaking", "valid(12)", "triangular", "white_symbol", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "blue", "circular", "white_symbol", "valid(34)", "d1a5", "class(34)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "blue", "circular", "white_symbol", "valid(34)", "d1a5", "class(34)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "blue", "circular", "black_bar", "white_symbol", "valid(34)", "d1a5", "class(34)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "blue", "circular", "white_symbol", "valid(35)", "d1a4", "class(35)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "blue", "circular", "white_symbol", "valid(35)", "d1a4", "class(35)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "blue", "circular", "black_bar", "white_symbol", "valid(35)", "d1a4", "class(35)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "blue", "circular", "white_symbol", "valid(36)", "d1a1", "class(36)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "blue", "circular", "white_symbol", "valid(36)", "d1a1", "class(36)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "blue", "circular", "black_bar", "white_symbol", "valid(36)", "d1a1", "class(36)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "blue", "circular", "white_symbol", "valid(37)", "d1a7", "class(37)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "blue", "circular", "white_symbol", "valid(37)", "d1a7", "class(37)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "blue", "circular", "black_bar", "white_symbol", "valid(37)", "d1a7", "class(37)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "blue", "circular", "white_symbol", "valid(38)", "d1a6", "class(38)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "blue", "circular", "white_symbol", "valid(38)", "d1a6", "class(38)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "blue", "circular", "black_bar", "white_symbol", "valid(38)", "d1a6", "class(38)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "blue", "circular", "white_symbol", "valid(39)", "d2a2", "class(39)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "blue", "circular", "white_symbol", "valid(39)", "d2a2", "class(39)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "blue", "circular", "black_bar", "white_symbol", "valid(39)", "d2a2", "class(39)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "blue", "circular", "white_symbol", "valid(40)", "d2a1", "class(40)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "blue", "circular", "white_symbol", "valid(40)", "d2a1", "class(40)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "blue", "circular", "black_bar", "white_symbol", "valid(40)", "d2a1", "class(40)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "blue", "circular", "white_symbol", "valid(41)", "d3", "class(41)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "blue", "circular", "white_symbol", "valid(41)", "d3", "class(41)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "blue", "circular", "black_bar", "white_symbol", "valid(41)", "d3", "class(41)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "white_ground", "circular", "valid(34)", "d1a5", "class(34)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "white_ground", "circular", "valid(34)", "d1a5", "class(34)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "black_symbol", "white_ground", "circular", "black_bar", "valid(34)", "d1a5", "class(34)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "white_ground", "circular", "valid(35)", "d1a4", "class(35)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "white_ground", "circular", "valid(35)", "d1a4", "class(35)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "black_symbol", "white_ground", "circular", "black_bar", "valid(35)", "d1a4", "class(35)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "white_ground", "circular", "valid(36)", "d1a1", "class(36)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "white_ground", "circular", "valid(36)", "d1a1", "class(36)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "black_symbol", "white_ground", "circular", "black_bar", "valid(36)", "d1a1", "class(36)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "white_ground", "circular", "valid(37)", "d1a7", "class(37)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "white_ground", "circular", "valid(37)", "d1a7", "class(37)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "black_symbol", "white_ground", "circular", "black_bar", "valid(37)", "d1a7", "class(37)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "white_ground", "circular", "valid(38)", "d1a6", "class(38)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "white_ground", "circular", "valid(38)", "d1a6", "class(38)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "black_symbol", "white_ground", "circular", "black_bar", "valid(38)", "d1a6", "class(38)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "white_ground", "circular", "valid(39)", "d2a2", "class(39)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "white_ground", "circular", "valid(39)", "d2a2", "class(39)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "black_symbol", "white_ground", "circular", "black_bar", "valid(39)", "d2a2", "class(39)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "white_ground", "circular", "valid(40)", "d2a1", "class(40)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "white_ground", "circular", "valid(40)", "d2a1", "class(40)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "black_symbol", "white_ground", "circular", "black_bar", "valid(40)", "d2a1", "class(40)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "black_symbol", "white_ground", "circular", "black_bar", "symbol_overtaking", "valid(42)", "class(42)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_ground", "circular", "black_bar", "symbol_overtaking", "white_symbol", "valid(42)", "class(42)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "black_symbol", "white_ground", "circular", "black_bar", "symbol_overtakinggoods", "valid(43)", "class(43)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_ground", "circular", "black_bar", "symbol_overtakinggoods", "white_symbol", "valid(43)", "class(43)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "white_ground", "circular", "valid(41)", "d3", "class(41)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "white_ground", "circular", "valid(41)", "d3", "class(41)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "black_symbol", "white_ground", "circular", "black_bar", "valid(41)", "d3", "class(41)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "white_ground", "circular", "valid(11)", "symbol_overtakinggoods", "class(11)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "white_ground", "circular", "valid(10)", "symbol_overtaking", "class(10)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "white_ground", "circular", "valid(9)", "symbol_speed120", "class(9)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "white_ground", "circular", "valid(9)", "symbol_speed120", "class(9)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "white_ground", "circular", "valid(8)", "symbol_speed100", "class(8)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "white_ground", "circular", "valid(8)", "symbol_speed100", "class(8)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "black_symbol", "white_ground", "circular", "symbol_speed80", "valid(7)", "black_bar", "class(7)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_ground", "circular", "symbol_speed80", "valid(7)", "black_bar", "white_symbol", "class(7)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "white_ground", "circular", "valid(6)", "symbol_speed80", "class(6)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "white_ground", "circular", "valid(6)", "symbol_speed80", "class(6)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "white_ground", "circular", "valid(5)", "symbol_speed70", "class(5)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "white_ground", "circular", "valid(5)", "symbol_speed70", "class(5)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "white_ground", "circular", "valid(4)", "symbol_speed60", "class(4)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "white_ground", "circular", "valid(4)", "symbol_speed60", "class(4)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "white_ground", "circular", "valid(3)", "symbol_speed50", "class(3)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "white_ground", "circular", "valid(3)", "symbol_speed50", "class(3)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "white_ground", "circular", "valid(2)", "symbol_speed30", "class(2)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "white_ground", "circular", "valid(2)", "symbol_speed30", "class(2)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "white_ground", "circular", "valid(17)", "symbol_noentrygoods", "class(17)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "white_ground", "valid(1)", "symbol_speed20", "circular", "class(1)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "white_ground", "valid(1)", "symbol_speed20", "circular", "class(1)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "black_symbol", "yellow_ground", "circular", "black_bar", "symbol_overtaking", "valid(42)", "class(42)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "yellow_ground", "circular", "black_bar", "symbol_overtaking", "white_symbol", "valid(42)", "class(42)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "black_symbol", "yellow_ground", "circular", "black_bar", "symbol_overtakinggoods", "valid(43)", "class(43)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "yellow_ground", "circular", "black_bar", "symbol_overtakinggoods", "white_symbol", "valid(43)", "class(43)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "yellow_ground", "circular", "valid(4)", "symbol_speed60", "class(4)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "yellow_ground", "circular", "valid(4)", "symbol_speed60", "class(4)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "black_symbol", "yellow_ground", "circular", "symbol_speed80", "valid(7)", "black_bar", "class(7)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "yellow_ground", "circular", "symbol_speed80", "valid(7)", "black_bar", "white_symbol", "class(7)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "yellow_ground", "circular", "valid(8)", "symbol_speed100", "class(8)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "yellow_ground", "circular", "valid(8)", "symbol_speed100", "class(8)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "yellow_ground", "circular", "valid(9)", "symbol_speed120", "class(9)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "yellow_ground", "circular", "valid(9)", "symbol_speed120", "class(9)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "yellow_ground", "circular", "valid(10)", "symbol_overtaking", "class(10)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "yellow_ground", "circular", "valid(11)", "symbol_overtakinggoods", "class(11)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "yellow_ground", "circular", "valid(17)", "symbol_noentrygoods", "class(17)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "yellow_ground", "circular", "valid(2)", "symbol_speed30", "class(2)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "yellow_ground", "circular", "valid(2)", "symbol_speed30", "class(2)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "yellow_ground", "circular", "valid(3)", "symbol_speed50", "class(3)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "yellow_ground", "circular", "valid(3)", "symbol_speed50", "class(3)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "yellow_ground", "circular", "valid(5)", "symbol_speed70", "class(5)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "yellow_ground", "circular", "valid(5)", "symbol_speed70", "class(5)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "yellow_ground", "circular", "valid(6)", "symbol_speed80", "class(6)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "yellow_ground", "circular", "valid(6)", "symbol_speed80", "class(6)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "yellow_ground", "valid(1)", "symbol_speed20", "circular", "class(1)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "yellow_ground", "valid(1)", "symbol_speed20", "circular", "class(1)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "blue", "circular", "border", "white_symbol", "valid(34)", "d1a5", "class(34)", "black_border"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "blue", "circular", "border", "white_border", "white_symbol", "valid(34)", "d1a5", "class(34)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "blue", "circular", "border", "white_symbol", "valid(34)", "d1a5", "class(34)", "black_border"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "blue", "circular", "border", "white_border", "white_symbol", "valid(34)", "d1a5", "class(34)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "blue", "circular", "border", "black_bar", "white_symbol", "valid(34)", "d1a5", "class(34)", "black_border"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "blue", "circular", "border", "black_bar", "white_border", "white_symbol", "valid(34)", "d1a5", "class(34)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "white_ground", "circular", "border", "valid(34)", "d1a5", "class(34)", "black_border"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "white_ground", "circular", "border", "white_border", "valid(34)", "d1a5", "class(34)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "white_ground", "circular", "border", "valid(34)", "d1a5", "class(34)", "black_border"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "white_ground", "circular", "border", "white_border", "valid(34)", "d1a5", "class(34)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "black_symbol", "white_ground", "circular", "border", "black_bar", "valid(34)", "d1a5", "class(34)", "black_border"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "black_symbol", "white_ground", "circular", "border", "black_bar", "white_border", "valid(34)", "d1a5", "class(34)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "blue", "circular", "border", "white_symbol", "valid(35)", "d1a4", "class(35)", "black_border"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "blue", "circular", "border", "white_border", "white_symbol", "valid(35)", "d1a4", "class(35)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "blue", "circular", "border", "white_symbol", "valid(35)", "d1a4", "class(35)", "black_border"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "blue", "circular", "border", "white_border", "white_symbol", "valid(35)", "d1a4", "class(35)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "blue", "circular", "border", "black_bar", "white_symbol", "valid(35)", "d1a4", "class(35)", "black_border"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "blue", "circular", "border", "black_bar", "white_border", "white_symbol", "valid(35)", "d1a4", "class(35)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "white_ground", "circular", "border", "valid(35)", "d1a4", "class(35)", "black_border"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "white_ground", "circular", "border", "white_border", "valid(35)", "d1a4", "class(35)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "white_ground", "circular", "border", "valid(35)", "d1a4", "class(35)", "black_border"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "white_ground", "circular", "border", "white_border", "valid(35)", "d1a4", "class(35)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "black_symbol", "white_ground", "circular", "border", "black_bar", "valid(35)", "d1a4", "class(35)", "black_border"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "black_symbol", "white_ground", "circular", "border", "black_bar", "white_border", "valid(35)", "d1a4", "class(35)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "blue", "circular", "border", "white_symbol", "valid(36)", "d1a1", "class(36)", "black_border"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "blue", "circular", "border", "white_border", "white_symbol", "valid(36)", "d1a1", "class(36)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "blue", "circular", "border", "white_symbol", "valid(36)", "d1a1", "class(36)", "black_border"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "blue", "circular", "border", "white_border", "white_symbol", "valid(36)", "d1a1", "class(36)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "blue", "circular", "border", "black_bar", "white_symbol", "valid(36)", "d1a1", "class(36)", "black_border"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "blue", "circular", "border", "black_bar", "white_border", "white_symbol", "valid(36)", "d1a1", "class(36)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "white_ground", "circular", "border", "valid(36)", "d1a1", "class(36)", "black_border"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "white_ground", "circular", "border", "white_border", "valid(36)", "d1a1", "class(36)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "white_ground", "circular", "border", "valid(36)", "d1a1", "class(36)", "black_border"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "white_ground", "circular", "border", "white_border", "valid(36)", "d1a1", "class(36)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "black_symbol", "white_ground", "circular", "border", "black_bar", "valid(36)", "d1a1", "class(36)", "black_border"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "black_symbol", "white_ground", "circular", "border", "black_bar", "white_border", "valid(36)", "d1a1", "class(36)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "blue", "circular", "border", "white_symbol", "valid(37)", "d1a7", "class(37)", "black_border"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "blue", "circular", "border", "white_border", "white_symbol", "valid(37)", "d1a7", "class(37)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "blue", "circular", "border", "white_symbol", "valid(37)", "d1a7", "class(37)", "black_border"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "blue", "circular", "border", "white_border", "white_symbol", "valid(37)", "d1a7", "class(37)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "blue", "circular", "border", "black_bar", "white_symbol", "valid(37)", "d1a7", "class(37)", "black_border"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "blue", "circular", "border", "black_bar", "white_border", "white_symbol", "valid(37)", "d1a7", "class(37)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "white_ground", "circular", "border", "valid(37)", "d1a7", "class(37)", "black_border"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "white_ground", "circular", "border", "white_border", "valid(37)", "d1a7", "class(37)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "white_ground", "circular", "border", "valid(37)", "d1a7", "class(37)", "black_border"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "white_ground", "circular", "border", "white_border", "valid(37)", "d1a7", "class(37)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "black_symbol", "white_ground", "circular", "border", "black_bar", "valid(37)", "d1a7", "class(37)", "black_border"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "black_symbol", "white_ground", "circular", "border", "black_bar", "white_border", "valid(37)", "d1a7", "class(37)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "blue", "circular", "border", "white_symbol", "valid(38)", "d1a6", "class(38)", "black_border"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "blue", "circular", "border", "white_border", "white_symbol", "valid(38)", "d1a6", "class(38)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "blue", "circular", "border", "white_symbol", "valid(38)", "d1a6", "class(38)", "black_border"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "blue", "circular", "border", "white_border", "white_symbol", "valid(38)", "d1a6", "class(38)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "blue", "circular", "border", "black_bar", "white_symbol", "valid(38)", "d1a6", "class(38)", "black_border"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "blue", "circular", "border", "black_bar", "white_border", "white_symbol", "valid(38)", "d1a6", "class(38)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "white_ground", "circular", "border", "valid(38)", "d1a6", "class(38)", "black_border"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "white_ground", "circular", "border", "white_border", "valid(38)", "d1a6", "class(38)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "white_ground", "circular", "border", "valid(38)", "d1a6", "class(38)", "black_border"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "white_ground", "circular", "border", "white_border", "valid(38)", "d1a6", "class(38)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "black_symbol", "white_ground", "circular", "border", "black_bar", "valid(38)", "d1a6", "class(38)", "black_border"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "black_symbol", "white_ground", "circular", "border", "black_bar", "white_border", "valid(38)", "d1a6", "class(38)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "blue", "circular", "border", "white_symbol", "valid(39)", "d2a2", "class(39)", "black_border"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "blue", "circular", "border", "white_border", "white_symbol", "valid(39)", "d2a2", "class(39)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "blue", "circular", "border", "white_symbol", "valid(39)", "d2a2", "class(39)", "black_border"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "blue", "circular", "border", "white_border", "white_symbol", "valid(39)", "d2a2", "class(39)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "blue", "circular", "border", "black_bar", "white_symbol", "valid(39)", "d2a2", "class(39)", "black_border"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "blue", "circular", "border", "black_bar", "white_border", "white_symbol", "valid(39)", "d2a2", "class(39)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "white_ground", "circular", "border", "valid(39)", "d2a2", "class(39)", "black_border"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "white_ground", "circular", "border", "white_border", "valid(39)", "d2a2", "class(39)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "white_ground", "circular", "border", "valid(39)", "d2a2", "class(39)", "black_border"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "white_ground", "circular", "border", "white_border", "valid(39)", "d2a2", "class(39)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "black_symbol", "white_ground", "circular", "border", "black_bar", "valid(39)", "d2a2", "class(39)", "black_border"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "black_symbol", "white_ground", "circular", "border", "black_bar", "white_border", "valid(39)", "d2a2", "class(39)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "blue", "circular", "border", "white_symbol", "valid(40)", "d2a1", "class(40)", "black_border"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "blue", "circular", "border", "white_border", "white_symbol", "valid(40)", "d2a1", "class(40)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "blue", "circular", "border", "white_symbol", "valid(40)", "d2a1", "class(40)", "black_border"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "blue", "circular", "border", "white_border", "white_symbol", "valid(40)", "d2a1", "class(40)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "blue", "circular", "border", "black_bar", "white_symbol", "valid(40)", "d2a1", "class(40)", "black_border"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "blue", "circular", "border", "black_bar", "white_border", "white_symbol", "valid(40)", "d2a1", "class(40)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "white_ground", "circular", "border", "valid(40)", "d2a1", "class(40)", "black_border"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "white_ground", "circular", "border", "white_border", "valid(40)", "d2a1", "class(40)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "white_ground", "circular", "border", "valid(40)", "d2a1", "class(40)", "black_border"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "white_ground", "circular", "border", "white_border", "valid(40)", "d2a1", "class(40)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "black_symbol", "white_ground", "circular", "border", "black_bar", "valid(40)", "d2a1", "class(40)", "black_border"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "black_symbol", "white_ground", "circular", "border", "black_bar", "white_border", "valid(40)", "d2a1", "class(40)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "blue", "circular", "border", "white_symbol", "valid(41)", "d3", "class(41)", "black_border"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "blue", "circular", "border", "white_border", "white_symbol", "valid(41)", "d3", "class(41)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "blue", "circular", "border", "white_symbol", "valid(41)", "d3", "class(41)", "black_border"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "blue", "circular", "border", "white_border", "white_symbol", "valid(41)", "d3", "class(41)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "blue", "circular", "border", "black_bar", "white_symbol", "valid(41)", "d3", "class(41)", "black_border"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "blue", "circular", "border", "black_bar", "white_border", "white_symbol", "valid(41)", "d3", "class(41)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "white_ground", "circular", "border", "valid(41)", "d3", "class(41)", "black_border"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "white_ground", "circular", "border", "white_border", "valid(41)", "d3", "class(41)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "white_ground", "circular", "border", "valid(41)", "d3", "class(41)", "black_border"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "white_ground", "circular", "border", "white_border", "valid(41)", "d3", "class(41)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "black_symbol", "white_ground", "circular", "border", "black_bar", "valid(41)", "d3", "class(41)", "black_border"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "black_symbol", "white_ground", "circular", "border", "black_bar", "white_border", "valid(41)", "d3", "class(41)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "yellow_ground", "circular", "border", "valid(17)", "symbol_noentrygoods", "class(17)", "black_border"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "yellow_ground", "circular", "border", "white_border", "valid(17)", "symbol_noentrygoods", "class(17)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "white_ground", "circular", "border", "valid(17)", "symbol_noentrygoods", "class(17)", "black_border"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "white_ground", "circular", "border", "white_border", "valid(17)", "symbol_noentrygoods", "class(17)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "yellow_ground", "circular", "border", "valid(10)", "symbol_overtaking", "class(10)", "black_border"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "yellow_ground", "circular", "border", "valid(10)", "symbol_overtaking", "white_border", "class(10)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "white_ground", "circular", "border", "valid(10)", "symbol_overtaking", "class(10)", "black_border"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "white_ground", "circular", "border", "valid(10)", "symbol_overtaking", "white_border", "class(10)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "yellow_ground", "circular", "border", "valid(11)", "symbol_overtakinggoods", "class(11)", "black_border"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "yellow_ground", "circular", "border", "valid(11)", "symbol_overtakinggoods", "white_border", "class(11)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "white_ground", "circular", "border", "valid(11)", "symbol_overtakinggoods", "class(11)", "black_border"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "white_ground", "circular", "border", "valid(11)", "symbol_overtakinggoods", "white_border", "class(11)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "yellow_ground", "circular", "border", "valid(9)", "symbol_speed120", "class(9)", "black_border"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "yellow_ground", "circular", "border", "valid(9)", "symbol_speed120", "white_border", "class(9)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "yellow_ground", "circular", "border", "valid(9)", "symbol_speed120", "class(9)", "black_border"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "yellow_ground", "circular", "border", "valid(9)", "symbol_speed120", "white_border", "class(9)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "white_ground", "circular", "border", "valid(9)", "symbol_speed120", "class(9)", "black_border"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "white_ground", "circular", "border", "valid(9)", "symbol_speed120", "white_border", "class(9)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "white_ground", "circular", "border", "valid(9)", "symbol_speed120", "class(9)", "black_border"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "white_ground", "circular", "border", "valid(9)", "symbol_speed120", "white_border", "class(9)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "yellow_ground", "circular", "border", "valid(8)", "symbol_speed100", "class(8)", "black_border"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "yellow_ground", "circular", "border", "valid(8)", "symbol_speed100", "white_border", "class(8)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "yellow_ground", "circular", "border", "valid(8)", "symbol_speed100", "class(8)", "black_border"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "yellow_ground", "circular", "border", "valid(8)", "symbol_speed100", "white_border", "class(8)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "white_ground", "circular", "border", "valid(8)", "symbol_speed100", "class(8)", "black_border"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "white_ground", "circular", "border", "valid(8)", "symbol_speed100", "white_border", "class(8)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "white_ground", "circular", "border", "valid(8)", "symbol_speed100", "class(8)", "black_border"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "white_ground", "circular", "border", "valid(8)", "symbol_speed100", "white_border", "class(8)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "yellow_ground", "circular", "valid(6)", "symbol_speed80", "border", "class(6)", "black_border"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "yellow_ground", "circular", "valid(6)", "symbol_speed80", "border", "white_border", "class(6)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "yellow_ground", "circular", "valid(6)", "symbol_speed80", "border", "class(6)", "black_border"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "yellow_ground", "circular", "valid(6)", "symbol_speed80", "border", "white_border", "class(6)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "white_ground", "circular", "valid(6)", "symbol_speed80", "border", "class(6)", "black_border"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "white_ground", "circular", "valid(6)", "symbol_speed80", "border", "white_border", "class(6)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "white_ground", "circular", "valid(6)", "symbol_speed80", "border", "class(6)", "black_border"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "white_ground", "circular", "valid(6)", "symbol_speed80", "border", "white_border", "class(6)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "yellow_ground", "circular", "valid(5)", "symbol_speed70", "border", "class(5)", "black_border"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "yellow_ground", "circular", "valid(5)", "symbol_speed70", "border", "white_border", "class(5)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "yellow_ground", "circular", "valid(5)", "symbol_speed70", "border", "class(5)", "black_border"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "yellow_ground", "circular", "valid(5)", "symbol_speed70", "border", "white_border", "class(5)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "white_ground", "circular", "valid(5)", "symbol_speed70", "border", "class(5)", "black_border"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "white_ground", "circular", "valid(5)", "symbol_speed70", "border", "white_border", "class(5)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "white_ground", "circular", "valid(5)", "symbol_speed70", "border", "class(5)", "black_border"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "white_ground", "circular", "valid(5)", "symbol_speed70", "border", "white_border", "class(5)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "yellow_ground", "circular", "valid(4)", "symbol_speed60", "border", "class(4)", "black_border"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "yellow_ground", "circular", "valid(4)", "symbol_speed60", "border", "white_border", "class(4)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "yellow_ground", "circular", "valid(4)", "symbol_speed60", "border", "class(4)", "black_border"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "yellow_ground", "circular", "valid(4)", "symbol_speed60", "border", "white_border", "class(4)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "white_ground", "circular", "valid(4)", "symbol_speed60", "border", "class(4)", "black_border"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "white_ground", "circular", "valid(4)", "symbol_speed60", "border", "white_border", "class(4)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "white_ground", "circular", "valid(4)", "symbol_speed60", "border", "class(4)", "black_border"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "white_ground", "circular", "valid(4)", "symbol_speed60", "border", "white_border", "class(4)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "yellow_ground", "circular", "valid(3)", "symbol_speed50", "border", "class(3)", "black_border"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "yellow_ground", "circular", "valid(3)", "symbol_speed50", "border", "white_border", "class(3)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "yellow_ground", "circular", "valid(3)", "symbol_speed50", "border", "class(3)", "black_border"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "yellow_ground", "circular", "valid(3)", "symbol_speed50", "border", "white_border", "class(3)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "white_ground", "circular", "valid(3)", "symbol_speed50", "border", "class(3)", "black_border"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "white_ground", "circular", "valid(3)", "symbol_speed50", "border", "white_border", "class(3)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "white_ground", "circular", "valid(3)", "symbol_speed50", "border", "class(3)", "black_border"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "white_ground", "circular", "valid(3)", "symbol_speed50", "border", "white_border", "class(3)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "yellow_ground", "circular", "valid(2)", "symbol_speed30", "border", "class(2)", "black_border"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "yellow_ground", "circular", "valid(2)", "symbol_speed30", "border", "white_border", "class(2)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "yellow_ground", "circular", "valid(2)", "symbol_speed30", "border", "class(2)", "black_border"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "yellow_ground", "circular", "valid(2)", "symbol_speed30", "border", "white_border", "class(2)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "white_ground", "circular", "valid(2)", "symbol_speed30", "border", "class(2)", "black_border"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "white_ground", "circular", "valid(2)", "symbol_speed30", "border", "white_border", "class(2)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "white_ground", "circular", "valid(2)", "symbol_speed30", "border", "class(2)", "black_border"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "white_ground", "circular", "valid(2)", "symbol_speed30", "border", "white_border", "class(2)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "yellow_ground", "valid(1)", "symbol_speed20", "circular", "border", "class(1)", "black_border"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "yellow_ground", "valid(1)", "symbol_speed20", "circular", "border", "white_border", "class(1)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "yellow_ground", "valid(1)", "symbol_speed20", "circular", "border", "class(1)", "black_border"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "yellow_ground", "valid(1)", "symbol_speed20", "circular", "border", "white_border", "class(1)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "white_ground", "valid(1)", "symbol_speed20", "circular", "border", "class(1)", "black_border"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "white_ground", "valid(1)", "symbol_speed20", "circular", "border", "white_border", "class(1)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "white_ground", "valid(1)", "symbol_speed20", "circular", "border", "class(1)", "black_border"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "white_ground", "valid(1)", "symbol_speed20", "circular", "border", "white_border", "class(1)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "red_border", "blue", "circular", "border", "white_symbol", "valid(34)", "d1a5", "class(34)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "red_border", "blue", "circular", "border", "white_symbol", "valid(34)", "d1a5", "class(34)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "red_border", "blue", "circular", "border", "black_bar", "white_symbol", "valid(34)", "d1a5", "class(34)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "white_ground", "red_border", "circular", "border", "valid(34)", "d1a5", "class(34)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "white_ground", "red_border", "circular", "border", "valid(34)", "d1a5", "class(34)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "black_symbol", "white_ground", "red_border", "circular", "border", "black_bar", "valid(34)", "d1a5", "class(34)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "red_border", "blue", "circular", "border", "white_symbol", "valid(35)", "d1a4", "class(35)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "red_border", "blue", "circular", "border", "white_symbol", "valid(35)", "d1a4", "class(35)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "red_border", "blue", "circular", "border", "black_bar", "white_symbol", "valid(35)", "d1a4", "class(35)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "white_ground", "red_border", "circular", "border", "valid(35)", "d1a4", "class(35)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "white_ground", "red_border", "circular", "border", "valid(35)", "d1a4", "class(35)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "black_symbol", "white_ground", "red_border", "circular", "border", "black_bar", "valid(35)", "d1a4", "class(35)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "red_border", "blue", "circular", "border", "white_symbol", "valid(36)", "d1a1", "class(36)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "red_border", "blue", "circular", "border", "white_symbol", "valid(36)", "d1a1", "class(36)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "red_border", "blue", "circular", "border", "black_bar", "white_symbol", "valid(36)", "d1a1", "class(36)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "white_ground", "red_border", "circular", "border", "valid(36)", "d1a1", "class(36)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "white_ground", "red_border", "circular", "border", "valid(36)", "d1a1", "class(36)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "black_symbol", "white_ground", "red_border", "circular", "border", "black_bar", "valid(36)", "d1a1", "class(36)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "red_border", "blue", "circular", "border", "white_symbol", "valid(37)", "d1a7", "class(37)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "red_border", "blue", "circular", "border", "white_symbol", "valid(37)", "d1a7", "class(37)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "red_border", "blue", "circular", "border", "black_bar", "white_symbol", "valid(37)", "d1a7", "class(37)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "white_ground", "red_border", "circular", "border", "valid(37)", "d1a7", "class(37)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "white_ground", "red_border", "circular", "border", "valid(37)", "d1a7", "class(37)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "black_symbol", "white_ground", "red_border", "circular", "border", "black_bar", "valid(37)", "d1a7", "class(37)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "red_border", "blue", "circular", "border", "white_symbol", "valid(38)", "d1a6", "class(38)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "red_border", "blue", "circular", "border", "white_symbol", "valid(38)", "d1a6", "class(38)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "red_border", "blue", "circular", "border", "black_bar", "white_symbol", "valid(38)", "d1a6", "class(38)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "white_ground", "red_border", "circular", "border", "valid(38)", "d1a6", "class(38)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "white_ground", "red_border", "circular", "border", "valid(38)", "d1a6", "class(38)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "black_symbol", "white_ground", "red_border", "circular", "border", "black_bar", "valid(38)", "d1a6", "class(38)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "red_border", "blue", "circular", "border", "white_symbol", "valid(39)", "d2a2", "class(39)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "red_border", "blue", "circular", "border", "white_symbol", "valid(39)", "d2a2", "class(39)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "red_border", "blue", "circular", "border", "black_bar", "white_symbol", "valid(39)", "d2a2", "class(39)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "white_ground", "red_border", "circular", "border", "valid(39)", "d2a2", "class(39)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "white_ground", "red_border", "circular", "border", "valid(39)", "d2a2", "class(39)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "black_symbol", "white_ground", "red_border", "circular", "border", "black_bar", "valid(39)", "d2a2", "class(39)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "red_border", "blue", "circular", "border", "white_symbol", "valid(40)", "d2a1", "class(40)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "red_border", "blue", "circular", "border", "white_symbol", "valid(40)", "d2a1", "class(40)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "red_border", "blue", "circular", "border", "black_bar", "white_symbol", "valid(40)", "d2a1", "class(40)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "white_ground", "red_border", "circular", "border", "valid(40)", "d2a1", "class(40)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "white_ground", "red_border", "circular", "border", "valid(40)", "d2a1", "class(40)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "black_symbol", "white_ground", "red_border", "circular", "border", "black_bar", "valid(40)", "d2a1", "class(40)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "red_border", "blue", "circular", "border", "white_symbol", "valid(41)", "d3", "class(41)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "red_border", "blue", "circular", "border", "white_symbol", "valid(41)", "d3", "class(41)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "red_border", "blue", "circular", "border", "black_bar", "white_symbol", "valid(41)", "d3", "class(41)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "white_ground", "red_border", "circular", "border", "valid(41)", "d3", "class(41)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "white_ground", "red_border", "circular", "border", "valid(41)", "d3", "class(41)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "black_symbol", "white_ground", "red_border", "circular", "border", "black_bar", "valid(41)", "d3", "class(41)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "red_border", "blue", "circular", "valid(3)", "symbol_speed50", "border", "class(3)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "red_border", "blue", "circular", "valid(3)", "symbol_speed50", "border", "class(3)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "yellow_ground", "red_border", "circular", "valid(3)", "symbol_speed50", "border", "class(3)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "yellow_ground", "red_border", "circular", "valid(3)", "symbol_speed50", "border", "class(3)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "white_ground", "red_border", "circular", "valid(3)", "symbol_speed50", "border", "class(3)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "white_ground", "red_border", "circular", "valid(3)", "symbol_speed50", "border", "class(3)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "red_border", "blue", "circular", "valid(4)", "symbol_speed60", "border", "class(4)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "red_border", "blue", "circular", "valid(4)", "symbol_speed60", "border", "class(4)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "yellow_ground", "red_border", "circular", "valid(4)", "symbol_speed60", "border", "class(4)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "yellow_ground", "red_border", "circular", "valid(4)", "symbol_speed60", "border", "class(4)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "white_ground", "red_border", "circular", "valid(4)", "symbol_speed60", "border", "class(4)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "white_ground", "red_border", "circular", "valid(4)", "symbol_speed60", "border", "class(4)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "red_border", "blue", "circular", "valid(5)", "symbol_speed70", "border", "class(5)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "red_border", "blue", "circular", "valid(5)", "symbol_speed70", "border", "class(5)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "yellow_ground", "red_border", "circular", "valid(5)", "symbol_speed70", "border", "class(5)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "yellow_ground", "red_border", "circular", "valid(5)", "symbol_speed70", "border", "class(5)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "white_ground", "red_border", "circular", "valid(5)", "symbol_speed70", "border", "class(5)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "white_ground", "red_border", "circular", "valid(5)", "symbol_speed70", "border", "class(5)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "red_border", "blue", "circular", "valid(6)", "symbol_speed80", "border", "class(6)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "red_border", "blue", "circular", "valid(6)", "symbol_speed80", "border", "class(6)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "yellow_ground", "red_border", "circular", "valid(6)", "symbol_speed80", "border", "class(6)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "yellow_ground", "red_border", "circular", "valid(6)", "symbol_speed80", "border", "class(6)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "white_ground", "red_border", "circular", "valid(6)", "symbol_speed80", "border", "class(6)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "white_ground", "red_border", "circular", "valid(6)", "symbol_speed80", "border", "class(6)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "red_border", "blue", "circular", "border", "valid(8)", "symbol_speed100", "class(8)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "red_border", "blue", "circular", "border", "valid(8)", "symbol_speed100", "class(8)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "yellow_ground", "red_border", "circular", "border", "valid(8)", "symbol_speed100", "class(8)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "yellow_ground", "red_border", "circular", "border", "valid(8)", "symbol_speed100", "class(8)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "white_ground", "red_border", "circular", "border", "valid(8)", "symbol_speed100", "class(8)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "white_ground", "red_border", "circular", "border", "valid(8)", "symbol_speed100", "class(8)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "red_border", "blue", "circular", "border", "valid(9)", "symbol_speed120", "class(9)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "red_border", "blue", "circular", "border", "valid(9)", "symbol_speed120", "class(9)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "yellow_ground", "red_border", "circular", "border", "valid(9)", "symbol_speed120", "class(9)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "yellow_ground", "red_border", "circular", "border", "valid(9)", "symbol_speed120", "class(9)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "white_ground", "red_border", "circular", "border", "valid(9)", "symbol_speed120", "class(9)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "white_ground", "red_border", "circular", "border", "valid(9)", "symbol_speed120", "class(9)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "red_border", "blue", "circular", "border", "valid(10)", "symbol_overtaking", "class(10)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "yellow_ground", "red_border", "circular", "border", "valid(10)", "symbol_overtaking", "class(10)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "white_ground", "red_border", "circular", "border", "valid(10)", "symbol_overtaking", "class(10)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "red_border", "blue", "circular", "border", "valid(11)", "symbol_overtakinggoods", "class(11)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "yellow_ground", "red_border", "circular", "border", "valid(11)", "symbol_overtakinggoods", "class(11)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "white_ground", "red_border", "circular", "border", "valid(11)", "symbol_overtakinggoods", "class(11)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "red_border", "blue", "circular", "border", "valid(17)", "symbol_noentrygoods", "class(17)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "white_ground", "red_border", "circular", "border", "valid(17)", "symbol_noentrygoods", "class(17)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "yellow_ground", "red_border", "circular", "border", "valid(17)", "symbol_noentrygoods", "class(17)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "red_border", "blue", "circular", "valid(2)", "symbol_speed30", "border", "class(2)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "red_border", "blue", "circular", "valid(2)", "symbol_speed30", "border", "class(2)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "yellow_ground", "red_border", "circular", "valid(2)", "symbol_speed30", "border", "class(2)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "yellow_ground", "red_border", "circular", "valid(2)", "symbol_speed30", "border", "class(2)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "white_ground", "red_border", "circular", "valid(2)", "symbol_speed30", "border", "class(2)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "white_ground", "red_border", "circular", "valid(2)", "symbol_speed30", "border", "class(2)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "red_border", "blue", "valid(1)", "symbol_speed20", "circular", "border", "class(1)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "red_border", "blue", "valid(1)", "symbol_speed20", "circular", "border", "class(1)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "yellow_ground", "red_border", "valid(1)", "symbol_speed20", "circular", "border", "class(1)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "yellow_ground", "red_border", "valid(1)", "symbol_speed20", "circular", "border", "class(1)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "white_ground", "red_border", "valid(1)", "symbol_speed20", "circular", "border", "class(1)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "white_ground", "red_border", "valid(1)", "symbol_speed20", "circular", "border", "class(1)"
+          ]
+        }
+      ]
+    }
+  ],
+  "Result": "SATISFIABLE",
+  "Models": {
+    "Number": 768,
+    "More": "no"
+  },
+  "Calls": 1,
+  "Time": {
+    "Total": 0.012,
+    "Solve": 0.002,
+    "Model": 0.000,
+    "Unsat": 0.000,
+    "CPU": 0.004
+  }
+}

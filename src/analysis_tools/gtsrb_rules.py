@@ -60,6 +60,7 @@ def B1(env):
         and (env["Yellow_Ground"] or env["White_Ground"])
         and env["Red_Border"]
         and not env["Symbol"]
+        #and not env["Bar"]
     )
 
 
@@ -90,6 +91,7 @@ def B3(env):
         env["Diamond_Shape"]
         and env["Yellow_Ground"]
         and env["White_Border"]
+        #and not env["Symbol"]
     )
 
 
