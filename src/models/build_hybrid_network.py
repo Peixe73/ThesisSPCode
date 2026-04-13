@@ -115,7 +115,7 @@ def create_trainer(
         }
         metric_functions_.update(**metric_wrappers.SelectCol.col_wise(classes, {
             'balanced_accuracy' : metric_wrappers.to_int(metrics.BinaryBalancedAccuracy),
-            'accuracy': metric_wrappers.to_int(torcheval.metrics.BinaryAccuracy),
+            #'accuracy': metric_wrappers.to_int(torcheval.metrics.BinaryAccuracy),
         }, reduction='min'))
         return metric_functions_
     val_metrics = MetricsRecorder(

@@ -5,7 +5,7 @@ if TYPE_CHECKING or DO_SCRIPT_IMPORTS:
     from core.studies import StudyManager
     from core.storage_management import StudyFileManager
 
-STUDY_NAME=f"gtsrb{__name__.split('.')[-1]}"
+STUDY_NAME=f"gtsrb_{__name__.split('.')[-1]}"
 
 DATASET_NAME = "gtsrb"
 
@@ -33,7 +33,7 @@ CLASS_COLS = [
 
 
 RN_WITH_WEIGHTS = {
-    "model_name" : "L[32]",
+    "model_name" : "L32",
     "model_path" : "storage/studies/gtsrb_rn"
 }
 
@@ -127,7 +127,7 @@ def make_configs():
                             make_config(
                                 RN_WITHOUT_WEIGHTS,
                                 pn_kwargs,
-                                {'skip_pn_eval': True,
+                                {#'skip_pn_eval': True,
                                  'rn_learning_rate': 0.001,
                                  'activation': 'relu'}
                             )))

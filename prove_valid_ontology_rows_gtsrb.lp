@@ -1,7 +1,3 @@
-% =========================================================
-% FEATURE SPACE
-% =========================================================
-
 1 { circular; diamond; triangular; octagonal } 1.
 1 { red_ground; white_ground; yellow_ground; blue } 1.
 
@@ -37,9 +33,7 @@
 0 { black_symbol; white_symbol } 1.
 
 
-% =========================================================
-% SYMBOL GROUP (MUTUALLY EXCLUSIVE)
-% =========================================================
+% Symbols
 
 1 {
     symbol_stop;
@@ -82,9 +76,7 @@
 :- not symbol, d3.
 
 
-% =========================================================
-% STRUCTURAL CONSTRAINTS
-% =========================================================
+% Structural constraints
 
 :- border, not 1 { black_border; red_border; white_border } 1.
 :- not border, black_border.
@@ -100,9 +92,7 @@
 :- not symbol, white_symbol.
 
 
-% =========================================================
-% HELPER LOGIC
-% =========================================================
+% Auxiliary logic
 
 symbol_condition :- black_symbol.
 symbol_condition :- not symbol.
@@ -120,9 +110,7 @@ start_prohibition :-
     blue, red_border, symbol_condition, bar_condition.
 
 
-% =========================================================
-% VALID CLASS DEFINITIONS
-% =========================================================
+% Valid Class Definitions
 
 % ---- Speed ----
 valid(1) :- circular, start_prohibition, symbol_speed20.
@@ -185,18 +173,14 @@ valid(40) :- d_base, d2a1.
 valid(41) :- d_base, d3.
 
 
-% =========================================================
-% EXACTLY ONE CLASS (GLOBAL CONSISTENCY)
-% =========================================================
+% Exactly only one class
 
 1 { class(1..43) } 1.
 
 :- class(C), not valid(C).
 
 
-% =========================================================
-% OUTPUT
-% =========================================================
+% Outputs
 
 #show class/1.
 #show valid/1.

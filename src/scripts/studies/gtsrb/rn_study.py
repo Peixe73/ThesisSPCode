@@ -32,12 +32,69 @@ CLASS_COLS = [
     "ClassId_40","ClassId_41","ClassId_42","ClassId_43",
 ]
 
-LAYER_CONFIGS = [[16], [32], [64], [16,16], [32,32]]
-
-
+CONFIGS=[
+    ('L16', [16]),
+    ('L32', [32]),
+    ('L64', [64]),
+    ('L16x2', [16, 16]),
+    ('L16L32', [16, 32]),
+    ('L32x2', [32, 32]),
+    ('L32L64', [32, 64]),
+    ('L64x2', [64, 64]),
+    ('L16x3', [16, 16, 16]),
+    ('L16L32x2', [16, 32, 32]),
+    ('L32x3', [32, 32, 32]),
+    ('L16L32L64', [16, 32, 64]),
+    ('L64x3', [64, 64, 64]),
+]
+"""
+def make_config(layer_sizes):
+    return {
+        "build_script": "rn_reasoning",
+        "build_args": [],
+        "build_kwargs": {
+            "valid_path": str(DATASET_PATH),
+            "feature_cols": FEATURE_COLS,
+            "class_cols": CLASS_COLS,
+            "dataset_size": 6400,
+            "batch_size": 64,
+            "layer_sizes": layer_sizes,
+            "base_seed": 42,
+        }
+    }
+"""
+    
+def make_config(layer_sizes):
+    return {
+        "valid_path": str(DATASET_PATH),
+        "feature_cols": FEATURE_COLS,
+        "class_cols": CLASS_COLS,
+        "dataset_size": 6400,
+        "batch_size": 64,
+        "layer_sizes": layer_sizes,
+        "base_seed": 42,
+    }
+"""
+def make_config(layer_sizes):
+    return TrainerConfig(
+        build_script = "rn_reasoning",
+        build_args = [],
+        build_kwargs={
+            "valid_path": str(DATASET_PATH),
+            "feature_cols": FEATURE_COLS,
+            "class_cols": CLASS_COLS,
+            "dataset_size": 6400,
+            "batch_size": 64,
+            "layer_sizes": layer_sizes,
+            "base_seed": 42,
+        }
+    )
+"""
+"""
 def create_trainer_config(layer_sizes):
     return TrainerConfig(
         build_script="rn_reasoning",
+        build_args=[],
         build_kwargs={
             "valid_path": str(DATASET_PATH),
             "feature_cols": FEATURE_COLS,
@@ -47,18 +104,19 @@ def create_trainer_config(layer_sizes):
             "batch_size": 64,
         }
     )
-
+"""
 
 def main():
     file_manager = StudyFileManager(STUDY_NAME)
     study_manager = StudyManager(file_manager, max_epochs=100)
 
-    def config_generator():
-        for layers in LAYER_CONFIGS:
-            yield f"L{layers}", create_trainer_config(layers)
+    configs = [
+        (name, [], make_config(layers))
+        for name, layers in CONFIGS
+    ]
 
     logger.info("Starting RN study...")
-    study_manager.run(config_generator())
+    study_manager.run_with_script("rn_reasoning", configs)
     logger.info("Done.")
 
 
