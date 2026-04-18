@@ -135,7 +135,9 @@ def make_configs():
                             make_config(
                                 RN_WITH_WEIGHTS,
                                 pn_kwargs,
-                                {}
+                                {
+                                    'activation': 'relu'
+                                }
                             )))
     return configs
 

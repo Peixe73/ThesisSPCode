@@ -104,23 +104,8 @@ class CSVImageDatasetGTSRB(CSVDataset):
                     # fallback: no crop
                     pass
 
-                # --- Make square (center pad) ---
-                _, h, w = image.shape
-                size = max(h, w)
-
-                pad_h = size - h
-                pad_w = size - w
-
-                padding = (
-                    pad_w // 2,
-                    pad_h // 2,
-                    pad_w - pad_w // 2,
-                    pad_h - pad_h // 2,
-                )
-
-                image = transforms.functional.pad(image, padding, fill=0)
-
-                # --- Resize ---
+                    ## --- Make square (center pad) --- # Older version did this
+                # --- Direct resize (DISTORTION, no padding) ---
                 image = transforms.functional.resize(image, self.image_size)
 
                 # --- Apply existing transforms ---
