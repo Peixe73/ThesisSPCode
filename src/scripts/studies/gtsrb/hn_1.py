@@ -129,14 +129,15 @@ def make_configs():
                                 pn_kwargs,
                                 {#'skip_pn_eval': True,
                                  'rn_learning_rate': 0.001,
-                                 'activation': 'relu'}
+                                 #'activation': 'relu'
+                                 }
                             )))
             configs.append((name, [],
                             make_config(
                                 RN_WITH_WEIGHTS,
                                 pn_kwargs,
                                 {
-                                    'activation': 'relu'
+                                    #'activation': 'relu'
                                 }
                             )))
     return configs

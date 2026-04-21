@@ -9,7 +9,7 @@ if TYPE_CHECKING or DO_SCRIPT_IMPORTS:
     from core.storage_management import ModelFileManager
     from core.datasets import dataset_wrappers
     from analysis_tools.perception_network import evaluate_concept_correspondence
-    from analysis_tools.xtrains_utils import CLASSES, SHORT_CLASSES, log_short_class_correspondence
+    from analysis_tools.gtsrb_utils import CLASSES, SHORT_CLASSES, log_short_class_correspondence
     import torch
     from core.datasets import get_dataset
     import logging
@@ -43,7 +43,7 @@ def main(options: Options):
             trainer = Trainer.load_checkpoint(file_manager, prefer='best')
             trainer.model.eval()
             model = trainer.model.perception_network
-            dataset = get_dataset('xtrains_with_concepts')
+            dataset = get_dataset('gtsrb_with_concepts')
 
             label_indices = dataset.get_column_references().get_label_indices(CLASSES)
             selected_dataset = dataset_wrappers.SelectCols(dataset, select_y=label_indices)

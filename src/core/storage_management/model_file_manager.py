@@ -7,7 +7,8 @@ from typing import Callable, Literal, Any, Optional, Self, assert_never, TYPE_CH
 import datetime
 import logging
 import torch
-from core.init import options
+#from core.init import options
+import core.init
 from core.util.strings import produce_filename_timestamp
 if TYPE_CHECKING:
     from core.training.trainer import TrainerConfig
@@ -53,7 +54,15 @@ class ModelFileManager:
             models_path : Optional['PathLike'] = None
         ) -> None:
         self.logger = module_logger
-        self.models_path = Path(models_path or options.models_path)
+        #self.models_path = Path(models_path or options.models_path)
+        opts = core.init.options
+
+        if models_path is not None:
+            self.models_path = Path(models_path)
+        elif opts is not None:
+            self.models_path = Path(opts.models_path)
+        else:
+            raise RuntimeError("Global options not initialized and no models_path provided")
         if not self.models_path.exists():
             self.logger.warning(f'Models path {self.models_path} does not exist, creating...')
             self.models_path.mkdir(parents=True)
