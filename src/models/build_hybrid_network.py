@@ -25,6 +25,69 @@ from core.training.trainer import TrainerConfig, ModelLoadPath
 
 logger = logging.getLogger(__name__)
 
+DEBUG_ONCE = True
+"""
+def init_weights(m):
+    if isinstance(m, nn.Linear):
+        nn.init.uniform_(m.weight, -0.01, 0.01)
+        nn.init.zeros_(m.bias)
+        
+"""
+def init_weights(m):
+    if isinstance(m, nn.Linear):
+        #nn.init.xavier_uniform_(m.weight)#, gain=0.1)
+        if m.out_features == 38:   # last PN layer
+            m.weight.data *= 0.1
+        #if m.bias is not None:
+        #    nn.init.zeros_(m.bias)
+
+
+class DebugHybridNetwork(HybridNetwork):
+    def forward(self, x):
+        print("\n====================")
+        print("FORWARD PASS DEBUG")
+        print("====================")
+
+        print("Input x shape:", x.shape)
+
+        concepts = self.perception_network(x)
+        
+        """
+        concepts.register_hook(
+            lambda grad: print("\n[GRADIENT - CONCEPTS]",
+                               "mean:", grad.abs().mean().item(),
+                               "min:", grad.min().item(),
+                               "max:", grad.max().item())
+        )
+        """
+        
+        print("\n[PN OUTPUT]")
+        print("Shape:", concepts.shape)
+        print("Mean:", concepts.mean().item())
+        print("Min:", concepts.min().item())
+        print("Max:", concepts.max().item())
+        print("Sample:", concepts[0][:5].detach().cpu().numpy())
+
+        out = self.reasoning_network(concepts)
+        
+        """
+        out.register_hook(  
+            lambda grad: print("\n[GRADIENT - FINAL CLASSIFICATIONS]",
+                               "mean:", grad.abs().mean().item(),
+                               "min:", grad.min().item(),
+                               "max:", grad.max().item())
+        )
+        """
+        
+        print("\n[RN OUTPUT]")
+        print("Shape:", out.shape)
+        print("Mean:", out.mean().item())
+        print("Min:", out.min().item())
+        print("Max:", out.max().item())
+        print("Sample:", out[0][:5].detach().cpu().numpy())
+
+        return out
+
 def modify_perception_network(
         perception_network : nn.Module,
         num_concepts : int,
@@ -70,21 +133,59 @@ def create_model(
         dropout_last_pn : Optional[float] = None,
     ) -> HybridNetwork:
     perception_network = Trainer.model_from_path_or_config(perception_network_config)
-    perception_network = modify_perception_network(perception_network, num_concepts, dropout_last_pn, activation)
+    #perception_network = modify_perception_network(perception_network, num_concepts, dropout_last_pn, activation)
     reasoning_network = Trainer.model_from_path_or_config(reasoning_network_config)
+    
     return HybridNetwork(
         perception_network=perception_network,
         reasoning_network=reasoning_network
     )
+    """
+    return DebugHybridNetwork(
+    perception_network=perception_network,
+    reasoning_network=reasoning_network
+
+)
+"""
 
 def pn_evaluator(model : 'HybridNetwork', x, y):
     return EvaluationResult(model.perception_network(x), y)
+    
+    """
+    preds = model.perception_network(x)
+
+    print("\n=== PN EVAL DEBUG ===")
+    print("Pred shape:", preds.shape)
+    print("GTSRB shape:", y.shape)
+
+    print("Pred sample:", preds[0][:5].detach().cpu().numpy())
+    print("GTSRB sample:", y[0][:5].detach().cpu().numpy())
+    
+
+    return EvaluationResult(preds, y)
+    """
+
+def debug_evaluator(model, x, y):
+    global DEBUG_ONCE
+    if DEBUG_ONCE:
+        out = model(x)
+
+        print("\n=== FULL MODEL DEBUG ===")
+        print("y_pred shape:", out.shape)
+        print("y_true shape:", y.shape)
+
+        print("\nFirst sample:")
+        print("y_pred:", out[0][:10].detach().cpu().numpy())
+        print("y_true:", y[0][:10].detach().cpu().numpy())
+
+        return EvaluationResult(out, y)
+        DEBUG_ONCE = False
 
 def create_trainer(
         dataset_name : str,
         concept_dataset_name : str,
         concepts : list[str],
-        pre_trained_learning_rate : float = 0.00001,
+        pre_trained_learning_rate : float = 0.001,
         untrained_learning_rate : float = 0.001,
         rn_learning_rate : float | None = None,
         skip_pn_eval : bool = False,
@@ -121,7 +222,8 @@ def create_trainer(
     val_metrics = MetricsRecorder(
         identifier='val',
         metric_functions=metric_functions(),
-        dataset=dataset.for_validation
+        dataset=dataset.for_validation,
+        #evaluator=debug_evaluator
     )
     train_metrics = TrainingRecorder(
         metric_functions=metric_functions()
@@ -152,6 +254,20 @@ def create_trainer(
     objective = Maximize('val', 'balanced_accuracy', threshold=threshold)
 
     model = create_model(len(concepts), **kwargs)
+    
+    # Force Lazy layers in RN to initialize
+    """
+    with torch.no_grad():
+        dummy_input = torch.randn(1, 3, 128, 128)
+        model(dummy_input)
+    """
+    model.apply(init_weights)
+    
+    """
+    for name, param in model.named_parameters():
+        if "weight" in name:
+            print(name, param.mean().item(), param.std().item())
+    """
 
     def optimizer(_) -> torch.optim.Optimizer:
         pn = model.perception_network

@@ -65,7 +65,8 @@ class RandomReasoningDataset(Dataset):
             features, class_labels = self._sample_invalid()
             valid = 0.0
 
-        y = np.concatenate([[valid], class_labels]).astype(np.float32)
+        #y = np.concatenate([[valid], class_labels]).astype(np.float32)
+        y = np.concatenate([class_labels, [valid]]).astype(np.float32)
         x = torch.from_numpy(features)
         y = torch.from_numpy(y)
         return x, y

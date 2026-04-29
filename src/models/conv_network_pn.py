@@ -69,7 +69,7 @@ def make_model(
 
     logger.debug(f"\tOutput {num_outputs}->")
     layers.append(nn.Linear(in_features, num_outputs))
-    #If using BCEWithLogitsLoss, we should not apply sigmoid here, as it is included in the loss function.
+    # If using BCEWithLogitsLoss, we should not apply sigmoid here, as it is included in the loss function.
     # If we apply it here, it will cause issues with the loss function and metrics.
     layers.append(nn.Sigmoid())
     if dropout_last_layer is not None:

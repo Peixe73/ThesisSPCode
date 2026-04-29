@@ -68,6 +68,8 @@ def make_model(
 
     logger.debug(f"\tOutput {num_outputs}->")
     layers.append(nn.Linear(in_features, num_outputs))
+    #Batch Normalization
+    layers.append(nn.BatchNorm1d(num_outputs))
     layers.append(nn.Sigmoid())
     if dropout_last_layer is not None:
         layers.append(nn.Dropout(dropout_last_layer))

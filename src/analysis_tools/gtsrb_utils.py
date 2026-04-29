@@ -85,7 +85,7 @@ def log_short_class_correspondence(logger: logging.Logger):
     logger.info('Concept names have been shortened for convenience:\n' +
                 ('\n'.join(correspondence)))
 
-
+# Needs update
 def class_to_manchester_assertion(cls: str, negate: bool = False) -> str:
     prefix = "__input__ Type: "
     negation = "not " if negate else ""
@@ -97,7 +97,7 @@ def class_to_manchester_assertion(cls: str, negate: bool = False) -> str:
         raise ValueError(f"Unknown class/concept: {cls}")
     return f"{prefix}{negation}{concept}"
 
-
+# Needs Update
 def class_to_latex_cmd(cls: str):
     negate = False
     if cls.startswith('!'):
@@ -113,6 +113,7 @@ def class_to_latex_cmd(cls: str):
     return f"${cmd}$"
 
 
+#Needs update
 def make_order_from_attribution(attribution: list[str]):
     for c in attribution:
         if c not in SHORT_CONCEPTS:

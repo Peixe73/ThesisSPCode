@@ -123,6 +123,7 @@ def make_configs():
                 "conv_layers": conv,
                 "linear_layers": linear
             }
+            """ 
             configs.append((name + '_untRN', [],
                             make_config(
                                 RN_WITHOUT_WEIGHTS,
@@ -132,6 +133,7 @@ def make_configs():
                                  #'activation': 'relu'
                                  }
                             )))
+            """
             configs.append((name, [],
                             make_config(
                                 RN_WITH_WEIGHTS,

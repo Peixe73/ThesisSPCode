@@ -7,6 +7,7 @@ from core.datasets.csv_dataset import CSVDataset
 
 logger = logging.getLogger(__name__)
 
+# Isto é aquele CSV com 2 milhoes de linhas com apenas 768 válidas. Não convém usar isto diretamente.
 PATH = Path("data/gtsrb_ontology_Final.csv")
 SPLIT = (1.0, 0.0)
 

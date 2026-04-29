@@ -18,6 +18,7 @@ logger = logging.getLogger("RN_Reasoning")
 DEBUG_DIR = Path("reasoning_csvs")
 DEBUG_DIR.mkdir(exist_ok=True, parents=True)
 
+"""
 def create_model(layer_sizes: list[int], num_outputs: int) -> nn.Module:
     layers = []
     for size in layer_sizes:
@@ -25,6 +26,22 @@ def create_model(layer_sizes: list[int], num_outputs: int) -> nn.Module:
         layers.append(nn.ReLU())
 
     layers.append(nn.LazyLinear(num_outputs))
+    layers.append(nn.Sigmoid())
+
+    return nn.Sequential(*layers)
+"""
+
+def create_model(input_size: int, layer_sizes: list[int], num_outputs: int) -> nn.Module:
+    layers = []
+
+    in_features = input_size
+
+    for size in layer_sizes:
+        layers.append(nn.Linear(in_features, size))
+        layers.append(nn.ReLU())
+        in_features = size
+
+    layers.append(nn.Linear(in_features, num_outputs))
     layers.append(nn.Sigmoid())
 
     return nn.Sequential(*layers)
@@ -150,7 +167,7 @@ def create_trainer(
         metric_wrappers.SelectCol.col_wise(
             train_dataset,
             metrics_per_class,
-            reduction="min",   # gives global "balanced_accuracy"
+            reduction="min",   # gives a global "balanced_accuracy"
             out_dict=metrics
         )
 
@@ -165,7 +182,7 @@ def create_trainer(
 
 
     trainer = Trainer(
-        model=create_model(layer_sizes, num_outputs=1 + len(class_cols)),
+        model=create_model(38, layer_sizes, num_outputs=1 + len(class_cols)),
         loss_fn=MaskedBCELoss(),
         optimizer=torch.optim.Adam,
         training_set=train_dataset,
