@@ -137,8 +137,8 @@ def evaluate_concept_correspondence_on_set(
     figure_args = histogram.CreateFigureArgs()
     if not_normalized:
         figure_args.subplots_kw['sharex'] = 'row'
-    histogram.create_figure(mode='overlayed', args=figure_args).savefig(results_path.joinpath("densities_overlayed.png"))
-    histogram.create_figure(mode='stacked', args=figure_args).savefig(results_path.joinpath("densities_stacked.png"))
+    #histogram.create_figure(mode='overlayed', args=figure_args).savefig(results_path.joinpath("densities_overlayed.png"))
+    #histogram.create_figure(mode='stacked', args=figure_args).savefig(results_path.joinpath("densities_stacked.png"))
     histogram.create_figure_preds().savefig(results_path.joinpath("densities_preds.png"))
 
 def evaluate_concept_correspondence(

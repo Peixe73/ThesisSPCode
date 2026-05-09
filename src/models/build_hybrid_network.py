@@ -261,7 +261,7 @@ def create_trainer(
         dummy_input = torch.randn(1, 3, 128, 128)
         model(dummy_input)
     """
-    model.apply(init_weights)
+    #model.apply(init_weights)
     
     """
     for name, param in model.named_parameters():
