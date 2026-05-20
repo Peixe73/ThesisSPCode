@@ -23,7 +23,7 @@ if TYPE_CHECKING or DO_SCRIPT_IMPORTS:
 class Options:
     model_name: str = field(
         metadata=positional(str, help_="Name of the model to evaluate"))
-    with_training_set : bool = field(default=False,
+    with_training_set : bool = field(default=True,
         metadata=option(parse_bool, help_="Whether to evaluate on the training set as well."))
     expect_concepts : bool = field(default=True,
         metadata=option(parse_bool, help_="Whether to expect concepts in the dataset."))

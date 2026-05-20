@@ -101,6 +101,48 @@ register_datasets(
         #images_path=PATH.joinpath("train"),
         images_path=PATH,
         image_columns=[(IMAGE_COLUMN, path_getter)],
+        target=CLASS_COLS + CONCEPTS, #CLASSES + ALL_CONCEPTS, SIGNCLASS_BINARY +
+        features=[IMAGE_COLUMN],
+        #dtypes=DTYPES,
+        random_state=SEED
+    ),
+
+
+    # ----- CONCEPTS ONLY -----
+    gtsrb_concepts_only = CSVImageDatasetGTSRB(
+        csv_path=PATH.joinpath("gtsrb_concepts_filtered_bin.csv"),
+        #images_path=PATH.joinpath("train"),~
+        images_path=PATH,
+        image_columns=[(IMAGE_COLUMN, path_getter)],
+        target=CONCEPTS,
+        features=[IMAGE_COLUMN],
+        #dtypes=DTYPES,
+        random_state=SEED
+    ),
+)
+
+'''
+
+register_datasets(
+
+    # ----- CLASSES ONLY -----
+    gtsrb = CSVImageDatasetGTSRB(
+        csv_path=PATH.joinpath("gtsrb_concepts_filtered_bin.csv"),
+        #images_path=PATH.joinpath("train"),
+        images_path=PATH,
+        image_columns=[(IMAGE_COLUMN, path_getter)],
+        target=CLASS_COLS,#CLASSES,
+        features=[IMAGE_COLUMN],
+        #dtypes=DTYPES,
+        random_state=SEED
+    ),
+
+    # ----- CLASSES + CONCEPTS -----
+    gtsrb_with_concepts = CSVImageDatasetGTSRB(
+        csv_path=PATH.joinpath("gtsrb_concepts_filtered_bin.csv"),
+        #images_path=PATH.joinpath("train"),
+        images_path=PATH,
+        image_columns=[(IMAGE_COLUMN, path_getter)],
         target=SIGNCLASS_BINARY + CLASS_COLS + CONCEPTS, #CLASSES + ALL_CONCEPTS,
         features=[IMAGE_COLUMN],
         splits=(0.9,0.1),
@@ -131,4 +173,4 @@ register_datasets(
         #dtypes=DTYPES,
         random_state=SEED
     ),
-)
+)'''
