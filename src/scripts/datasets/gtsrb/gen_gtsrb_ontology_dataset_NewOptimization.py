@@ -18,7 +18,7 @@ spec = importlib.util.spec_from_file_location("gtsrb_rules", GENERATED_RULES_PAT
 gtsrb_rules = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(gtsrb_rules)
 
-PATH_OUT = Path("data/gtsrb_ontology.csv")
+PATH_OUT = Path("data/gtsrb_ontology_Valid_Final.csv")
 
 
 # ==========================================================
@@ -154,6 +154,29 @@ classid_rules = {
 
 classid_cols = list(classid_rules.keys())
 
+CLASS12_FORBIDDEN = set([
+    "Symbol_Stop",
+    "Symbol_NoEntryGoods",
+    "Symbol_Overtaking",
+    "Symbol_OvertakingGoods",
+    "Symbol_Speed20",
+    "Symbol_Speed30",
+    "Symbol_Speed50",
+    "Symbol_Speed60",
+    "Symbol_Speed70",
+    "Symbol_Speed80",
+    "Symbol_Speed100",
+    "Symbol_Speed120",
+    "D1a1",
+    "D1a4",
+    "D1a5",
+    "D1a6",
+    "D1a7",
+    "D2a1",
+    "D2a2",
+    "D3",
+])
+
 
 # ==========================================================
 # MAIN
@@ -224,6 +247,8 @@ def main():
                     if sym is not None:
                         symbol_tensor[sym] = 1
                         env[symbol_specific_names[sym]] = True
+                        
+                    selected_symbol = symbol_specific_names[sym] if sym is not None else None
 
                     class_values = torch.zeros(class_count, dtype=base.dtype)
 
@@ -242,8 +267,15 @@ def main():
                         and ((env["Symbol"] and (env["Black_Symbol"] + env["White_Symbol"] == 1))
                              or (not env["Symbol"] and (env["Black_Symbol"] + env["White_Symbol"] == 0)))
                     )
+                    
+                    is_class12 = classid_rules["ClassId_12"](env)
+                    
+                    class12_valid = (
+                        not is_class12
+                        or (selected_symbol is not None and selected_symbol not in CLASS12_FORBIDDEN)
+                    )
 
-                    valid = int(visual_valid and has_class)
+                    valid = int(visual_valid and has_class and class12_valid)
 
                     if valid:
 

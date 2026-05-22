@@ -35,10 +35,20 @@
 
 % Symbols
 
+warning_symbol_exception :-
+    triangular,
+    red_border,
+    white_ground.
+
+warning_symbol_exception :-
+    triangular,
+    red_border,
+    yellow_ground.
+
 1 {
     symbol_stop;
     symbol_noentrygoods;
-    symbol_overtaking;
+    symbol_overtaking;   
     symbol_overtakinggoods;
     symbol_speed20;
     symbol_speed30;
@@ -50,7 +60,8 @@
     symbol_speed120;
     d1a1; d1a4; d1a5; d1a6; d1a7;
     d2a1; d2a2; d3
-} 1 :- symbol.
+} 1 :- symbol,
+       not warning_symbol_exception.
 
 
 % If no symbol is present, none of the symbol atoms can appear
@@ -101,13 +112,13 @@ bar_condition :- not bar.
 bar_condition :- white_bar.
 
 start_prohibition :-
-    white_ground, symbol_condition, bar_condition.
+    white_ground, symbol_condition, bar_condition.%black_symbol, not bar.%white_bar.%bar_condition. %symbol_condition
 
 start_prohibition :-
-    yellow_ground, symbol_condition, bar_condition.
+    yellow_ground, symbol_condition, bar_condition.%black_symbol, not bar.%white_bar.%bar_condition. %symbol_condition
 
 start_prohibition :-
-    blue, red_border, symbol_condition, bar_condition.
+    blue, red_border, symbol_condition, bar_condition.%black_symbol, not bar.%white_bar.%bar_condition. %symbol_condition
 
 
 % Valid Class Definitions
@@ -116,7 +127,7 @@ start_prohibition :-
 valid(1) :- circular, start_prohibition, symbol_speed20.
 valid(2) :- circular, start_prohibition, symbol_speed30.
 valid(3) :- circular, start_prohibition, symbol_speed50.
-valid(4) :- circular, start_prohibition, symbol_speed60.
+valid(4) :- circular, start_prohibition, symbol_speed60. 
 valid(5) :- circular, start_prohibition, symbol_speed70.
 valid(6) :- circular, start_prohibition, symbol_speed80.
 
@@ -131,20 +142,40 @@ valid(10) :- circular, start_prohibition, symbol_overtaking, not bar.
 valid(11) :- circular, start_prohibition, symbol_overtakinggoods, not bar.
 
 % ---- Warning ----
-valid(12) :- triangular, symbol, red_border, white_ground.
-valid(12) :- triangular, symbol, red_border, yellow_ground.
+valid(12) :- triangular, symbol, red_border, white_ground, not bar, black_symbol.
+valid(12) :- triangular, symbol, red_border, yellow_ground, not bar, black_symbol.
+:- valid(12), symbol_stop.
+:- valid(12), symbol_noentrygoods.
+:- valid(12), symbol_overtaking.
+:- valid(12), symbol_overtakinggoods.
+:- valid(12), symbol_speed20.
+:- valid(12), symbol_speed30.
+:- valid(12), symbol_speed50.
+:- valid(12), symbol_speed60.
+:- valid(12), symbol_speed70.
+:- valid(12), symbol_speed80.
+:- valid(12), symbol_speed100.
+:- valid(12), symbol_speed120.
+:- valid(12), d1a1.
+:- valid(12), d1a4.
+:- valid(12), d1a5.
+:- valid(12), d1a6.
+:- valid(12), d1a7.
+:- valid(12), d2a1.
+:- valid(12), d2a2.
+:- valid(12), d3.
 
 % ---- Priority ----
-valid(13) :- diamond, yellow_ground, white_border.
+valid(13) :- diamond, yellow_ground, white_border, not symbol, not bar.
 
-valid(14) :- triangular, white_ground, red_border, not symbol.
-valid(14) :- triangular, yellow_ground, red_border, not symbol.
+valid(14) :- triangular, white_ground, red_border, not symbol, not bar.
+valid(14) :- triangular, yellow_ground, red_border, not symbol, not bar.
 
-valid(15) :- octagonal, red_ground, white_symbol, symbol_stop.
+valid(15) :- octagonal, red_ground, white_symbol, symbol_stop, not bar.
 
 % ---- General prohibition ----
-valid(16) :- circular, white_ground, red_border, not symbol.
-valid(16) :- circular, yellow_ground, red_border, not symbol.
+valid(16) :- circular, white_ground, red_border, not symbol, not bar.
+valid(16) :- circular, yellow_ground, red_border, not symbol, not bar.
 
 valid(17) :- circular, start_prohibition, symbol_noentrygoods, not bar.
 valid(18) :- circular, red_ground, not symbol, white_bar.
@@ -153,15 +184,15 @@ valid(18) :- circular, red_ground, not symbol, white_bar.
 valid(33) :- circular, white_ground, not border, black_bar, not symbol.
 valid(33) :- circular, yellow_ground, not border, black_bar, not symbol.
 
-valid(42) :- circular, white_ground, not border, black_bar, symbol_overtaking.
-valid(42) :- circular, yellow_ground, not border, black_bar, symbol_overtaking.
+valid(42) :- circular, white_ground, not border, black_bar, symbol_overtaking, black_symbol.
+valid(42) :- circular, yellow_ground, not border, black_bar, symbol_overtaking, black_symbol.
 
-valid(43) :- circular, white_ground, not border, black_bar, symbol_overtakinggoods.
-valid(43) :- circular, yellow_ground, not border, black_bar, symbol_overtakinggoods.
+valid(43) :- circular, white_ground, not border, black_bar, symbol_overtakinggoods, black_symbol.
+valid(43) :- circular, yellow_ground, not border, black_bar, symbol_overtakinggoods, black_symbol.
 
 % ---- Mandatory / Directional ----
-d_base :- circular, blue, white_symbol.
-d_base :- circular, white_ground, black_symbol.
+d_base :- circular, blue, white_symbol, not border.
+d_base :- circular, white_ground, black_symbol, not border.
 
 valid(34) :- d_base, d1a5.
 valid(35) :- d_base, d1a4.

@@ -17,6 +17,8 @@ def A(env):
         and (env["White_Ground"] or env["Yellow_Ground"])
         and env["Red_Border"]
         and env["Symbol"]
+        and env["Black_Symbol"]
+        and not env["Bar"]
     )
 
 
@@ -60,7 +62,7 @@ def B1(env):
         and (env["Yellow_Ground"] or env["White_Ground"])
         and env["Red_Border"]
         and not env["Symbol"]
-        #and not env["Bar"]
+        and not env["Bar"]
     )
 
 
@@ -72,6 +74,7 @@ def B2a(env):
         and env["Red_Ground"]
         and env["White_Symbol"]
         and env["Symbol_Stop"]
+        and not env["Bar"]
     )
 
 
@@ -91,7 +94,8 @@ def B3(env):
         env["Diamond_Shape"]
         and env["Yellow_Ground"]
         and env["White_Border"]
-        #and not env["Symbol"]
+        and not env["Symbol"]
+        and not env["Bar"]
     )
 
 
@@ -144,6 +148,7 @@ def C2(env):
         and (env["White_Ground"] or env["Yellow_Ground"])
         and env["Red_Border"]
         and not env["Symbol"]
+        and not env["Bar"]
     )
 
 
@@ -225,6 +230,7 @@ def C17c(env):
         and not env["Border"]
         and env["Black_Bar"]
         and env["Symbol_Overtaking"]
+        and env["Black_Symbol"]
     )
 
 
@@ -235,6 +241,7 @@ def C17d(env):
         and not env["Border"]
         and env["Black_Bar"]
         and env["Symbol_OvertakingGoods"]
+        and env["Black_Symbol"]
     )
 
 
@@ -247,6 +254,7 @@ def D(env):
         env["Circular_Shape"]
         and ((env["Blue"] and env["White_Symbol"])
         or (env["White_Ground"] and env["Black_Symbol"]))
+        and not env["Border"]
     )
 
 
