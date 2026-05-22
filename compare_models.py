@@ -4,9 +4,7 @@ import pandas as pd
 clingo = pd.read_csv("clingo_models.csv")
 gen = pd.read_csv("data/gtsrb_ontology_Valid_Final.csv")
 
-# -----------------------------
-# 1. Normalize column names
-# -----------------------------
+# Normalize column names to match
 rename_map = {
     "Circular_Shape": "circular",
     "Diamond_Shape": "diamond",
@@ -56,9 +54,8 @@ rename_map = {
 
 gen = gen.rename(columns=rename_map)
 
-# -----------------------------
-# 2. Convert generator one-hot → class integer
-# -----------------------------
+
+# Extract class from generator
 class_cols = [c for c in gen.columns if c.startswith("ClassId_")]
 
 def extract_class(row):
@@ -68,47 +65,123 @@ def extract_class(row):
     return None
 
 gen["class"] = gen.apply(extract_class, axis=1)
-
-# Drop one-hot columns
 gen = gen.drop(columns=class_cols)
 
-# -----------------------------
-# 3. Normalize values to int
-# -----------------------------
+
+# Normalize numeric types
+
 for col in clingo.columns:
     if col in gen.columns:
         gen[col] = gen[col].astype(int)
 
-# Ensure clingo is also int
 for col in clingo.columns:
     clingo[col] = clingo[col].fillna(0).astype(int)
 
-# -----------------------------
-# 4. Create unique row keys
-# -----------------------------
-def row_key(row):
-    return tuple(row.values)
+# Feature columns only
+feature_cols = [c for c in clingo.columns if c != "class"]
 
-clingo["key"] = clingo.apply(row_key, axis=1)
-gen["key"] = gen.apply(row_key, axis=1)
+clingo_features = clingo[feature_cols].copy()
+gen_features = gen[feature_cols].copy()
 
-# -----------------------------
-# 5. Compare sets
-# -----------------------------
-clingo_set = set(clingo["key"])
-gen_set = set(gen["key"])
+# Build class maps
+clingo_class_map = dict(zip(
+    clingo_features.apply(tuple, axis=1),
+    clingo["class"]
+))
 
-only_clingo = clingo_set - gen_set
-only_gen = gen_set - clingo_set
+gen_class_map = dict(zip(
+    gen_features.apply(tuple, axis=1),
+    gen["class"]
+))
 
-print("Clingo models:", len(clingo_set))
-print("Generator rows:", len(gen_set))
+# Row matching helpers
+def row_key(df):
+    return df.apply(tuple, axis=1)
 
+clingo_keys = set(row_key(clingo_features))
+gen_keys = set(row_key(gen_features))
+
+only_clingo = clingo_keys - gen_keys
+only_gen = gen_keys - clingo_keys
+
+print("Clingo models:", len(clingo_keys))
+print("Generator rows:", len(gen_keys))
 print("Only in Clingo:", len(only_clingo))
 print("Only in Generator:", len(only_gen))
 
-# Save differences for inspection
+# Debug helper: best match
+def find_best_match(row, df):
+    best_idx = None
+    best_score = -1
+
+    for i, r in df.iterrows():
+        score = (r == row).sum()
+        if score > best_score:
+            best_score = score
+            best_idx = i
+
+    return best_idx, best_score
+
+
+def print_diff(a, b):
+    diffs = []
+    for col in a.index:
+        if a[col] != b[col]:
+            diffs.append((col, a[col], b[col]))
+
+    print("\nDIFFERENCES:")
+    for col, v1, v2 in diffs:
+        print(f"  {col:25s} clingo={v1}  gen={v2}")
+
+    print(f"Total mismatches: {len(diffs)}")
+
+
+# DETAILED CLINGO ONLY
+print("\n==============================")
+print("CLINGO ONLY (DETAILED)")
+print("==============================")
+
+for key in list(only_clingo)[:10]:
+
+    clingo_row = pd.Series(key, index=feature_cols)
+
+    best_idx, score = find_best_match(clingo_row, gen_features)
+    gen_row = gen_features.iloc[best_idx]
+
+    clingo_class = clingo_class_map.get(tuple(key), None)
+    gen_class = gen_class_map.get(tuple(gen_row.values), None)
+
+    print("\n--- CLINGO ROW ---")
+    print("best match score:", score)
+    print("clingo class:", clingo_class)
+    print("gen class:", gen_class)
+
+    print_diff(clingo_row, gen_row)
+
+# DETAILED GENERATOR ONLY
+print("\n==============================")
+print("GENERATOR ONLY (DETAILED)")
+print("==============================")
+
+for key in list(only_gen)[:10]:
+
+    gen_row = pd.Series(key, index=feature_cols)
+
+    best_idx, score = find_best_match(gen_row, clingo_features)
+    clingo_row = clingo_features.iloc[best_idx]
+
+    clingo_class = clingo_class_map.get(tuple(clingo_row.values), None)
+    gen_class = gen_class_map.get(tuple(key), None)
+
+    print("\n--- GENERATOR ROW ---")
+    print("best match score:", score)
+    print("clingo class:", clingo_class)
+    print("gen class:", gen_class)
+
+    print_diff(gen_row, clingo_row)
+
+# Save mismatch files
 pd.DataFrame(list(only_clingo)).to_csv("only_clingo.csv", index=False)
 pd.DataFrame(list(only_gen)).to_csv("only_generator.csv", index=False)
 
-print("Saved mismatch files.")
+print("\nSaved mismatch files.")

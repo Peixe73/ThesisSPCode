@@ -142,28 +142,25 @@ valid(10) :- circular, start_prohibition, symbol_overtaking, not bar.
 valid(11) :- circular, start_prohibition, symbol_overtakinggoods, not bar.
 
 % ---- Warning ----
-valid(12) :- triangular, symbol, red_border, white_ground, not bar, black_symbol.
-valid(12) :- triangular, symbol, red_border, yellow_ground, not bar, black_symbol.
-:- valid(12), symbol_stop.
-:- valid(12), symbol_noentrygoods.
-:- valid(12), symbol_overtaking.
-:- valid(12), symbol_overtakinggoods.
-:- valid(12), symbol_speed20.
-:- valid(12), symbol_speed30.
-:- valid(12), symbol_speed50.
-:- valid(12), symbol_speed60.
-:- valid(12), symbol_speed70.
-:- valid(12), symbol_speed80.
-:- valid(12), symbol_speed100.
-:- valid(12), symbol_speed120.
-:- valid(12), d1a1.
-:- valid(12), d1a4.
-:- valid(12), d1a5.
-:- valid(12), d1a6.
-:- valid(12), d1a7.
-:- valid(12), d2a1.
-:- valid(12), d2a2.
-:- valid(12), d3.
+%valid(12) :- triangular, symbol, red_border, white_ground, not bar, black_symbol.
+%valid(12) :- triangular, symbol, red_border, yellow_ground, not bar, black_symbol.
+ground_ok :- white_ground.
+ground_ok :- yellow_ground.
+
+valid(12) :-
+    triangular,
+    red_border,
+    ground_ok,
+    symbol,
+    black_symbol,
+    not bar,
+    1 { symbol_speed20; symbol_speed30; symbol_speed50;
+        symbol_speed60; symbol_speed70; symbol_speed80;
+        symbol_speed100; symbol_speed120;
+        symbol_overtaking; symbol_overtakinggoods;
+        symbol_noentrygoods; symbol_stop;
+        d1a1; d1a4; d1a5; d1a6; d1a7;
+        d2a1; d2a2; d3 } 1.
 
 % ---- Priority ----
 valid(13) :- diamond, yellow_ground, white_border, not symbol, not bar.

@@ -1,0 +1,5 @@
+clingo prove_valid_ontology_rows_gtsrb.lp 0 --outf=2 > models.json
+
+python3 clingo_to_csv.py
+
+python3 compare_models.py
