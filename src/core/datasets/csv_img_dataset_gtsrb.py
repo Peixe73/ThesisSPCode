@@ -30,6 +30,7 @@ class CSVImageDatasetGTSRB(CSVDataset):
         random_state=None,
         splits: float | tuple[float, float] = (0.7, 0.15),
         filter: Optional[Callable[['pd.Series'], bool]] = None,
+        use_test_set: bool = False,
 
         # GTSRB-specific
         roi_columns: tuple[str, str, str, str] = ("Roi.X1", "Roi.Y1", "Roi.X2", "Roi.Y2"),
@@ -42,7 +43,8 @@ class CSVImageDatasetGTSRB(CSVDataset):
             shuffle=shuffle,
             random_state=random_state,
             splits=splits,
-            filter=filter
+            filter=filter,
+            use_test_set=use_test_set,
         )
 
         self.images_path = Path(images_path)

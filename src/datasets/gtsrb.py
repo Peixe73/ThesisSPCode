@@ -85,39 +85,45 @@ register_datasets(
 
     # ----- CLASSES ONLY -----
     gtsrb = CSVImageDatasetGTSRB(
-        csv_path=PATH.joinpath("gtsrb_concepts_filtered_bin.csv"),
+        csv_path=PATH.joinpath("gtsrb_concepts_merged_12.csv"),
         #images_path=PATH.joinpath("train"),
         images_path=PATH,
         image_columns=[(IMAGE_COLUMN, path_getter)],
         target=CLASS_COLS,#CLASSES,
         features=[IMAGE_COLUMN],
         #dtypes=DTYPES,
-        random_state=SEED
+        random_state=SEED,
+        splits=(0.9,0.1),
+        use_test_set=False,
     ),
 
     # ----- CLASSES + CONCEPTS -----
     gtsrb_with_concepts = CSVImageDatasetGTSRB(
-        csv_path=PATH.joinpath("gtsrb_concepts_filtered_bin.csv"),
+        csv_path=PATH.joinpath("gtsrb_concepts_merged_12.csv"),
         #images_path=PATH.joinpath("train"),
         images_path=PATH,
         image_columns=[(IMAGE_COLUMN, path_getter)],
         target=CLASS_COLS + CONCEPTS, #CLASSES + ALL_CONCEPTS, SIGNCLASS_BINARY +
         features=[IMAGE_COLUMN],
         #dtypes=DTYPES,
-        random_state=SEED
+        random_state=SEED,
+        splits=(0.9,0.1),
+        use_test_set=False,
     ),
 
 
     # ----- CONCEPTS ONLY -----
     gtsrb_concepts_only = CSVImageDatasetGTSRB(
-        csv_path=PATH.joinpath("gtsrb_concepts_filtered_bin.csv"),
+        csv_path=PATH.joinpath("gtsrb_concepts_merged_12.csv"),
         #images_path=PATH.joinpath("train"),~
         images_path=PATH,
         image_columns=[(IMAGE_COLUMN, path_getter)],
         target=CONCEPTS,
         features=[IMAGE_COLUMN],
         #dtypes=DTYPES,
-        random_state=SEED
+        random_state=SEED,
+        splits=(0.9,0.1),
+        use_test_set=False,
     ),
 )
 

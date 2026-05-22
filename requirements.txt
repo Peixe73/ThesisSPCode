@@ -5,3 +5,4 @@ torcheval
 pandas
 matplotlib
 python-sat
+scikit-learn

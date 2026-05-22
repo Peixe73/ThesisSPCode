@@ -1,4 +1,7 @@
+from os import name
+
 from . import SplitDataset, ColumnReferences, ColumnSubReferences
+from sklearn.model_selection import train_test_split
 import logging
 from typing import Optional, Any, Callable
 import pandas as pd
@@ -17,7 +20,8 @@ class CSVDataset(SplitDataset):
                  shuffle: bool = True,
                  random_state = None,
                  filter : Optional[Callable[[pd.Series], bool]] = None,
-                 read_csv_kw : dict = {}):
+                 read_csv_kw : dict = {},#):
+                 use_test_set: bool = False):
         super().__init__()
         self.path = path
         self.target : list[str] = target if isinstance(target, list) else [target]
@@ -29,6 +33,7 @@ class CSVDataset(SplitDataset):
         self.random_state = random_state
         self.filter = filter
         self.read_csv_kw = read_csv_kw
+        self.use_test_set = use_test_set
 
     def _set_column_references(self, features: list[str], target: list[str]):
         self.column_references = ColumnReferences(
@@ -103,15 +108,103 @@ class CSVDataset(SplitDataset):
 
         scalar_features, tensor_features = self._get_preprocessors(self.data, self.features)
         scalar_target, tensor_targets = self._get_preprocessors(self.data, self.target)
-
+        
+        '''
         if self.shuffle:
             logger.debug("Shuffling dataset")
             self.data = self.data.sample(frac=1, random_state=self.random_state).reset_index(drop=True)
         train_bound, val_bound = self._split(len(self.data), self.splits)
-        train_rows = self.data.iloc[:train_bound]
-        val_rows = self.data.iloc[train_bound:val_bound]
-        test_rows = self.data.iloc[val_bound:]
+        
+        if self.use_test_set:
+            # Standard train / val / test split
+            train_rows = self.data.iloc[:train_bound]
+            val_rows = self.data.iloc[train_bound:val_bound]
+            test_rows = self.data.iloc[val_bound:]
 
+        else:
+            # Only train / val
+            train_rows = self.data.iloc[:train_bound]
+            val_rows = self.data.iloc[train_bound:]
+            test_rows = pd.DataFrame(columns=self.data.columns)
+            
+        #train_rows = self.data.iloc[:train_bound]
+        #val_rows = self.data.iloc[train_bound:val_bound]
+        #test_rows = self.data.iloc[val_bound:]
+        '''
+        
+        train_ratio = self.splits[0]
+        val_ratio = self.splits[1]
+
+        stratify_col = "ClassId"#self.target[0] if isinstance(self.target, list) else self.target
+        
+        print(f"statify_col: {stratify_col}")
+
+        if not self.use_test_set:
+
+            train_rows, val_rows = train_test_split(
+                self.data,
+                test_size=val_ratio,
+                random_state=self.random_state,
+                shuffle=self.shuffle,
+                stratify=self.data[stratify_col]
+            )
+
+            test_rows = pd.DataFrame(columns=self.data.columns)
+
+        else:
+
+            temp_train_df, test_rows = train_test_split(
+                self.data,
+                test_size=1 - (train_ratio + val_ratio),
+                random_state=self.random_state,
+                shuffle=self.shuffle,
+                stratify=self.data[stratify_col]
+            )
+
+            train_rows, val_rows = train_test_split(
+                temp_train_df,
+                test_size=val_ratio / (train_ratio + val_ratio),
+                random_state=self.random_state,
+                shuffle=self.shuffle,
+                stratify=temp_train_df[stratify_col]
+            )
+            
+        def log_distribution(df, name, col):
+            dist = df[col].value_counts().sort_index()
+            total = len(df)
+
+            logger.info(f"\n[{name}] distribution:")
+            for k, v in dist.items():
+                logger.info(f"  Class {k}: {v}")
+            logger.info(f"  TOTAL: {total}\n")
+
+        log_distribution(train_rows, "TRAIN", stratify_col)
+        log_distribution(val_rows, "VAL", stratify_col)
+        if len(test_rows) > 0:
+            log_distribution(test_rows, "TEST", stratify_col)
+
+        train_rows = train_rows.reset_index(drop=True)
+        val_rows = val_rows.reset_index(drop=True)
+        test_rows = test_rows.reset_index(drop=True)
+        
+        total = len(self.data)
+        train_pct = len(train_rows) / total * 100
+        val_pct = len(val_rows) / total * 100
+        test_pct = len(test_rows) / total * 100 if len(test_rows) > 0 else 0
+
+        logger.debug(
+        f"""Dataset ({total:_} samples) split:
+        Training:   {len(train_rows):_} samples ({train_pct:.2f}%)
+        Validation: {len(val_rows):_} samples ({val_pct:.2f}%)
+        Testing:    {len(test_rows):_} samples ({test_pct:.2f}%)
+
+        Num features: {len(self.features)}
+        Num target:   {len(self.target)}
+        Shuffle:      {self.shuffle}
+        Seed:         {self.random_state}
+        """
+        )
+        '''
         logger.debug(
 f"""Dataset ({len(self.data):_} samples) split:
 Training: \t [0, {train_bound:_}[ \t ({len(train_rows):_} samples, {self.splits[0] * 100}%)
@@ -121,6 +214,7 @@ Num features: \t {len(self.features)}
 Num target: \t {len(self.target)}
 Shuffle: \t {self.shuffle}
 Seed: \t {self.random_state}""")
+        '''
         self.train_data = self.DFDataset(
             scalar_features, scalar_target, tensor_features, tensor_targets, train_rows)
         self.val_data = self.DFDataset(
