@@ -32,6 +32,110 @@ CLASS_COLS = [
     "ClassId_40","ClassId_41","ClassId_42","ClassId_43",
 ]
 
+"""
+CONFIGS = [
+    # ONTOLOGY-ALIGNED BASELINE
+
+    (
+        "ONTO_BASE",
+        {
+            "architecture": "ontology",
+            "pre_layers": [],
+            "post_layers": [],
+        }
+    ),
+
+    # ONTOLOGY-ALIGNED EXPANDED
+
+    (
+        "ONTO_32",
+        {
+            "architecture": "ontology",
+            "pre_layers": [32],
+            "post_layers": [32],
+        }
+    ),
+
+    (
+        "ONTO_64",
+        {
+            "architecture": "ontology",
+            "pre_layers": [64],
+            "post_layers": [64],
+        }
+    ),
+
+    (
+        "ONTO_64x2",
+        {
+            "architecture": "ontology",
+            "pre_layers": [64, 64],
+            "post_layers": [64, 64],
+        }
+    ),
+
+    (
+        "ONTO_128",
+        {
+            "architecture": "ontology",
+            "pre_layers": [128],
+            "post_layers": [128],
+        }
+    ),
+
+    # CONTROL NETWORKS
+
+    (
+        "CTRL_LINEAR",
+        {
+            "architecture": "control",
+            "layers": [],
+        }
+    ),
+
+    (
+        "CTRL_16",
+        {
+            "architecture": "control",
+            "layers": [16],
+        }
+    ),
+
+    (
+        "CTRL_32",
+        {
+            "architecture": "control",
+            "layers": [32],
+        }
+    ),
+
+    (
+        "CTRL_64",
+        {
+            "architecture": "control",
+            "layers": [64],
+        }
+    ),
+
+    (
+        "CTRL_64x2",
+        {
+            "architecture": "control",
+            "layers": [64, 64],
+        }
+    ),
+    
+    (
+        "CTRL_128",
+        {
+            "architecture": "control",
+            "layers": [128],
+        }
+    ),
+    
+]
+"""
+
 CONFIGS=[
     ('L16', [16]),
     ('L32', [32]),
@@ -47,6 +151,8 @@ CONFIGS=[
     ('L16L32L64', [16, 32, 64]),
     ('L64x3', [64, 64, 64]),
 ]
+
+
 """
 def make_config(layer_sizes):
     return {
@@ -56,7 +162,7 @@ def make_config(layer_sizes):
             "valid_path": str(DATASET_PATH),
             "feature_cols": FEATURE_COLS,
             "class_cols": CLASS_COLS,
-            "dataset_size": 6400,
+            "dataset_size": 1200,
             "batch_size": 64,
             "layer_sizes": layer_sizes,
             "base_seed": 42,
@@ -69,7 +175,7 @@ def make_config(layer_sizes):
         "valid_path": str(DATASET_PATH),
         "feature_cols": FEATURE_COLS,
         "class_cols": CLASS_COLS,
-        "dataset_size": 6400,
+        "dataset_size": 1200,
         "batch_size": 64,
         "layer_sizes": layer_sizes,
         "base_seed": 42,
@@ -83,7 +189,7 @@ def make_config(layer_sizes):
             "valid_path": str(DATASET_PATH),
             "feature_cols": FEATURE_COLS,
             "class_cols": CLASS_COLS,
-            "dataset_size": 6400,
+            "dataset_size": 1200,
             "batch_size": 64,
             "layer_sizes": layer_sizes,
             "base_seed": 42,
@@ -100,7 +206,7 @@ def create_trainer_config(layer_sizes):
             "feature_cols": FEATURE_COLS,
             "class_cols": CLASS_COLS,
             "layer_sizes": layer_sizes,
-            "dataset_size": 6400,
+            "dataset_size": 1200,
             "batch_size": 64,
         }
     )

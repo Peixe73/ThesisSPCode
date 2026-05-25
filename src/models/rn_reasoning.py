@@ -57,7 +57,41 @@ class MaskedBCELoss(nn.Module):
 
     def forward(self, y_pred, y_true):
         # y_pred, y_true shape: [B, 1 + num_classes]
+        
+        valid_pred = y_pred[:, -1]
+        valid_true = y_true[:, -1]
 
+        class_pred = y_pred[:, :-1]
+        class_true = y_true[:, :-1]
+
+        # valid loss (always)
+        valid_loss = self.bce(valid_pred, valid_true)
+
+        # class loss (masked)
+        class_loss = self.bce(class_pred, class_true)
+
+        # mask → only valid samples contribute
+        mask = valid_true.unsqueeze(1)
+
+        masked_class_loss = class_loss * mask
+
+        # average only over active class terms
+        class_count = mask.sum() * class_pred.shape[1]
+
+        if class_count > 0:
+            class_loss_mean = masked_class_loss.sum() / class_count
+        else:
+            #class_loss_mean = 0.0
+            class_loss_mean = torch.tensor(
+                0.0,
+                device=y_pred.device
+            )
+
+        valid_loss_mean = valid_loss.mean()
+
+        return valid_loss_mean + class_loss_mean
+
+        '''
         valid_pred = y_pred[:, 0]
         valid_true = y_true[:, 0]
 
@@ -78,6 +112,7 @@ class MaskedBCELoss(nn.Module):
         total_loss = torch.cat([valid_loss.unsqueeze(1), class_loss], dim=1)
 
         return total_loss.mean()
+        '''
 
 
 class EpochDatasetUpdater:
@@ -143,7 +178,8 @@ def create_trainer(
     train_dataset = CSVDataset(
         path=train_csv,
         features=feature_cols,
-        target=["valid"] + class_cols
+        #target=["valid"] + class_cols
+        target= class_cols + ["valid"]
     )
 
     metrics_per_class = {

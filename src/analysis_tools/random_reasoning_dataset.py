@@ -58,7 +58,7 @@ class RandomReasoningDataset(Dataset):
         return self.dataset_size
 
     def __getitem__(self, idx):
-        if idx % 2 == 0:
+        if self.rng.random() < 0.5:
             features, class_labels = self._sample_valid()
             valid = 1.0
         else:
@@ -70,7 +70,37 @@ class RandomReasoningDataset(Dataset):
         x = torch.from_numpy(features)
         y = torch.from_numpy(y)
         return x, y
+    
+    def to_csv(self, path: str):
+        rows = []
 
+        for i in range(len(self)):
+            x, y = self[i]
+
+            x = x.detach().cpu().numpy()
+            y = y.detach().cpu().numpy()
+
+            entry = {
+                self.feature_cols[j]: float(x[j])
+                for j in range(len(self.feature_cols))
+            }
+
+            # classes first (commented version is inverse)
+            for j, col in enumerate(self.class_cols):
+                entry[col] = float(y[j])
+
+            # valid last
+            entry["valid"] = float(y[-1])
+
+            rows.append(entry)
+
+        os.makedirs(os.path.dirname(path), exist_ok=True)
+
+        pd.DataFrame(rows).to_csv(path, index=False)
+
+        return path
+
+    '''
     def to_csv(self, path: str):
         """Generate a CSV containing the full dataset."""
         rows = []
@@ -86,3 +116,4 @@ class RandomReasoningDataset(Dataset):
         os.makedirs(os.path.dirname(path), exist_ok=True)
         pd.DataFrame(rows).to_csv(path, index=False)
         return path
+    '''
