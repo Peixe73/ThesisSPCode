@@ -26,7 +26,7 @@ class OntologyRN(nn.Module):
     - pre: input -> categories
     - post: categories -> class + validity
     """
-    def __init__(self, input_size, num_classes, pre_layers, post_layers):
+    def __init__(self, input_size, category_size, num_classes, pre_layers, post_layers):
         super().__init__()
         
         self.stage = "full"
@@ -39,10 +39,15 @@ class OntologyRN(nn.Module):
             pre.append(nn.ReLU())
             in_dim = s
 
-        self.pre = nn.Sequential(*pre) if len(pre_layers) > 0 else nn.Identity()
+        #self.pre = nn.Sequential(*pre) if len(pre_layers) > 0 else nn.Identity()
+        pre.append(nn.Linear(in_dim, category_size))
+        pre.append(nn.ReLU())
+
+        self.pre = nn.Sequential(*pre)
 
         # MID -> OUTPUT (post)
         post = []
+        in_dim = category_size
         for s in post_layers:
             post.append(nn.Linear(in_dim, s))
             post.append(nn.ReLU())
@@ -62,6 +67,17 @@ class OntologyRN(nn.Module):
             x = x.detach()
 
         return self.post(x)
+    
+class DirectRN(nn.Module):
+    def __init__(self, input_size, num_outputs):
+        super().__init__()
+        self.net = nn.Sequential(
+            nn.Linear(input_size, num_outputs),
+            nn.Sigmoid()
+        )
+
+    def forward(self, x):
+        return self.net(x)
 
 
 def create_mlp(input_size, layer_sizes, num_outputs):
@@ -269,13 +285,18 @@ def create_trainer(
 
     #if isinstance(layer_sizes, dict):
     model_cfg = model_config
+    
     if model_cfg["type"] == "ontology":
         model = OntologyRN(
             input_size=38,
+            category_size=4,
             num_classes=len(class_cols),
             pre_layers=model_cfg["pre"],
             post_layers=model_cfg["post"]
         )
+    elif model_cfg["type"] == "direct":
+        model = DirectRN(input_size = 38,
+                         num_outputs = num_outputs)
     else:
         model = create_mlp(38, model_cfg["layers"], num_outputs)
 

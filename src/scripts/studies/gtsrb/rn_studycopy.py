@@ -6,7 +6,7 @@ from core.storage_management.study_file_manager import StudyFileManager
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger("RN_Study")
 
-STUDY_NAME = "gtsrb_rn"
+STUDY_NAME = "gtsrb_rn_12"
 DATASET_PATH = Path("data/gtsrb_ontology_Valid_Final.csv")
 
 FEATURE_COLS = [
@@ -33,12 +33,12 @@ CLASS_COLS = [
 
 CONFIGS = [
     # ONTOLOGY MODELS
-    ("ONTO_BASE",   {"type": "ontology", "pre": [], "post": []}),
     
     ("ONTO_32",     {"type": "ontology", "pre": [32], "post": [32]}),
     ("ONTO_64",     {"type": "ontology", "pre": [64], "post": [64]}),
     ("ONTO_64x2",   {"type": "ontology", "pre": [64, 64], "post": [64, 64]}),
     ("ONTO_128",    {"type": "ontology", "pre": [128], "post": [128]}),
+    ("ONTO_BASE",   {"type": "ontology", "pre": [], "post": []}),
     
     # Direct Baseline (38->30) skips the category bottleneck
     ("DIRECT_BASE", {"type": "direct"}),
