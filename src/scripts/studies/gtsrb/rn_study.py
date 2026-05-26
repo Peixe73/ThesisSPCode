@@ -2,7 +2,6 @@ import logging
 from pathlib import Path
 from core.studies import StudyManager
 from core.storage_management.study_file_manager import StudyFileManager
-from core.training.trainer import TrainerConfig
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger("RN_Study")
@@ -32,194 +31,42 @@ CLASS_COLS = [
     "ClassId_40","ClassId_41","ClassId_42","ClassId_43",
 ]
 
-"""
 CONFIGS = [
-    # ONTOLOGY-ALIGNED BASELINE
-
-    (
-        "ONTO_BASE",
-        {
-            "architecture": "ontology",
-            "pre_layers": [],
-            "post_layers": [],
-        }
-    ),
-
-    # ONTOLOGY-ALIGNED EXPANDED
-
-    (
-        "ONTO_32",
-        {
-            "architecture": "ontology",
-            "pre_layers": [32],
-            "post_layers": [32],
-        }
-    ),
-
-    (
-        "ONTO_64",
-        {
-            "architecture": "ontology",
-            "pre_layers": [64],
-            "post_layers": [64],
-        }
-    ),
-
-    (
-        "ONTO_64x2",
-        {
-            "architecture": "ontology",
-            "pre_layers": [64, 64],
-            "post_layers": [64, 64],
-        }
-    ),
-
-    (
-        "ONTO_128",
-        {
-            "architecture": "ontology",
-            "pre_layers": [128],
-            "post_layers": [128],
-        }
-    ),
-
-    # CONTROL NETWORKS
-
-    (
-        "CTRL_LINEAR",
-        {
-            "architecture": "control",
-            "layers": [],
-        }
-    ),
-
-    (
-        "CTRL_16",
-        {
-            "architecture": "control",
-            "layers": [16],
-        }
-    ),
-
-    (
-        "CTRL_32",
-        {
-            "architecture": "control",
-            "layers": [32],
-        }
-    ),
-
-    (
-        "CTRL_64",
-        {
-            "architecture": "control",
-            "layers": [64],
-        }
-    ),
-
-    (
-        "CTRL_64x2",
-        {
-            "architecture": "control",
-            "layers": [64, 64],
-        }
-    ),
+    # ONTOLOGY MODELS
+    ("ONTO_BASE",   {"type": "ontology", "pre": [], "post": []}),
     
-    (
-        "CTRL_128",
-        {
-            "architecture": "control",
-            "layers": [128],
-        }
-    ),
-    
-]
-"""
+    ("ONTO_32",     {"type": "ontology", "pre": [32], "post": [32]}),
+    ("ONTO_64",     {"type": "ontology", "pre": [64], "post": [64]}),
+    ("ONTO_64x2",   {"type": "ontology", "pre": [64, 64], "post": [64, 64]}),
+    ("ONTO_128",    {"type": "ontology", "pre": [128], "post": [128]}),
 
-CONFIGS=[
-    ('L16', [16]),
-    ('L32', [32]),
-    ('L64', [64]),
-    ('L16x2', [16, 16]),
-    ('L16L32', [16, 32]),
-    ('L32x2', [32, 32]),
-    ('L32L64', [32, 64]),
-    ('L64x2', [64, 64]),
-    ('L16x3', [16, 16, 16]),
-    ('L16L32x2', [16, 32, 32]),
-    ('L32x3', [32, 32, 32]),
-    ('L16L32L64', [16, 32, 64]),
-    ('L64x3', [64, 64, 64]),
+    # CONTROL MLPs
+    ("CTRL_0",      {"type": "mlp", "layers": []}),
+    ("CTRL_16",     {"type": "mlp", "layers": [16]}),
+    ("CTRL_32",     {"type": "mlp", "layers": [32]}),
+    ("CTRL_64",     {"type": "mlp", "layers": [64]}),
+    ("CTRL_64x2",   {"type": "mlp", "layers": [64, 64]}),
+    ("CTRL_128",    {"type": "mlp", "layers": [128]}),
 ]
 
 
-"""
-def make_config(layer_sizes):
-    return {
-        "build_script": "rn_reasoning",
-        "build_args": [],
-        "build_kwargs": {
-            "valid_path": str(DATASET_PATH),
-            "feature_cols": FEATURE_COLS,
-            "class_cols": CLASS_COLS,
-            "dataset_size": 1200,
-            "batch_size": 64,
-            "layer_sizes": layer_sizes,
-            "base_seed": 42,
-        }
-    }
-"""
-    
-def make_config(layer_sizes):
+def make_config(cfg):
     return {
         "valid_path": str(DATASET_PATH),
         "feature_cols": FEATURE_COLS,
         "class_cols": CLASS_COLS,
-        "dataset_size": 1200,
+        "dataset_size": 6400,
         "batch_size": 64,
-        "layer_sizes": layer_sizes,
+        "model_config": cfg,
         "base_seed": 42,
     }
-"""
-def make_config(layer_sizes):
-    return TrainerConfig(
-        build_script = "rn_reasoning",
-        build_args = [],
-        build_kwargs={
-            "valid_path": str(DATASET_PATH),
-            "feature_cols": FEATURE_COLS,
-            "class_cols": CLASS_COLS,
-            "dataset_size": 1200,
-            "batch_size": 64,
-            "layer_sizes": layer_sizes,
-            "base_seed": 42,
-        }
-    )
-"""
-"""
-def create_trainer_config(layer_sizes):
-    return TrainerConfig(
-        build_script="rn_reasoning",
-        build_args=[],
-        build_kwargs={
-            "valid_path": str(DATASET_PATH),
-            "feature_cols": FEATURE_COLS,
-            "class_cols": CLASS_COLS,
-            "layer_sizes": layer_sizes,
-            "dataset_size": 1200,
-            "batch_size": 64,
-        }
-    )
-"""
+
 
 def main():
     file_manager = StudyFileManager(STUDY_NAME)
     study_manager = StudyManager(file_manager, max_epochs=100)
 
-    configs = [
-        (name, [], make_config(layers))
-        for name, layers in CONFIGS
-    ]
+    configs = [(name, [], make_config(cfg)) for name, cfg in CONFIGS]
 
     logger.info("Starting RN study...")
     study_manager.run_with_script("rn_reasoning", configs)

@@ -18,18 +18,67 @@ logger = logging.getLogger("RN_Reasoning")
 DEBUG_DIR = Path("reasoning_csvs")
 DEBUG_DIR.mkdir(exist_ok=True, parents=True)
 
-"""
-def create_model(layer_sizes: list[int], num_outputs: int) -> nn.Module:
-    layers = []
-    for size in layer_sizes:
-        layers.append(nn.LazyLinear(size))
-        layers.append(nn.ReLU())
+# MODEL
 
-    layers.append(nn.LazyLinear(num_outputs))
+class OntologyRN(nn.Module):
+    """
+    Two-part ontology RN:
+    - pre: input -> categories
+    - post: categories -> class + validity
+    """
+    def __init__(self, input_size, num_classes, pre_layers, post_layers):
+        super().__init__()
+        
+        self.stage = "full"
+
+        # INPUT -> MID (pre)
+        pre = []
+        in_dim = input_size
+        for s in pre_layers:
+            pre.append(nn.Linear(in_dim, s))
+            pre.append(nn.ReLU())
+            in_dim = s
+
+        self.pre = nn.Sequential(*pre) if len(pre_layers) > 0 else nn.Identity()
+
+        # MID -> OUTPUT (post)
+        post = []
+        for s in post_layers:
+            post.append(nn.Linear(in_dim, s))
+            post.append(nn.ReLU())
+            in_dim = s
+
+        post.append(nn.Linear(in_dim, num_classes + 1))  # +valid
+        post.append(nn.Sigmoid())
+
+        self.post = nn.Sequential(*post)
+
+    def forward(self, x):
+        #x = self.pre(x)
+        #return self.post(x)
+        x = self.pre(x)
+
+        if self.stage == "detach_pre":
+            x = x.detach()
+
+        return self.post(x)
+
+
+def create_mlp(input_size, layer_sizes, num_outputs):
+    layers = []
+    in_dim = input_size
+
+    for s in layer_sizes:
+        layers.append(nn.Linear(in_dim, s))
+        layers.append(nn.ReLU())
+        in_dim = s
+
+    layers.append(nn.Linear(in_dim, num_outputs))
     layers.append(nn.Sigmoid())
 
     return nn.Sequential(*layers)
-"""
+
+'''
 
 def create_model(input_size: int, layer_sizes: list[int], num_outputs: int) -> nn.Module:
     layers = []
@@ -45,6 +94,7 @@ def create_model(input_size: int, layer_sizes: list[int], num_outputs: int) -> n
     layers.append(nn.Sigmoid())
 
     return nn.Sequential(*layers)
+'''
 
 class MaskedBCELoss(nn.Module):
     """
@@ -73,19 +123,16 @@ class MaskedBCELoss(nn.Module):
         # mask → only valid samples contribute
         mask = valid_true.unsqueeze(1)
 
-        masked_class_loss = class_loss * mask
+        masked = class_loss * mask
 
         # average only over active class terms
-        class_count = mask.sum() * class_pred.shape[1]
+        denom  = mask.sum() * class_pred.shape[1]
 
-        if class_count > 0:
-            class_loss_mean = masked_class_loss.sum() / class_count
-        else:
-            #class_loss_mean = 0.0
-            class_loss_mean = torch.tensor(
-                0.0,
-                device=y_pred.device
-            )
+        class_loss_mean = (
+            masked.sum() / denom
+            if denom > 0
+            else torch.tensor(0.0, device=y_pred.device)
+        )
 
         valid_loss_mean = valid_loss.mean()
 
@@ -154,16 +201,19 @@ def create_trainer(
     valid_path: str,
     feature_cols: list[str],
     class_cols: list[str],
-    layer_sizes: list[int],
-    dataset_size: int = 6400,
+    model_config: dict,
+    #layer_sizes: list[int],
+    dataset_size: int = 3200,
     batch_size: int = 64,
     patience: int = 20,
     base_seed: int = 42,
+    training_mode: str = "standard",
+    stage: str | None = None                 # used only for two_stage
 ) -> Trainer:
 
     train_csv = DEBUG_DIR / "train.csv"
     
-    initial_seed = base_seed * 1000003 + 0
+    initial_seed = base_seed * 1000003 #+ 0
 
     init_ds = RandomReasoningDataset(
         valid_path,
@@ -179,7 +229,8 @@ def create_trainer(
         path=train_csv,
         features=feature_cols,
         #target=["valid"] + class_cols
-        target= class_cols + ["valid"]
+        target= class_cols + ["valid"],
+        stratify_col=None
     )
 
     metrics_per_class = {
@@ -212,13 +263,52 @@ def create_trainer(
     train_metrics = TrainingRecorder(
         metric_functions=metrics_factory()
     )
+    
+    # model selection
+    num_outputs = len(class_cols) + 1
+
+    #if isinstance(layer_sizes, dict):
+    model_cfg = model_config
+    if model_cfg["type"] == "ontology":
+        model = OntologyRN(
+            input_size=38,
+            num_classes=len(class_cols),
+            pre_layers=model_cfg["pre"],
+            post_layers=model_cfg["post"]
+        )
+    else:
+        model = create_mlp(38, model_cfg["layers"], num_outputs)
+
+    # logic for two-stage training (if applicable)
+    if training_mode == "two_stage" and isinstance(model, OntologyRN):
+
+        if stage == "pretrain_post":
+            logger.info("Stage A: POST training")
+
+            model.stage = "detach_pre"
+
+            for p in model.pre.parameters():
+                p.requires_grad = False
+            for p in model.post.parameters():
+                p.requires_grad = True
+
+        elif stage == "pretrain_pre":
+            logger.info("Stage B: PRE training")
+
+            model.stage = "full"
+
+            for p in model.post.parameters():
+                p.requires_grad = False
+            for p in model.pre.parameters():
+                p.requires_grad = True
 
     objective = Maximize("train", "balanced_accuracy", threshold=0.01)
     patience_objective = Minimize("train", "loss", threshold=0.001)
 
 
     trainer = Trainer(
-        model=create_model(38, layer_sizes, num_outputs=1 + len(class_cols)),
+        #model=create_model(38, layer_sizes, num_outputs=1 + len(class_cols)),
+        model=model,
         loss_fn=MaskedBCELoss(),
         optimizer=torch.optim.Adam,
         training_set=train_dataset,

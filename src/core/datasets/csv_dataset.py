@@ -21,7 +21,8 @@ class CSVDataset(SplitDataset):
                  random_state = None,
                  filter : Optional[Callable[[pd.Series], bool]] = None,
                  read_csv_kw : dict = {},#):
-                 use_test_set: bool = False):
+                 use_test_set: bool = False,
+                 stratify_col: Optional[str] = "ClassId"):
         super().__init__()
         self.path = path
         self.target : list[str] = target if isinstance(target, list) else [target]
@@ -34,7 +35,8 @@ class CSVDataset(SplitDataset):
         self.filter = filter
         self.read_csv_kw = read_csv_kw
         self.use_test_set = use_test_set
-
+        self.stratify_col = stratify_col
+        
     def _set_column_references(self, features: list[str], target: list[str]):
         self.column_references = ColumnReferences(
             ColumnSubReferences(
@@ -135,9 +137,11 @@ class CSVDataset(SplitDataset):
         train_ratio = self.splits[0]
         val_ratio = self.splits[1]
 
-        stratify_col = "ClassId"#self.target[0] if isinstance(self.target, list) else self.target
+        #stratify_col = "ClassId"#self.target[0] if isinstance(self.target, list) else self.target
         
-        print(f"statify_col: {stratify_col}")
+        stratify_col = self.stratify_col
+        
+        #logger.info(f"stratify_col: {stratify_col}")
 
         if not self.use_test_set:
 
@@ -146,7 +150,7 @@ class CSVDataset(SplitDataset):
                 test_size=val_ratio,
                 random_state=self.random_state,
                 shuffle=self.shuffle,
-                stratify=self.data[stratify_col]
+                stratify=self.data[stratify_col] if stratify_col is not None else None
             )
 
             test_rows = pd.DataFrame(columns=self.data.columns)
@@ -158,7 +162,7 @@ class CSVDataset(SplitDataset):
                 test_size=1 - (train_ratio + val_ratio),
                 random_state=self.random_state,
                 shuffle=self.shuffle,
-                stratify=self.data[stratify_col]
+                stratify=self.data[stratify_col] if stratify_col is not None else None
             )
 
             train_rows, val_rows = train_test_split(
@@ -166,7 +170,7 @@ class CSVDataset(SplitDataset):
                 test_size=val_ratio / (train_ratio + val_ratio),
                 random_state=self.random_state,
                 shuffle=self.shuffle,
-                stratify=temp_train_df[stratify_col]
+                stratify=self.data[stratify_col] if stratify_col is not None else None
             )
             
         def log_distribution(df, name, col):
@@ -178,10 +182,11 @@ class CSVDataset(SplitDataset):
                 logger.info(f"  Class {k}: {v}")
             logger.info(f"  TOTAL: {total}\n")
 
-        log_distribution(train_rows, "TRAIN", stratify_col)
-        log_distribution(val_rows, "VAL", stratify_col)
-        if len(test_rows) > 0:
-            log_distribution(test_rows, "TEST", stratify_col)
+        if stratify_col is not None:
+            log_distribution(train_rows, "TRAIN", stratify_col)
+            log_distribution(val_rows, "VAL", stratify_col)
+            if len(test_rows) > 0:
+                log_distribution(test_rows, "TEST", stratify_col)
 
         train_rows = train_rows.reset_index(drop=True)
         val_rows = val_rows.reset_index(drop=True)
@@ -269,6 +274,7 @@ Seed: \t {self.random_state}""")
                 return tensors
 
         def __getitem__(self, index : int) -> Any:
+            #logger.warning("DFDataset __getitem__ CALLED")
             row = self.rows.iloc[index]
             features = self._torchify_row(row, self.scalar_features, self.tensor_features)
             target = self._torchify_row(row, self.scalar_targets, self.tensor_targets)
