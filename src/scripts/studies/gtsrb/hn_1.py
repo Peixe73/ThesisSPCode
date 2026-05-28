@@ -31,10 +31,16 @@ CLASS_COLS = [
     "ClassId_40","ClassId_41","ClassId_42","ClassId_43",
 ]
 
-
+"""
 RN_WITH_WEIGHTS = {
     "model_name" : "L32",
     "model_path" : "storage/studies/gtsrb_rn"
+}
+"""
+
+RN_WITH_WEIGHTS = {
+    "model_name": "ONTO_32",
+    "model_path": "storage/studies/gtsrb_rn"
 }
 
 
@@ -50,6 +56,7 @@ RN_WITHOUT_WEIGHTS = {
 }
 """
 
+"""
 RN_WITHOUT_WEIGHTS = {
     "build_script" : "rn_reasoning",
     "build_args" : [],
@@ -63,7 +70,69 @@ RN_WITHOUT_WEIGHTS = {
         "layer_sizes" : [32],
     }
 }
+"""
 
+RN_WITHOUT_WEIGHTS = {
+    "build_script": "rn_reasoning",
+    "build_args": [],
+    "build_kwargs": {
+        "valid_path": "data/gtsrb_ontology_Valid_Final.csv",
+        "feature_cols": ENTRY_CONCEPTS,
+        "class_cols": CLASS_COLS,
+        "dataset_size": 6400,
+        "batch_size": 64,
+        "base_seed": 42,
+
+        "model_config": {
+            "type": "ontology",
+            "pre": [32],
+            "post": [32]
+        }
+    }
+}
+
+RN_ARCHITECTURES = [
+    # ONTOLOGY MODELS
+    ("ONTO_BASE",   {"type": "ontology", "pre": [], "post": []}),
+    
+    ("ONTO_32",     {"type": "ontology", "pre": [32], "post": [32]}),
+    ("ONTO_64",     {"type": "ontology", "pre": [64], "post": [64]}),
+    ("ONTO_64x2",   {"type": "ontology", "pre": [64, 64], "post": [64, 64]}),
+    ("ONTO_128",    {"type": "ontology", "pre": [128], "post": [128]}),
+    
+    # Direct Baseline (38->30) skips the category bottleneck
+    ("DIRECT_BASE", {"type": "direct"}),
+
+    # CONTROL MLPs
+    ("CTRL_0",      {"type": "mlp", "layers": []}),
+    ("CTRL_16",     {"type": "mlp", "layers": [16]}),
+    ("CTRL_32",     {"type": "mlp", "layers": [32]}),
+    ("CTRL_64",     {"type": "mlp", "layers": [64]}),
+    ("CTRL_64x2",   {"type": "mlp", "layers": [64, 64]}),
+    ("CTRL_128",    {"type": "mlp", "layers": [128]}),
+]
+
+def make_untrained_rn_config(model_config):
+    return {
+        "build_script": "rn_reasoning",
+        "build_args": [],
+        "build_kwargs": {
+            "valid_path": "data/gtsrb_ontology_Valid_Final.csv",
+            "feature_cols": ENTRY_CONCEPTS,
+            "class_cols": CLASS_COLS,
+            "dataset_size": 6400,
+            "batch_size": 64,
+            "base_seed": 42,
+            "model_config": model_config
+        }
+    }
+
+
+def make_pretrained_rn_config(model_name):
+    return {
+        "model_name": model_name,
+        "model_path": "storage/studies/gtsrb_rn"
+    }
 
 def make_pn_config(kwargs):
     return {
@@ -114,6 +183,7 @@ LINEAR_CONFIGS = [
     ('_4L', [128, 64, 32, 16])
 ]
 
+"""
 def make_configs():
     configs = []
     for name_linear, linear in LINEAR_CONFIGS:
@@ -123,7 +193,7 @@ def make_configs():
                 "conv_layers": conv,
                 "linear_layers": linear
             }
-            """ 
+            
             configs.append((name + '_untRN', [],
                             make_config(
                                 RN_WITHOUT_WEIGHTS,
@@ -133,7 +203,7 @@ def make_configs():
                                  #'activation': 'relu'
                                  }
                             )))
-            """
+            
             configs.append((name, [],
                             make_config(
                                 RN_WITH_WEIGHTS,
@@ -142,6 +212,47 @@ def make_configs():
                                     #'activation': 'relu'
                                 }
                             )))
+    return configs
+"""
+
+def make_configs():
+    configs = []
+
+    for rn_name, rn_model_cfg in RN_ARCHITECTURES:
+
+        for name_linear, linear in LINEAR_CONFIGS:
+
+            for name_conv, conv in CONVOLUTIONS:
+
+                pn_name = name_conv + name_linear
+
+                pn_kwargs = {
+                    "conv_layers": conv,
+                    "linear_layers": linear
+                }
+
+                configs.append((
+                    f"{pn_name}_{rn_name}_untRN",
+                    [],
+                    make_config(
+                        make_untrained_rn_config(rn_model_cfg),
+                        pn_kwargs,
+                        {
+                            "rn_learning_rate": 0.001,
+                        }
+                    )
+                ))
+
+                configs.append((
+                    f"{pn_name}_{rn_name}_preRN",
+                    [],
+                    make_config(
+                        make_pretrained_rn_config(rn_name),
+                        pn_kwargs,
+                        {}
+                    )
+                ))
+
     return configs
 
 def main():

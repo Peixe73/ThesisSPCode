@@ -5,28 +5,6 @@ from core.nn.layers import MakeBinary, NegateMask, Reorder
 
 module_logger = logging.getLogger(__name__)
 
-# Full class names
-"""
-CLASSES = [
-    'ClassId'        # original numeric classes 0..42
-    #'SignClass',      # A..D categories
-]
-"""
-
-"""
-SIGNCLASS = [
-    'SignClass'      # A..D categories
-]
-"""
-
-# Short names for convenience
-"""
-SHORT_CLASSES = [
-    'CId',  # for ClassId
-    'SC',   # for SignClass
-]
-"""
-
 # Binary column names
 SIGNCLASS_BINARY = ["SignClass_A", "SignClass_B", "SignClass_C", "SignClass_D"]
 CLASSID_BINARY = [f"ClassId_{i}" for i in range(43)]
@@ -39,27 +17,6 @@ CLASS_COLS = [
     "ClassId_35","ClassId_36","ClassId_37","ClassId_38","ClassId_39",
     "ClassId_40","ClassId_41","ClassId_42","ClassId_43",
 ]
-
-
-
-# Concept names for PN attribution
-"""
-CONCEPTS = [
-    "Bar", "Black_Bar", "White_Bar",
-    "Border", "Black_Border", "Red_Border",
-    "Red_Ground", "White_Ground", "Yellow_Ground",
-    "End_Prohibition", "Start_Prohibition",
-    "Circular_Shape", "Diamond_Shape", "Triangular_Shape", "Octagonal_Shape",
-    "Symbol", "Black_Symbol", "White_Symbol",
-    "Symbol_NoEntryGoods", "Symbol_Overtaking", "Symbol_OvertakingGoods",
-    "Symbol_Speed20", "Symbol_Speed30", "Symbol_Speed50", "Symbol_Speed60",
-    "Symbol_Speed70", "Symbol_Speed80", "Symbol_Speed100", "Symbol_Speed120",
-    "Symbol_Stop",
-    "Blue", "White_Border", "Post",
-    "D1a1", "D1a4", "D1a5", "D1a6", "D1a7",
-    "D2a1", "D2a2", "D3"
-]
-"""
 
 CONCEPTS = [
     "Circular_Shape","Diamond_Shape","Triangular_Shape","Octagonal_Shape",
@@ -80,11 +37,105 @@ SHORT_CONCEPTS = [c.replace('_', '') for c in CONCEPTS]  # simple short names
 
 SHORT_CLASSES = SHORT_CONCEPTS + CLASS_COLS
 
+SHORT_TO_FULL = dict(zip(SHORT_CONCEPTS, CONCEPTS))
+
+FULL_SET = set(CONCEPTS)
+
 def log_short_class_correspondence(logger: logging.Logger):
     correspondence = [f'\t{name} -> {short}' for name, short in zip(CLASSES, SHORT_CLASSES)]
     logger.info('Concept names have been shortened for convenience:\n' +
                 ('\n'.join(correspondence)))
+    
+def concept_assertion(concept: str, negate: bool = False) -> str:
+    prefix = "__input__ Type: "
+    negation = "not " if negate else ""
 
+    return f"{prefix}{negation}({concept})"
+
+
+def class_assertion(cls: str, negate: bool = False) -> str:
+    prefix = "__input__ Type: "
+    negation = "not " if negate else ""
+
+    return f"{prefix}{negation}({cls})"
+    
+# Latex formatting
+
+def class_to_latex_cmd(cls: str):
+    negate = False
+
+    if cls.startswith("!"):
+        cls = cls[1:]
+        negate = True
+
+    if cls in SHORT_TO_FULL:
+        cls = SHORT_TO_FULL[cls]
+
+    cmd = f"\\{cls}"
+
+    if negate:
+        cmd = f"\\neg {cmd}"
+
+    return f"${cmd}$"
+
+# Attribution ordering
+
+def make_order_from_attribution(attribution: list[str]):
+
+    normalized = []
+
+    for c in attribution:
+        neg = c.startswith("!")
+        if neg:
+            c = c[1:]
+
+        if c in SHORT_TO_FULL:
+            c = SHORT_TO_FULL[c]
+
+        if c not in FULL_SET:
+            raise ValueError(f"Unknown concept: {c}")
+
+        normalized.append(c)
+
+    module_logger.info(f"Attribution (normalized): {normalized}")
+
+    indices = [CONCEPTS.index(c) for c in normalized]
+
+    order = [indices.index(i) for i in range(len(indices))]
+
+    module_logger.info(f"Reorder: {order}")
+    return order
+
+# PN preparation
+
+def prepare_pn_with_attribution(
+    pn: nn.Module,
+    attribution: list[str],
+    binary_threshold: Optional[float],
+) -> nn.Sequential:
+
+    negate = [c.startswith("!") for c in attribution]
+
+    concepts = [
+        c[1:] if n else c
+        for c, n in zip(attribution, negate)
+    ]
+
+    layers = [pn]
+
+    if binary_threshold is not None:
+        module_logger.info(f"Binary threshold: {binary_threshold}")
+        layers.append(MakeBinary(binary_threshold))
+
+    if any(negate):
+        layers.append(NegateMask(negate))
+
+    order = make_order_from_attribution(concepts)
+    layers.append(Reorder(order))
+
+    return nn.Sequential(*layers)
+
+"""
 # Needs update
 def class_to_manchester_assertion(cls: str, negate: bool = False) -> str:
     prefix = "__input__ Type: "
@@ -152,3 +203,5 @@ def prepare_pn_with_attribution(
     order = make_order_from_attribution(concepts)
     layers.append(Reorder(order))
     return nn.Sequential(*layers)
+    
+"""
