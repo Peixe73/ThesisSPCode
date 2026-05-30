@@ -15,6 +15,8 @@ The Dockerfile at the repository root can easily be edited to build just the Jus
 
 Usage `java -jar Justifier.jar ontology_file`
 
+#java -jar dependencies/justifier/Justifier_original.jar ontologies/gtsrb.owl
+
 To justify an entailment given observations, the tool input should be:
 ```
 EntailmentAxiom\n

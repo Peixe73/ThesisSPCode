@@ -30,7 +30,7 @@ if TYPE_CHECKING or DO_SCRIPT_IMPORTS:
     from core.eval.justifier_wrapper.justifier_result import Justification
 
     from datasets.gtsrb import CONCEPTS, CLASSES
-    from analysis_tools.gtsrb_utils import class_to_manchester_assertion, prepare_pn_with_attribution, concept_assertion, class_assertion
+    from analysis_tools.gtsrb_utils import prepare_pn_with_attribution, concept_assertion, class_assertion #class_to_manchester_assertion
 
     from core.datasets import get_dataset
 

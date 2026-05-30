@@ -69,6 +69,7 @@ def _create_process(cmd : list[str] | str) -> Popen:
 
 def _create_context(config: JustifierConfig, restarting : bool = False):
     jarfile = options.justifier_jar
+    logger.debug(f"Justifier jar file: {jarfile}")
     assert Path(jarfile).exists()
 
     cmd = ['java', '-jar', jarfile, str(config.ontology_file)]

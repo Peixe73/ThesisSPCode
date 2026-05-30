@@ -204,8 +204,8 @@ def create_trainer(
     weights = torch.ones(num_labels)
     weights[valid_col] = valid_col_weight
     logger.info(f"Loss weights: {weights}")
-    #loss_fn = nn.BCELoss(weights)
-    loss_fn = nn.BCELoss(weight=weights)
+    loss_fn = nn.BCELoss(weights)
+    #loss_fn = nn.BCELoss(weight=weights)
     patience = kwargs.pop('patience', 20)
     threshold = kwargs.pop('threshold', 0.01)
 

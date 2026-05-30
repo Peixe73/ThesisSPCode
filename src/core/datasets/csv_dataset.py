@@ -183,10 +183,11 @@ class CSVDataset(SplitDataset):
             logger.info(f"  TOTAL: {total}\n")
 
         if stratify_col is not None:
-            log_distribution(train_rows, "TRAIN", stratify_col)
-            log_distribution(val_rows, "VAL", stratify_col)
+            #log_distribution(train_rows, "TRAIN", stratify_col)
+            #log_distribution(val_rows, "VAL", stratify_col)
             if len(test_rows) > 0:
-                log_distribution(test_rows, "TEST", stratify_col)
+                #log_distribution(test_rows, "TEST", stratify_col)
+                pass
 
         train_rows = train_rows.reset_index(drop=True)
         val_rows = val_rows.reset_index(drop=True)
