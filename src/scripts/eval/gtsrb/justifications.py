@@ -30,7 +30,7 @@ if TYPE_CHECKING or DO_SCRIPT_IMPORTS:
     from core.eval.justifier_wrapper.justifier_result import Justification
 
     from datasets.gtsrb import CONCEPTS, CLASSES
-    from analysis_tools.gtsrb_utils import prepare_pn_with_attribution, concept_assertion, class_assertion #class_to_manchester_assertion
+    from analysis_tools.gtsrb_utils import prepare_pn_with_attribution, class_to_manchester_assertion
 
     from core.datasets import get_dataset
 
@@ -70,7 +70,7 @@ def build_preprocessor(concepts, classes):
     return preprocessor
 """
 
-"""
+
 def preprocessor(batch : tuple['torch.Tensor', 'torch.Tensor', int]) -> 'JustifierArgs':
     beliefs, correct_preds, train_type = batch
     assert correct_preds.dtype == torch.bool
@@ -86,8 +86,10 @@ def preprocessor(batch : tuple['torch.Tensor', 'torch.Tensor', int]) -> 'Justifi
         correct_dict[manchester] = correct_preds[i].item() # type: ignore # (asserted above)
     entailment = class_to_manchester_assertion(CLASSES[train_type])
     return JustifierArgs(entailment, observations, metadata=(correct_dict, train_type))
-"""
 
+
+
+"""
 def preprocessor(batch):
     beliefs, correct_preds, class_idx = batch
 
@@ -116,6 +118,7 @@ def preprocessor(batch):
         observations,
         metadata=(correct_dict, class_idx)
     )
+"""
 
 class CorrectnessCount(NamedTuple):
     train_type : int
@@ -161,6 +164,7 @@ def postprocessor(result : 'JustifierResult') -> CorrectnessCount:
             best_series['No Justifications'] = 1
     return CorrectnessCount(train_type, series, best_series)
 
+"""
 def run_justifier(
         datasets : list['TorchDataset'],
         config : 'JustifierConfig',
@@ -249,6 +253,7 @@ def run_justifier(
     return result, result_best
 
 """
+
 def run_justifier(
         datasets : list['TorchDataset'],
         config : 'JustifierConfig',
@@ -263,6 +268,8 @@ def run_justifier(
     if max_samples is None:
         max_samples = sum(len(d) for d in datasets) # type: ignore
     assert max_samples is not None
+    num_classes = len(CLASS_COLS)
+    num_concepts = len(CONCEPTS)
     with justifier:
         def producer():
             queued_samples = 0
@@ -271,8 +278,10 @@ def run_justifier(
                     for x, y in trainer.make_loader(dataset, force_shuffle=True, seed=SEED):
                         x = x.to(torch.get_default_device())
                         y = y.to(torch.get_default_device())
-                        y_concepts = y[:, 4:]
-                        y_classes = y[:, :4]
+                        #y_concepts = y[:, 4:]
+                        #y_classes = y[:, :4]
+                        y_classes = y[:, :len(CLASS_COLS)]
+                        y_concepts = y[:, len(CLASS_COLS):]
                         concepts = pn(x)
                         correct_preds = (concepts > 0.5) == (y_concepts > 0.5)
                         for i in range(min(y.size(0), max_samples - queued_samples)):
@@ -298,8 +307,7 @@ def run_justifier(
                 tracker
             )
     return result, result_best
-    
-"""
+
 
 def output_results(path : Path, dataframes : tuple['pd.DataFrame', 'pd.DataFrame']):
     logger.info(dataframes)
