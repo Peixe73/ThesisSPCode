@@ -37,7 +37,7 @@ def _build_gtsrb_generator():
     Red_Ground = gen.free_variable()
     White_Ground = gen.free_variable()
     Yellow_Ground = gen.free_variable()
-    Blue = gen.free_variable()
+    Blue_Ground = gen.free_variable()
 
     Border = gen.free_variable()
     Black_Border = gen.free_variable()
@@ -60,7 +60,7 @@ def _build_gtsrb_generator():
         Red_Ground=Red_Ground,
         White_Ground=White_Ground,
         Yellow_Ground=Yellow_Ground,
-        Blue=Blue,
+        Blue_Ground=Blue_Ground,
         Border=Border,
         Black_Border=Black_Border,
         Red_Border=Red_Border,
@@ -97,14 +97,30 @@ symbol_specific_names = [
     "Symbol_Speed100",
     "Symbol_Speed120",
 
-    "D1a1",
-    "D1a4",
-    "D1a5",
-    "D1a6",
-    "D1a7",
-    "D2a1",
-    "D2a2",
-    "D3",
+    "Symbol_D1a1",
+    "Symbol_D1a4",
+    "Symbol_D1a5",
+    "Symbol_D1a6",
+    "Symbol_D1a7",
+    "Symbol_D2a1",
+    "Symbol_D2a2",
+    "Symbol_D3",
+    
+    "Symbol_SingleLeftBend",
+    "Symbol_SingleRightBend",
+    "Symbol_TwoOrMoreLeftBend",
+    "Symbol_RightNarrow", 
+    "Symbol_RoadDeformities",
+    "Symbol_SlipperyRoad",
+    "Symbol_Children", 
+    "Symbol_Cyclists",
+    "Symbol_WildAnimals",
+    "Symbol_RoadWorks",
+    "Symbol_VerticalLightSignals",
+    "Symbol_IntersectionPriority",
+    "Symbol_Danger",
+    "Symbol_Pedestrians",
+    "Symbol_IceSnow"
 ]
 
 
@@ -114,46 +130,62 @@ symbol_specific_names = [
 
 classid_rules = {
 
-    "ClassId_1": gtsrb_rules.C14_20,
-    "ClassId_2": gtsrb_rules.C14_30,
-    "ClassId_3": gtsrb_rules.C14_50,
-    "ClassId_4": gtsrb_rules.C14_60,
-    "ClassId_5": gtsrb_rules.C14_70,
-    "ClassId_6": gtsrb_rules.C14_80,
-    "ClassId_7": gtsrb_rules.C17b_80,
-    "ClassId_8": gtsrb_rules.C14_100,
-    "ClassId_9": gtsrb_rules.C14_120,
+    "C14_20": gtsrb_rules.C14_20,
+    "C14_30": gtsrb_rules.C14_30,
+    "C14_50": gtsrb_rules.C14_50,
+    "C14_60": gtsrb_rules.C14_60,
+    "C14_70": gtsrb_rules.C14_70,
+    "C14_80": gtsrb_rules.C14_80,
+    "C17b_80": gtsrb_rules.C17b_80,
+    "C14_100": gtsrb_rules.C14_100,
+    "C14_120": gtsrb_rules.C14_120,
 
-    "ClassId_10": gtsrb_rules.C13aa,
-    "ClassId_11": gtsrb_rules.C13bb,
+    "C13aa": gtsrb_rules.C13aa,
+    "C13bb": gtsrb_rules.C13bb,
 
-    "ClassId_12": gtsrb_rules.A19a,
+    "A19a": gtsrb_rules.A19a,
 
-    "ClassId_13": gtsrb_rules.B3,
-    "ClassId_14": gtsrb_rules.B1,
-    "ClassId_15": gtsrb_rules.B2a,
+    "B3": gtsrb_rules.B3,
+    "B1": gtsrb_rules.B1,
+    "B2a": gtsrb_rules.B2a,
 
-    "ClassId_16": gtsrb_rules.C2,
-    "ClassId_17": gtsrb_rules.C3e3,
-    "ClassId_18": gtsrb_rules.C1a,
+    "C2": gtsrb_rules.C2,
+    "C3e3": gtsrb_rules.C3e3,
+    "C1a": gtsrb_rules.C1a,
+    
+    "A32": gtsrb_rules.A32,
+    "A1a": gtsrb_rules.A1a,
+    "A1b": gtsrb_rules.A1b,
+    "A1c": gtsrb_rules.A1c,
+    "A7a": gtsrb_rules.A7a,
+    "A9": gtsrb_rules.A9,
+    "A4b2": gtsrb_rules.A4b2,
+    "A16": gtsrb_rules.A16,
+    "A17a": gtsrb_rules.A17a,
+    "A33": gtsrb_rules.A33,
+    "A13": gtsrb_rules.A13,
+    "A14": gtsrb_rules.A14,
+    "A34": gtsrb_rules.A34,
+    "A15b": gtsrb_rules.A15b,
 
-    "ClassId_33": gtsrb_rules.C17a,
+    "C17a": gtsrb_rules.C17a,
 
-    "ClassId_34": gtsrb_rules.D1a5,
-    "ClassId_35": gtsrb_rules.D1a4,
-    "ClassId_36": gtsrb_rules.D1a1,
-    "ClassId_37": gtsrb_rules.D1a7,
-    "ClassId_38": gtsrb_rules.D1a6,
-    "ClassId_39": gtsrb_rules.D2a2,
-    "ClassId_40": gtsrb_rules.D2a1,
-    "ClassId_41": gtsrb_rules.D3,
+    "D1a5": gtsrb_rules.D1a5,
+    "D1a4": gtsrb_rules.D1a4,
+    "D1a1": gtsrb_rules.D1a1,
+    "D1a7": gtsrb_rules.D1a7,
+    "D1a6": gtsrb_rules.D1a6,
+    "D2a2": gtsrb_rules.D2a2,
+    "D2a1": gtsrb_rules.D2a1,
+    "D3": gtsrb_rules.D3,
 
-    "ClassId_42": gtsrb_rules.C17c,
-    "ClassId_43": gtsrb_rules.C17d,
+    "C17c": gtsrb_rules.C17c,
+    "C17d": gtsrb_rules.C17d,
 }
 
 classid_cols = list(classid_rules.keys())
 
+"""
 CLASS12_FORBIDDEN = set([
     "Symbol_Stop",
     "Symbol_NoEntryGoods",
@@ -177,6 +209,7 @@ CLASS12_FORBIDDEN = set([
     "D3",
 ])
 
+"""
 
 # ==========================================================
 # MAIN
@@ -259,7 +292,7 @@ def main():
 
                     visual_valid = (
                         (env["Circular_Shape"] + env["Diamond_Shape"] + env["Triangular_Shape"] + env["Octagonal_Shape"] == 1)
-                        and (env["Red_Ground"] + env["White_Ground"] + env["Yellow_Ground"] + env["Blue"] == 1)
+                        and (env["Red_Ground"] + env["White_Ground"] + env["Yellow_Ground"] + env["Blue_Ground"] == 1)
                         and ((env["Border"] and (env["Black_Border"] + env["Red_Border"] + env["White_Border"] == 1))
                              or (not env["Border"] and (env["Black_Border"] + env["Red_Border"] + env["White_Border"] == 0)))
                         and ((env["Bar"] and (env["Black_Bar"] + env["White_Bar"] == 1))
@@ -268,6 +301,7 @@ def main():
                              or (not env["Symbol"] and (env["Black_Symbol"] + env["White_Symbol"] == 0)))
                     )
                     
+                    """ No longer need the adapted version for class 12
                     is_class12 = classid_rules["ClassId_12"](env)
                     
                     class12_valid = (
@@ -276,6 +310,9 @@ def main():
                     )
 
                     valid = int(visual_valid and has_class and class12_valid)
+                    """
+                    
+                    valid = int(visual_valid and has_class)
 
                     if valid:
 

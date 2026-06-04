@@ -3,7 +3,7 @@ from core.studies import StudyManager
 from core.storage_management.study_file_manager import StudyFileManager
 from core.training.trainer import TrainerConfig
 
-from scripts.studies.gtsrb.hn_1 import ENTRY_CONCEPTS
+from analysis_tools.gtsrb_utils import CONCEPTS
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger("PN_Study")
@@ -93,7 +93,7 @@ def create_trainer_config(conv_layers, linear_layers):
             "dataset_name": DATASET_NAME,
             "conv_layers": conv_layers,
             "linear_layers": linear_layers,
-            "num_outputs": len(ENTRY_CONCEPTS),
+            "num_outputs": len(CONCEPTS),
             "hidden_activations": ('leaky_relu', 0.1)
         }
     )

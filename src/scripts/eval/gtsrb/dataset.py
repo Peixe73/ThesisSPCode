@@ -22,7 +22,7 @@ if TYPE_CHECKING or DO_SCRIPT_IMPORTS:
     )
     from core.eval.metrics_crosser import MetricCrosser
     from analysis_tools.datasets import analyze_dataset
-    from analysis_tools.gtsrb_utils import CONCEPTS, SIGNCLASS_BINARY, CLASS_COLS
+    from analysis_tools.gtsrb_utils import CLASS_COLS #CONCEPTS, SIGNCLASS_BINARY,
     from core.util.progress_trackers import LogProgressContextManager
 
     logger = logging.getLogger(__name__)

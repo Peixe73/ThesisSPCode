@@ -7,9 +7,10 @@ from analysis_tools.ontology_mapping import ONTOLOGY_CONCEPT_MAP
 module_logger = logging.getLogger(__name__)
 
 # Binary column names
-SIGNCLASS_BINARY = ["SignClass_A", "SignClass_B", "SignClass_C", "SignClass_D"]
-CLASSID_BINARY = [f"ClassId_{i}" for i in range(43)]
+#SIGNCLASS_BINARY = ["SignClass_A", "SignClass_B", "SignClass_C", "SignClass_D"]
+#CLASSID_BINARY = [f"ClassId_{i}" for i in range(43)]
 
+"""
 CLASS_COLS = [
     "ClassId_1","ClassId_2","ClassId_3","ClassId_4","ClassId_5",
     "ClassId_6","ClassId_7","ClassId_8","ClassId_9","ClassId_10",
@@ -18,10 +19,22 @@ CLASS_COLS = [
     "ClassId_35","ClassId_36","ClassId_37","ClassId_38","ClassId_39",
     "ClassId_40","ClassId_41","ClassId_42","ClassId_43",
 ]
+"""
+
+CLASS_COLS = [ "C14_20", "C14_30", "C14_50", "C14_60", "C14_70",
+               "C14_80", "C17b_80", "C14_100", "C14_120","C13aa",
+               "C13bb", "A19a", "B3", "B1", "B2a",
+               "C2", "C3e3", "C1a", "A32", "A1a",
+               "A1b", "A1c", "A7a", "A9", "A4b2",
+               "A16", "A17a", "A33", "A13", "A14",
+               "A34", "A15b", "C17a", "D1a5", "D1a4",
+               "D1a1", "D1a7", "D1a6", "D2a2", "D2a1",
+               "D3", "C17c", "C17d"
+             ]
 
 CONCEPTS = [
     "Circular_Shape","Diamond_Shape","Triangular_Shape","Octagonal_Shape",
-    "Red_Ground","White_Ground","Yellow_Ground","Blue",
+    "Red_Ground","White_Ground","Yellow_Ground","Blue_Ground",
     "Border","Black_Border","Red_Border","White_Border",
     "Bar","Black_Bar","White_Bar",
     "Symbol","Black_Symbol","White_Symbol",
@@ -29,7 +42,14 @@ CONCEPTS = [
     "Symbol_OvertakingGoods","Symbol_Speed20","Symbol_Speed30",
     "Symbol_Speed50","Symbol_Speed60","Symbol_Speed70",
     "Symbol_Speed80","Symbol_Speed100","Symbol_Speed120",
-    "D1a1","D1a4","D1a5","D1a6","D1a7","D2a1","D2a2","D3",
+    "Symbol_D1a1","Symbol_D1a4","Symbol_D1a5","Symbol_D1a6",
+    "Symbol_D1a7","Symbol_D2a1","Symbol_D2a2","Symbol_D3",
+    "Symbol_SingleLeftBend", "Symbol_SingleRightBend",
+    "Symbol_TwoOrMoreLeftBend", "Symbol_RightNarrow", "Symbol_RoadDeformities",
+    "Symbol_SlipperyRoad", "Symbol_Children", "Symbol_Cyclists",
+    "Symbol_WildAnimals", "Symbol_RoadWorks", "Symbol_VerticalLightSignals",
+    "Symbol_IntersectionPriority", "Symbol_Danger", "Symbol_Pedestrians",
+    "Symbol_IceSnow"
 ]
 
 CLASSES = CONCEPTS + CLASS_COLS

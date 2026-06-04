@@ -5,31 +5,10 @@ if TYPE_CHECKING or DO_SCRIPT_IMPORTS:
     from core.studies import StudyManager
     from core.storage_management import StudyFileManager
 
+from analysis_tools.gtsrb_utils import CLASS_COLS, CONCEPTS
 STUDY_NAME=f"gtsrb_{__name__.split('.')[-1]}"
 
 DATASET_NAME = "gtsrb"
-
-ENTRY_CONCEPTS = [
-    "Circular_Shape","Diamond_Shape","Triangular_Shape","Octagonal_Shape",
-    "Red_Ground","White_Ground","Yellow_Ground","Blue",
-    "Border","Black_Border","Red_Border","White_Border",
-    "Bar","Black_Bar","White_Bar",
-    "Symbol","Black_Symbol","White_Symbol",
-    "Symbol_Stop","Symbol_NoEntryGoods","Symbol_Overtaking",
-    "Symbol_OvertakingGoods","Symbol_Speed20","Symbol_Speed30",
-    "Symbol_Speed50","Symbol_Speed60","Symbol_Speed70",
-    "Symbol_Speed80","Symbol_Speed100","Symbol_Speed120",
-    "D1a1","D1a4","D1a5","D1a6","D1a7","D2a1","D2a2","D3",
-]
-
-CLASS_COLS = [
-    "ClassId_1","ClassId_2","ClassId_3","ClassId_4","ClassId_5",
-    "ClassId_6","ClassId_7","ClassId_8","ClassId_9","ClassId_10",
-    "ClassId_11","ClassId_12","ClassId_13","ClassId_14","ClassId_15",
-    "ClassId_16","ClassId_17","ClassId_18","ClassId_33","ClassId_34",
-    "ClassId_35","ClassId_36","ClassId_37","ClassId_38","ClassId_39",
-    "ClassId_40","ClassId_41","ClassId_42","ClassId_43",
-]
 
 """
 RN_WITH_WEIGHTS = {
@@ -77,7 +56,7 @@ RN_WITHOUT_WEIGHTS = {
     "build_args": [],
     "build_kwargs": {
         "valid_path": "data/gtsrb_ontology_Valid_Final.csv",
-        "feature_cols": ENTRY_CONCEPTS,
+        "feature_cols": CONCEPTS,
         "class_cols": CLASS_COLS,
         "dataset_size": 6400,
         "batch_size": 64,
@@ -118,7 +97,7 @@ def make_untrained_rn_config(model_config):
         "build_args": [],
         "build_kwargs": {
             "valid_path": "data/gtsrb_ontology_Valid_Final.csv",
-            "feature_cols": ENTRY_CONCEPTS,
+            "feature_cols": CONCEPTS,
             "class_cols": CLASS_COLS,
             "dataset_size": 6400,
             "batch_size": 64,
@@ -140,7 +119,7 @@ def make_pn_config(kwargs):
         "build_args" : [],
         "build_kwargs" : {
             'dataset_name': DATASET_NAME,
-            'num_outputs' : len(ENTRY_CONCEPTS),
+            'num_outputs' : len(CONCEPTS),
             'hidden_activations' : ('leaky_relu', 0.1)
         } | kwargs
     }
@@ -149,7 +128,7 @@ def make_config(rn_config, pn_kwargs, extra_kwargs):
     kwargs = {
         "dataset_name": DATASET_NAME,
         "concept_dataset_name": "gtsrb_concepts_only",
-        "concepts": ENTRY_CONCEPTS,
+        "concepts": CONCEPTS,
         "pre_trained_learning_rate" : 0.001,
         "untrained_learning_rate" : 0.001,
         "reasoning_network_config" : rn_config,

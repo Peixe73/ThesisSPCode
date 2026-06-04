@@ -288,17 +288,17 @@ def create_trainer(
     
     if model_cfg["type"] == "ontology":
         model = OntologyRN(
-            input_size=38,
+            input_size=53,
             category_size=4,
             num_classes=len(class_cols),
             pre_layers=model_cfg["pre"],
             post_layers=model_cfg["post"]
         )
     elif model_cfg["type"] == "direct":
-        model = DirectRN(input_size = 38,
+        model = DirectRN(input_size = 53,
                          num_outputs = num_outputs)
     else:
-        model = create_mlp(38, model_cfg["layers"], num_outputs)
+        model = create_mlp(53, model_cfg["layers"], num_outputs)
 
     # logic for two-stage training (if applicable)
     if training_mode == "two_stage" and isinstance(model, OntologyRN):
