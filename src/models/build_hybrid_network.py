@@ -1,10 +1,11 @@
 from typing import Literal, Optional
 
+from core.training.stop_criteria.goal_reached import GoalReached
 import torcheval.metrics
 
 from core import datasets
 from core.datasets import dataset_wrappers
-from core.eval.objectives import Maximize
+from core.eval.objectives import Maximize, Minimize
 from core.eval import metrics
 from core.eval.metrics import metric_wrappers
 from core.training import Trainer, MetricsRecorder, TrainingRecorder
@@ -253,6 +254,8 @@ def create_trainer(
         )
         metric_recorders.append(pn_metrics)
     objective = Maximize('val', 'balanced_accuracy', threshold=threshold)
+    
+    patience_objective = Minimize("train", "loss", threshold=0.001)
 
     model = create_model(len(concepts), **kwargs)
     
@@ -288,7 +291,11 @@ def create_trainer(
         optimizer=optimizer,
         training_set=dataset,
         metric_loggers=metric_recorders,
-        stop_criteria=[EarlyStop(objective, patience=patience)],
+        #stop_criteria=[EarlyStop(objective, patience=patience)],
+        stop_criteria=[
+            EarlyStop(patience_objective, patience=patience),
+            GoalReached(1.0)
+        ],
         checkpoint_triggers=[BestMetric(objective)],
         objective=objective,
         batch_size=64

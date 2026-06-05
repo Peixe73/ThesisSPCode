@@ -72,7 +72,7 @@ RN_WITHOUT_WEIGHTS = {
 
 RN_ARCHITECTURES = [
     # ONTOLOGY MODELS
-    #("ONTO_BASE",   {"type": "ontology", "pre": [], "post": []}),
+    ("ONTO_BASE",   {"type": "ontology", "pre": [], "post": []}),
     
     ("ONTO_32",     {"type": "ontology", "pre": [32], "post": [32]}),
     #("ONTO_64",     {"type": "ontology", "pre": [64], "post": [64]}),
@@ -153,7 +153,7 @@ CONVOLUTIONS = [
     )),"""
 
 LINEAR_CONFIGS = [
-    ('', []),
+    #('', []),
     #('_L16', [16]),
     ('_L32', [32]),
     #('_L64', [64]),
@@ -240,7 +240,7 @@ def main():
     file_manager = StudyFileManager(STUDY_NAME)
     study_manager = StudyManager(
         file_manager,
-        max_epochs=20
+        max_epochs=1000
     )
 
     configs = make_configs()

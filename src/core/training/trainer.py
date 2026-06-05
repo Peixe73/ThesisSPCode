@@ -510,7 +510,8 @@ class Trainer:
         model_path = load_path.get('model_path', None)
         load_checkpoint = load_path.get('load_checkpoint', True)
         if load_checkpoint:
-            checkpoint_preference = load_path.get('checkpoint_preference', 'best')
+            #checkpoint_preference = load_path.get('checkpoint_preference', 'best')
+            checkpoint_preference = load_path.get('checkpoint_preference', 'last')
             checkpoint_path = load_path.get('checkpoint_path', None)
             checkpoint_path = Path(checkpoint_path) if checkpoint_path is not None else None
             with ModelFileManager(model_name, model_path) as file_manager:
@@ -533,7 +534,7 @@ class Trainer:
             return cls.model_from_path(config)
 
     @classmethod
-    def load_checkpoint(
+    def     load_checkpoint(
             cls, 
             file_manager : ModelFileManager,
             file : Path | None = None,
