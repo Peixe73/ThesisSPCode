@@ -153,6 +153,7 @@ class Trainer:
         self.epoch_checkpoint = False
         self.best_checkpoint_results : Optional[ResultsDict] = None
         self.objective = objective
+        self.epoch_start_hooks: list[Callable[["Trainer"], None]] = []
 
     def _set_logger(self, logger : logging.Logger):
         self.logger = logger
@@ -389,6 +390,8 @@ class Trainer:
         return records
 
     def _do_epoch(self, epoch):
+        for hook in self.epoch_start_hooks:
+            hook(self)
         if self.model_file_manager is None:
             raise ValueError("Model file manager not initialized")
         self.epoch = epoch

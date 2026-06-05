@@ -185,6 +185,20 @@ class MetricsRecorder:
             return
         model.eval()
         self.prepare_torch_metrics()
+        """
+        This doesn't seem necessary, as the trainer already calls to update the metric for every epoch.
+        
+        dataset = self.dataset_ref()
+        dataloader = DataLoader(
+            dataset,
+            batch_size=self.dataloader.batch_size,
+            num_workers=self.dataloader.num_workers,
+            worker_init_fn=dataloader_worker_init_fn,
+            pin_memory=True
+        )
+        
+        """
+        
         y_pred = None
         y_true = None
         #logger.info(f"Producing predictions for metrics logger {self.identifier}")
@@ -261,6 +275,11 @@ class _MeanLoss(Metric):
         self.sum = torch.tensor(0.0)
         self.count = torch.tensor(0.0)
         super().__init__()
+        
+    def reset(self):
+        self.sum.zero_()
+        self.count.zero_()
+        return self
 
     def to(self, device, *_, **__):
         self.sum = self.sum.to(device)

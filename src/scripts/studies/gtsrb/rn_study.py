@@ -48,7 +48,7 @@ def make_config(cfg):
 
 def main():
     file_manager = StudyFileManager(STUDY_NAME)
-    study_manager = StudyManager(file_manager, max_epochs=100)
+    study_manager = StudyManager(file_manager, max_epochs=1000)
 
     configs = [(name, [], make_config(cfg)) for name, cfg in CONFIGS]
 

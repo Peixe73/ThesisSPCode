@@ -186,6 +186,7 @@ class EpochDatasetUpdater:
         self.dataset_size = dataset_size
         self.base_seed = base_seed
         self.epoch = 0
+        self.latest_dataset = None
 
     def reset(self):
         pass
@@ -193,6 +194,7 @@ class EpochDatasetUpdater:
     def update(self, *args, **kwargs):
         pass
 
+    """
     def compute(self):
         path = DEBUG_DIR / "train.csv"
 
@@ -211,6 +213,35 @@ class EpochDatasetUpdater:
 
         self.epoch += 1
         return 0.0
+    
+    """
+    def on_epoch_start(self, trainer: Trainer):
+        path = DEBUG_DIR / "train.csv"
+
+        epoch_seed = self.base_seed * 1000003 + self.epoch
+
+        ds = RandomReasoningDataset(
+            self.valid_path,
+            self.feature_cols,
+            self.class_cols,
+            self.dataset_size,
+            seed=epoch_seed
+        )
+        ds.to_csv(path)
+
+        self.latest_dataset = CSVDataset(
+            path=path,
+            features=self.feature_cols,
+            target=self.class_cols + ["valid"],
+            stratify_col=None
+        )
+
+        # swap safely at epoch boundary
+        trainer.training_set = self.latest_dataset
+
+        logger.info(f"[DATASET] Epoch {self.epoch} | Seed {epoch_seed}")
+
+        self.epoch += 1
 
 
 def create_trainer(
@@ -264,7 +295,7 @@ def create_trainer(
     def metrics_factory():
         metrics = {
             "epoch_elapsed": Elapsed(),
-            "dataset_update": dataset_updater, # this will regenerate the dataset at the end of each epoch
+            #"dataset_update": dataset_updater, # this will regenerate the dataset at the end of each epoch
         }
 
         metric_wrappers.SelectCol.col_wise(
@@ -342,5 +373,7 @@ def create_trainer(
         ],
         checkpoint_triggers=[BestMetric(objective)],
     )
+    
+    trainer.epoch_start_hooks.append(dataset_updater.on_epoch_start)
 
     return trainer
