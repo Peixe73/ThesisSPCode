@@ -76,7 +76,7 @@ class GlobalOptions:
 
 
     justifier_jar: str = field(
-        default='dependencies/justifier/Justifier_original.jar',
+        default='dependencies/justifier/Justifier.jar',
         metadata=option(str, help_=
         'Path to the justifier jar file')
     )

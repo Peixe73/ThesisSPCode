@@ -145,10 +145,9 @@ def create_model(
     return DebugHybridNetwork(
     perception_network=perception_network,
     reasoning_network=reasoning_network
-
-)
-"""
-
+    )
+    """
+    
 def pn_evaluator(model : 'HybridNetwork', x, y):
     return EvaluationResult(model.perception_network(x), y)
     

@@ -17,6 +17,22 @@ class HybridNetwork(NNModule):
     
     def forward(self, x):
         concepts = self.perception_network(x)
+
+        print(
+            "Concepts:",
+            concepts.mean().item(),
+            concepts.min().item(),
+            concepts.max().item()
+        )
+
+        classes = self.reasoning_network(concepts)
+
+        print(
+            "Classes:",
+            classes.mean().item(),
+            classes.min().item(),
+            classes.max().item()
+        )
         classes = self.reasoning_network(concepts)
         if self.output_includes_concepts:
             return torch.hstack((concepts, classes))

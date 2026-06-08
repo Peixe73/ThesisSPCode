@@ -15,7 +15,10 @@ COPY ./dependencies/justifier/Justifier_original.jar /justifier/Justifier_origin
 WORKDIR /justifier/src
 RUN mkdir ../bin
 RUN javac -cp ../Justifier_original.jar:. -d ../bin *.java **/*.java
-WORKDIR /justifier/temp
+#RUN find . -name "*.java" > sources.txt && \
+#    javac -cp ../Justifier_original.jar -d ../bin @sources.txt && \
+#    jar cfe ../Justifier.jar Main -C ../bin .
+#WORKDIR /justifier/temp
 RUN jar xf ../Justifier_original.jar
 RUN cp --remove-destination -r ../bin/* .
 RUN jar cfe ../Justifier.jar Main *

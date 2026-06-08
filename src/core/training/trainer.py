@@ -446,6 +446,17 @@ class Trainer:
         pred = self.model.forward(x)
         loss = self.loss_fn(pred, y)
         loss.backward()
+        print("LOSS", loss.item())
+
+        for name, p in self.model.reasoning_network.named_parameters():
+            if p.grad is not None:
+                print("RN", name, p.grad.abs().mean().item())
+                break
+
+        for name, p in self.model.perception_network.named_parameters():
+            if p.grad is not None:
+                print("PN", name, p.grad.abs().mean().item())
+                break
         self.optimizer.step()
         if self.train_logger is not None:
             self.train_logger.update_loss(loss.detach())
@@ -510,8 +521,8 @@ class Trainer:
         model_path = load_path.get('model_path', None)
         load_checkpoint = load_path.get('load_checkpoint', True)
         if load_checkpoint:
-            #checkpoint_preference = load_path.get('checkpoint_preference', 'best')
-            checkpoint_preference = load_path.get('checkpoint_preference', 'last')
+            checkpoint_preference = load_path.get('checkpoint_preference', 'best')
+            #checkpoint_preference = load_path.get('checkpoint_preference', 'last')
             checkpoint_path = load_path.get('checkpoint_path', None)
             checkpoint_path = Path(checkpoint_path) if checkpoint_path is not None else None
             with ModelFileManager(model_name, model_path) as file_manager:

@@ -211,6 +211,7 @@ def make_configs():
                     "linear_layers": linear
                 }
 
+                """
                 configs.append((
                     f"{pn_name}_{rn_name}_untRN",
                     [],
@@ -222,6 +223,7 @@ def make_configs():
                         }
                     )
                 ))
+                """
 
                 configs.append((
                     f"{pn_name}_{rn_name}_preRN",
@@ -229,7 +231,9 @@ def make_configs():
                     make_config(
                         make_pretrained_rn_config(rn_name),
                         pn_kwargs,
-                        {}
+                        {
+                            "rn_learning_rate": 0.001,
+                        }
                     )
                 ))
 

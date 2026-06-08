@@ -28,14 +28,14 @@ if TYPE_CHECKING or DO_SCRIPT_IMPORTS:
     from core.eval.justifier_wrapper.justifier import (
         ParallelJustifierWrapper, JustifierArgs, JustifierConfig, JustifierResult)
     from core.eval.justifier_wrapper.justifier_result import Justification
-
-    from datasets.gtsrb import CONCEPTS, CLASSES
-    from analysis_tools.gtsrb_utils import prepare_pn_with_attribution, class_to_manchester_assertion
+    from analysis_tools.gtsrb_utils import prepare_pn_with_attribution, class_to_manchester_assertion, CONCEPTS, CLASSES
 
     from core.datasets import get_dataset
 
 COLS = ['All Correct', 'Some Correct', 'None Correct', 'No Justifications']
 SEED=51612
+
+#Usage in Console: ./docker-run IMG python src/__init__.py   --models-path storage/studies   eval gtsrb justifications   gtsrb_hn_1_BackUp/C1_L32_DIRECT_BASE_untRN --max-samples 1
 
 """
 def build_preprocessor(concepts, classes):
@@ -72,7 +72,7 @@ def build_preprocessor(concepts, classes):
 
 
 def preprocessor(batch : tuple['torch.Tensor', 'torch.Tensor', int]) -> 'JustifierArgs':
-    beliefs, correct_preds, train_type = batch
+    beliefs, correct_preds, sign_type = batch
     assert correct_preds.dtype == torch.bool
     observations = []
     correct_dict : dict[str, bool] = {}
@@ -82,10 +82,17 @@ def preprocessor(batch : tuple['torch.Tensor', 'torch.Tensor', int]) -> 'Justifi
         if negate:
             belief = 1.0 - belief
         manchester = class_to_manchester_assertion(concept, negate)
+        if manchester is None:
+            logger.info(f"Skipping concept {concept} for justification, as it is not an actual concept but rather a placeholder for the existence of a relation")
+            continue
         observations.append((manchester, belief))
         correct_dict[manchester] = correct_preds[i].item() # type: ignore # (asserted above)
-    entailment = class_to_manchester_assertion(CLASSES[train_type])
-    return JustifierArgs(entailment, observations, metadata=(correct_dict, train_type))
+    entailment = str(class_to_manchester_assertion(CLASS_COLS[sign_type]))
+    logger.info("Entailment: %s", entailment)
+
+    for obs, conf in observations[:10]:
+        logger.info("Obs: %s (%f)", obs, conf)
+    return JustifierArgs(entailment, observations, metadata=(correct_dict, sign_type))
 
 
 
@@ -121,14 +128,14 @@ def preprocessor(batch):
 """
 
 class CorrectnessCount(NamedTuple):
-    train_type : int
+    sign_type : int
     all_justifications : 'pd.Series'
     best_justification : 'pd.Series'
 
 def postprocessor(result : 'JustifierResult') -> CorrectnessCount:
     correct_dict : dict[str, bool]
-    train_type : int
-    correct_dict, train_type = result.args.metadata
+    sign_type : int
+    correct_dict, sign_type = result.args.metadata
     correct = 0
     incorrect = 0
     justifications = result.justifications
@@ -162,7 +169,7 @@ def postprocessor(result : 'JustifierResult') -> CorrectnessCount:
         else:
             series['No Justifications'] = 1
             best_series['No Justifications'] = 1
-    return CorrectnessCount(train_type, series, best_series)
+    return CorrectnessCount(sign_type, series, best_series)
 
 """
 def run_justifier(
@@ -285,16 +292,19 @@ def run_justifier(
                         concepts = pn(x)
                         correct_preds = (concepts > 0.5) == (y_concepts > 0.5)
                         for i in range(min(y.size(0), max_samples - queued_samples)):
-                            for j in [0, 1, 2]:
+                            for j in range(len(CLASS_COLS)):
                                 if y_classes[i][j] > 0.5:
                                     yield concepts[i].cpu(), correct_preds[i].cpu(), j
+                            #for j in [0, 1, 2]:
+                                #if y_classes[i][j] > 0.5:
+                                    #yield concepts[i].cpu(), correct_preds[i].cpu(), j
                             queued_samples += 1
         result = pd.DataFrame(0, index=pd.Index(CLASSES), columns=pd.Index(COLS))
         result_best = pd.DataFrame(0, index=pd.Index(CLASSES), columns=pd.Index(COLS))
         def reducer(sample_results : Iterable[CorrectnessCount]):
             for i, sample_result in enumerate(sample_results):
-                result.loc[CLASSES[sample_result.train_type]] += sample_result.all_justifications
-                result_best.loc[CLASSES[sample_result.train_type]] += sample_result.best_justification
+                result.loc[CLASSES[sample_result.sign_type]] += sample_result.all_justifications
+                result_best.loc[CLASSES[sample_result.sign_type]] += sample_result.best_justification
                 if (i+1) % 500 == 0:
                     logger.info(f'Processed {i+1} samples. Results so far:\n{result}\n'
                                 f'Best results so far:\n{result_best}')

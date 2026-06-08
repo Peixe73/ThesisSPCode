@@ -11,6 +11,7 @@ from subprocess import Popen
 import subprocess
 from dataclasses import dataclass
 
+from sys import stderr, stdout
 import threading
 import warnings
 from concurrent.futures import Future
@@ -159,6 +160,9 @@ def _communicate(context: JustifierContext, args : JustifierArgs) -> JustifierRe
     )
 
     stdout, stderr = context.process.communicate(input_data)
+    #logger.info("INPUT:\n%s", input_data)
+    #logger.info("STDOUT:\n%s", stdout)
+    #logger.info("STDERR:\n%s", stderr)
     if stderr:
         logger.error(stderr)
     return JustifierResult(
