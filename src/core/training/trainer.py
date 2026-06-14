@@ -154,6 +154,8 @@ class Trainer:
         self.best_checkpoint_results : Optional[ResultsDict] = None
         self.objective = objective
         self.epoch_start_hooks: list[Callable[["Trainer"], None]] = []
+        self.debug_grad_prints = 0
+        self.max_debug_grad_prints = 5
 
     def _set_logger(self, logger : logging.Logger):
         self.logger = logger
@@ -446,17 +448,76 @@ class Trainer:
         pred = self.model.forward(x)
         loss = self.loss_fn(pred, y)
         loss.backward()
-        print("LOSS", loss.item())
+        
+        if self.debug_grad_prints < self.max_debug_grad_prints:
+            print("LOSS", loss.item())
+            
+            print("\n===== REASONING NETWORK =====")
+            for name, p in self.model.reasoning_network.named_parameters():
+                if p.grad is not None:
+                    print(
+                        f"{name:40s}"
+                        f" mean={p.grad.abs().mean().item():.6e}"
+                        f" max={p.grad.abs().max().item():.6e}"
+                        f" norm={p.grad.norm().item():.6e}"
+                    )
 
-        for name, p in self.model.reasoning_network.named_parameters():
-            if p.grad is not None:
-                print("RN", name, p.grad.abs().mean().item())
-                break
+            print("\n===== PERCEPTION NETWORK =====")
+            for name, p in self.model.perception_network.named_parameters():
+                if p.grad is not None:
+                    print(
+                        f"{name:40s}"
+                        f" mean={p.grad.abs().mean().item():.6e}"
+                        f" max={p.grad.abs().max().item():.6e}"
+                        f" norm={p.grad.norm().item():.6e}"
+                    )
 
-        for name, p in self.model.perception_network.named_parameters():
-            if p.grad is not None:
-                print("PN", name, p.grad.abs().mean().item())
-                break
+            pn_norm = 0.0
+            rn_norm = 0.0
+
+            for p in self.model.perception_network.parameters():
+                if p.grad is not None:
+                    pn_norm += p.grad.norm().item()
+
+            for p in self.model.reasoning_network.parameters():
+                if p.grad is not None:
+                    rn_norm += p.grad.norm().item()
+
+            print(f"\nPN TOTAL GRAD NORM: {pn_norm:.6e}")
+            print(f"RN TOTAL GRAD NORM: {rn_norm:.6e}")
+            
+            """
+            if hasattr(self.model, "last_concepts"):
+                g = self.model.last_concepts.grad
+
+                if g is not None:
+                    self.logger.debug(
+                        "\nCONCEPT GRADIENT",
+                        f"mean={g.abs().mean().item():.6e}",
+                        f"min={g.min().item():.6e}",
+                        f"max={g.max().item():.6e}",
+                        f"norm={g.norm().item():.6e}"
+                    )
+            """
+                    
+            print("\n===== PN LAYER GRADIENT FLOW =====")
+
+            for name, p in self.model.perception_network.named_parameters():
+                if p.grad is not None:
+                    print(
+                        f"{name:50s} {p.grad.norm().item():.6e}"
+                    )
+            """
+            for name, p in self.model.reasoning_network.named_parameters():
+                if p.grad is not None:
+                    self.logger.debug("RN", name, p.grad.abs().mean().item())
+                    break
+
+            for name, p in self.model.perception_network.named_parameters():
+                if p.grad is not None:
+                    self.logger.debug("PN", name, p.grad.abs().mean().item())
+                    break
+            """
         self.optimizer.step()
         if self.train_logger is not None:
             self.train_logger.update_loss(loss.detach())
@@ -521,8 +582,8 @@ class Trainer:
         model_path = load_path.get('model_path', None)
         load_checkpoint = load_path.get('load_checkpoint', True)
         if load_checkpoint:
-            checkpoint_preference = load_path.get('checkpoint_preference', 'best')
-            #checkpoint_preference = load_path.get('checkpoint_preference', 'last')
+            #checkpoint_preference = load_path.get('checkpoint_preference', 'best')
+            checkpoint_preference = load_path.get('checkpoint_preference', 'last')
             checkpoint_path = load_path.get('checkpoint_path', None)
             checkpoint_path = Path(checkpoint_path) if checkpoint_path is not None else None
             with ModelFileManager(model_name, model_path) as file_manager:

@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <rdf:RDF xmlns="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#"
      xml:base="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology"
-     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
      xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
      xmlns:xml="http://www.w3.org/XML/1998/namespace"
      xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
      xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
@@ -1187,6 +1187,44 @@
     <!-- http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#D -->
 
     <owl:Class rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#D">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <owl:Class>
+                        <owl:unionOf rdf:parseType="Collection">
+                            <owl:Class>
+                                <owl:intersectionOf rdf:parseType="Collection">
+                                    <owl:Restriction>
+                                        <owl:onProperty rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#hasGround"/>
+                                        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#Blue"/>
+                                    </owl:Restriction>
+                                    <owl:Restriction>
+                                        <owl:onProperty rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#hasSymbol"/>
+                                        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#White"/>
+                                    </owl:Restriction>
+                                </owl:intersectionOf>
+                            </owl:Class>
+                            <owl:Class>
+                                <owl:intersectionOf rdf:parseType="Collection">
+                                    <owl:Restriction>
+                                        <owl:onProperty rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#hasGround"/>
+                                        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#White"/>
+                                    </owl:Restriction>
+                                    <owl:Restriction>
+                                        <owl:onProperty rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#hasSymbol"/>
+                                        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#Black"/>
+                                    </owl:Restriction>
+                                </owl:intersectionOf>
+                            </owl:Class>
+                        </owl:unionOf>
+                    </owl:Class>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#hasShape"/>
+                        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#Circle"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
         <rdfs:subClassOf>
             <owl:Class>
                 <owl:unionOf rdf:parseType="Collection">
@@ -1721,25 +1759,25 @@
                     </owl:Class>
                     <owl:Restriction>
                         <owl:onProperty rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#hasBar"/>
-                        <owl:allValuesFrom>
+                        <owl:someValuesFrom>
                             <owl:Class>
                                 <owl:unionOf rdf:parseType="Collection">
                                     <rdf:Description rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#Red"/>
                                     <rdf:Description rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#White"/>
                                 </owl:unionOf>
                             </owl:Class>
-                        </owl:allValuesFrom>
+                        </owl:someValuesFrom>
                     </owl:Restriction>
                     <owl:Restriction>
                         <owl:onProperty rdf:resource="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#hasSymbol"/>
-                        <owl:allValuesFrom>
+                        <owl:someValuesFrom>
                             <owl:Class>
                                 <owl:unionOf rdf:parseType="Collection">
                                     <rdf:Description rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#Black"/>
                                     <rdf:Description rdf:about="http://www.semanticweb.org/manerix/ontologies/2020/9/Traffic_Signals_Ontology#Red"/>
                                 </owl:unionOf>
                             </owl:Class>
-                        </owl:allValuesFrom>
+                        </owl:someValuesFrom>
                     </owl:Restriction>
                 </owl:intersectionOf>
             </owl:Class>
@@ -1828,4 +1866,5 @@
 
 
 
-<!-- Generated by the OWL API (version 4.2.8.20170104-2310) https://github.com/owlcs/owlapi -->
+<!-- Generated by the OWL API (version 4.5.29.2024-05-13T12:11:03Z) https://github.com/owlcs/owlapi -->
+

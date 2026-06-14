@@ -3,6 +3,10 @@ import torch
 from torch.nn import Module as NNModule
 from torch.nn.parameter import Parameter
 
+import logging
+
+logger = logging.getLogger(__name__)
+
 class HybridNetwork(NNModule):
     def __init__(
             self,
@@ -18,21 +22,26 @@ class HybridNetwork(NNModule):
     def forward(self, x):
         concepts = self.perception_network(x)
 
-        print(
+        """
+        logger.debug(
             "Concepts:",
             concepts.mean().item(),
             concepts.min().item(),
             concepts.max().item()
         )
+        """
 
         classes = self.reasoning_network(concepts)
 
-        print(
+        """
+        logger.debug(
             "Classes:",
             classes.mean().item(),
             classes.min().item(),
             classes.max().item()
         )
+        """
+        
         classes = self.reasoning_network(concepts)
         if self.output_includes_concepts:
             return torch.hstack((concepts, classes))

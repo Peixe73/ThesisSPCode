@@ -33,6 +33,7 @@ if TYPE_CHECKING or DO_SCRIPT_IMPORTS:
     from core.datasets import get_dataset
 
 COLS = ['All Correct', 'Some Correct', 'None Correct', 'No Justifications']
+#COLS = ['All Correct', 'Some Correct', 'None Correct', 'Not Entailed', 'Inconsistent']
 SEED=51612
 
 #Usage in Console: ./docker-run IMG python src/__init__.py   --models-path storage/studies   eval gtsrb justifications   gtsrb_hn_1_BackUp/C1_L32_DIRECT_BASE_untRN --max-samples 1
@@ -77,21 +78,32 @@ def preprocessor(batch : tuple['torch.Tensor', 'torch.Tensor', int]) -> 'Justifi
     observations = []
     correct_dict : dict[str, bool] = {}
     for i, concept in enumerate(CONCEPTS):
+        #raw = beliefs[i].item()
         belief = beliefs[i].item()
         negate = belief < 0.5
         if negate:
             belief = 1.0 - belief
+        """
+        logger.info(
+            "%s raw=%.4f negated=%s final=%.4f",
+            concept,
+            raw,
+            negate,
+            belief
+        )
+        """
         manchester = class_to_manchester_assertion(concept, negate)
         if manchester is None:
-            logger.info(f"Skipping concept {concept} for justification, as it is not an actual concept but rather a placeholder for the existence of a relation")
+            #logger.info(f"Skipping concept {concept} for justification, as it is not an actual concept but rather a placeholder for the existence of a relation")
             continue
         observations.append((manchester, belief))
         correct_dict[manchester] = correct_preds[i].item() # type: ignore # (asserted above)
     entailment = str(class_to_manchester_assertion(CLASS_COLS[sign_type]))
-    logger.info("Entailment: %s", entailment)
+    #logger.info("Entailment: %s", entailment)
+    #logger.info("Observations: %s", observations)
 
-    for obs, conf in observations[:10]:
-        logger.info("Obs: %s (%f)", obs, conf)
+    #for obs, conf in observations[:10]:
+    #    logger.info("Obs: %s (%f)", obs, conf)
     return JustifierArgs(entailment, observations, metadata=(correct_dict, sign_type))
 
 
@@ -139,15 +151,48 @@ def postprocessor(result : 'JustifierResult') -> CorrectnessCount:
     correct = 0
     incorrect = 0
     justifications = result.justifications
+    """
+    logger.info(
+        "JUSTIFICATIONS TYPE: %s",
+        type(result.justifications)
+    )
+    """
+    logger.info("Correct dict: %s", correct_dict)
     series = pd.Series([0, 0, 0, 0], index=COLS)
     best_series = pd.Series([0, 0, 0, 0], index=COLS)
+    #series = pd.Series([0, 0, 0, 0, 0], index=COLS)
+    #best_series = pd.Series([0, 0, 0, 0, 0], index=COLS)
     if justifications in ['inconsistent', 'not_entailed']:
         series['No Justifications'] = 1
         best_series['No Justifications'] = 1
+    #if justifications == 'not_entailed':
+    #    series['Not Entailed'] = 1
+    #    best_series['Not Entailed'] = 1
+
+    #elif justifications == 'inconsistent':
+    #    series['Inconsistent'] = 1
+    #    best_series['Inconsistent'] = 1
+
     else:
         is_first = True
         for justification in justifications:
             assert isinstance(justification, Justification)
+            logger.info(
+                "Justification belief: %s",
+                justification.belief
+            )
+            logger.info(
+                "Justification used observations: %s",
+                justification.used_observations
+            )
+            logger.info(
+                "Justification axioms: %s",
+                justification.axioms
+            )
+            logger.info(
+                "Justification entailment: %s",
+                justification.entailment.manchester_syntax
+            )
             is_correct = all(correct_dict[observation.concept_name]
                              for observation in justification.used_observations)
             if is_correct:
@@ -299,12 +344,12 @@ def run_justifier(
                                 #if y_classes[i][j] > 0.5:
                                     #yield concepts[i].cpu(), correct_preds[i].cpu(), j
                             queued_samples += 1
-        result = pd.DataFrame(0, index=pd.Index(CLASSES), columns=pd.Index(COLS))
-        result_best = pd.DataFrame(0, index=pd.Index(CLASSES), columns=pd.Index(COLS))
+        result = pd.DataFrame(0, index=pd.Index(CLASS_COLS), columns=pd.Index(COLS))
+        result_best = pd.DataFrame(0, index=pd.Index(CLASS_COLS), columns=pd.Index(COLS))
         def reducer(sample_results : Iterable[CorrectnessCount]):
             for i, sample_result in enumerate(sample_results):
-                result.loc[CLASSES[sample_result.sign_type]] += sample_result.all_justifications
-                result_best.loc[CLASSES[sample_result.sign_type]] += sample_result.best_justification
+                result.loc[CLASS_COLS[sample_result.sign_type]] += sample_result.all_justifications
+                result_best.loc[CLASS_COLS[sample_result.sign_type]] += sample_result.best_justification
                 if (i+1) % 500 == 0:
                     logger.info(f'Processed {i+1} samples. Results so far:\n{result}\n'
                                 f'Best results so far:\n{result_best}')

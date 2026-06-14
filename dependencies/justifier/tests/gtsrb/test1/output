@@ -1,0 +1,40 @@
+Could not load BDD package buddy: Can't load library: /home/sp73/ThesisSPCode/libbuddy.so
+Could not load BDD package buddy: Could not initialize class net.sf.javabdd.BuDDyFactory
+{
+  "loaded_observations" : [ {
+    "axiom" : "__input__ Type hasShape some Circle",
+    "belief" : 1.0
+  }, {
+    "axiom" : "__input__ Type hasGround some Blue",
+    "belief" : 1.0
+  }, {
+    "axiom" : "__input__ Type hasSymbol some White",
+    "belief" : 1.0
+  }, {
+    "axiom" : "__input__ Type hasSymbol some DirectionLeftStraight",
+    "belief" : 1.0
+  } ],
+  "justifications" : [ {
+    "entailment" : "__input__ Type D1a6",
+    "belief" : 1.0,
+    "used_observations" : [ 3, 2, 1, 0 ],
+    "axioms" : [ {
+      "axiom" : "__input__ Type hasSymbol some DirectionLeftStraight",
+      "belief" : 1.0
+    }, {
+      "axiom" : "__input__ Type hasSymbol some White",
+      "belief" : 1.0
+    }, {
+      "axiom" : "__input__ Type hasGround some Blue",
+      "belief" : 1.0
+    }, {
+      "axiom" : "__input__ Type hasShape some Circle",
+      "belief" : 1.0
+    }, {
+      "axiom" : "D EquivalentTo (((hasGround some Blue) and (hasSymbol some White)) or ((hasGround some White) and (hasSymbol some Black))) and (hasShape some Circle)"
+    }, {
+      "axiom" : "D1a6 EquivalentTo D and (hasSymbol some DirectionLeftStraight)"
+    } ]
+  } ]
+}
+

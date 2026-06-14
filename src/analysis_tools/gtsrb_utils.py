@@ -101,8 +101,24 @@ def class_to_manchester_assertion(cls : str, negate : bool = False) -> str | Non
         #    concept = f"(hasSymbol some Thing)"
         case 'Black_Symbol' | 'White_Symbol':
             concept = f"(hasSymbol some {cls.removesuffix('_Symbol')})"
-        case 'Symbol_Stop' | 'Symbol_NoEntryGoods' | 'Symbol_Overtaking' | 'Symbol_OvertakingGoods' | 'Symbol_Speed20' | 'Symbol_Speed30' | 'Symbol_Speed50' | 'Symbol_Speed60' | 'Symbol_Speed70' | 'Symbol_Speed80' | 'Symbol_Speed100' | 'Symbol_Speed120' | 'Symbol_D1a1' | 'Symbol_D1a4' | 'Symbol_D1a5' | 'Symbol_D1a6' | 'Symbol_D1a7' | 'Symbol_D2a1' | 'Symbol_D2a2' | 'Symbol_D3' | 'Symbol_SingleLeftBend' | 'Symbol_SingleRightBend' | 'Symbol_TwoOrMoreLeftBend' | 'Symbol_RightNarrow' | 'Symbol_RoadDeformities' | 'Symbol_SlipperyRoad' | 'Symbol_Children' | 'Symbol_Cyclists' | 'Symbol_WildAnimals' | 'Symbol_RoadWorks' | 'Symbol_VerticalLightSignals' | 'Symbol_IntersectionPriority' | 'Symbol_Danger' | 'Symbol_Pedestrians'| 'Symbol_IceSnow':
+        case 'Symbol_Stop' | 'Symbol_NoEntryGoods' | 'Symbol_Overtaking' | 'Symbol_OvertakingGoods' | 'Symbol_Speed20' | 'Symbol_Speed30' | 'Symbol_Speed50' | 'Symbol_Speed60' | 'Symbol_Speed70' | 'Symbol_Speed80' | 'Symbol_Speed100' | 'Symbol_Speed120' | 'Symbol_SingleLeftBend' | 'Symbol_SingleRightBend' | 'Symbol_TwoOrMoreLeftBend' | 'Symbol_RightNarrow' | 'Symbol_RoadDeformities' | 'Symbol_SlipperyRoad' | 'Symbol_Children' | 'Symbol_Cyclists' | 'Symbol_WildAnimals' | 'Symbol_RoadWorks' | 'Symbol_VerticalLightSignals' | 'Symbol_IntersectionPriority' | 'Symbol_Danger' | 'Symbol_Pedestrians'| 'Symbol_IceSnow':
             concept = f"(hasSymbol some {cls.removeprefix('Symbol_')})"
+        case  'Symbol_D1a1':
+            concept = f"(hasSymbol some DirectionStraight)"
+        case 'Symbol_D1a4':
+            concept = f"(hasSymbol some DirectionLeft)"
+        case 'Symbol_D1a5':
+            concept = f"(hasSymbol some DirectionRight)"
+        case 'Symbol_D1a6':
+            concept = f"(hasSymbol some DirectionLeftStraight)"
+        case 'Symbol_D1a7':
+            concept = f"(hasSymbol some DirectionRightStraight)"
+        case 'Symbol_D2a1':
+            concept = f"(hasSymbol some PassLeft)"
+        case 'Symbol_D2a2':
+            concept = f"(hasSymbol some PassRight)"
+        case 'Symbol_D3':
+            concept = f"(hasSymbol some Roundabout)"
         case 'Border' | 'Bar' | 'Symbol':
             return None  # skip these, as they are not actual concepts but rather placeholders for the existence of a relation
         case _:

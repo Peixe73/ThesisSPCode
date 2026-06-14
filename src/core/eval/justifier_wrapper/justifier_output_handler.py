@@ -1,6 +1,10 @@
 import json
 from typing import TypedDict, Optional, Literal
 
+import logging
+
+logger = logging.getLogger(__name__)
+
 from core.eval.justifier_wrapper.justifier_result import Justification, Axiom, ObservationAxiom, EntailmentAxiom
 
 class JSONAxiom(TypedDict):
@@ -42,6 +46,12 @@ def parse_output(
     loaded_observations = output['loaded_observations']
     justifications = []
     for justification in json_justifications:
+        """
+        logger.info(
+            "Justification belief = %.6f",
+            justification['belief']
+        )
+        """
         axioms = [Axiom(ax['axiom']) for ax in justification['axioms']]
         used_observations = [
             ObservationAxiom(

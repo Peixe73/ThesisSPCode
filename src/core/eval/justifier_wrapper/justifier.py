@@ -160,9 +160,16 @@ def _communicate(context: JustifierContext, args : JustifierArgs) -> JustifierRe
     )
 
     stdout, stderr = context.process.communicate(input_data)
-    #logger.info("INPUT:\n%s", input_data)
-    #logger.info("STDOUT:\n%s", stdout)
-    #logger.info("STDERR:\n%s", stderr)
+    logger.info("INPUT:\n%s", input_data)
+    logger.info("STDOUT:\n%s", stdout)
+    logger.info("STDERR:\n%s", stderr)
+    logger.info(
+        "Entailment %s -> %s",
+        args.entailment_class,
+        parse_json(stdout,
+                args.entailment_class,
+                args.observations)
+    )
     if stderr:
         logger.error(stderr)
     return JustifierResult(

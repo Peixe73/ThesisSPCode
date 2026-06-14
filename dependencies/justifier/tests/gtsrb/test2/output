@@ -1,0 +1,26 @@
+Could not load BDD package buddy: Can't load library: /home/sp73/ThesisSPCode/libbuddy.so
+Could not load BDD package buddy: Could not initialize class net.sf.javabdd.BuDDyFactory
+{
+  "loaded_observations" : [ {
+    "axiom" : "__input__ Type D",
+    "belief" : 1.0
+  }, {
+    "axiom" : "__input__ Type hasSymbol some DirectionLeftStraight",
+    "belief" : 1.0
+  } ],
+  "justifications" : [ {
+    "entailment" : "__input__ Type D1a6",
+    "belief" : 1.0,
+    "used_observations" : [ 1, 0 ],
+    "axioms" : [ {
+      "axiom" : "__input__ Type hasSymbol some DirectionLeftStraight",
+      "belief" : 1.0
+    }, {
+      "axiom" : "__input__ Type D",
+      "belief" : 1.0
+    }, {
+      "axiom" : "D1a6 EquivalentTo D and (hasSymbol some DirectionLeftStraight)"
+    } ]
+  } ]
+}
+

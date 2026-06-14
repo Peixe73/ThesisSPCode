@@ -1,0 +1,5 @@
+__input__ Type: (D1a6)
+__input__ Type: (hasShape some Circle), 1.0
+__input__ Type: (hasGround some Blue), 1.0
+__input__ Type: (hasSymbol some White), 1.0
+__input__ Type: (hasSymbol some DirectionLeftStraight), 1.0

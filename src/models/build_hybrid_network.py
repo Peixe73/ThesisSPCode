@@ -53,9 +53,13 @@ class DebugHybridNetwork(HybridNetwork):
 
         concepts = self.perception_network(x)
         
+        #concepts.retain_grad()
+        
+        #self.last_concepts = concepts
+        
         """
         concepts.register_hook(
-            lambda grad: print("\n[GRADIENT - CONCEPTS]",
+            lambda grad: logger.debug("\n[GRADIENT - CONCEPTS]",
                                "mean:", grad.abs().mean().item(),
                                "min:", grad.min().item(),
                                "max:", grad.max().item())
@@ -73,7 +77,7 @@ class DebugHybridNetwork(HybridNetwork):
         
         """
         out.register_hook(  
-            lambda grad: print("\n[GRADIENT - FINAL CLASSIFICATIONS]",
+            lambda grad: logger.debug("\n[GRADIENT - FINAL CLASSIFICATIONS]",
                                "mean:", grad.abs().mean().item(),
                                "min:", grad.min().item(),
                                "max:", grad.max().item())
@@ -137,6 +141,7 @@ def create_model(
     #perception_network = modify_perception_network(perception_network, num_concepts, dropout_last_pn, activation)
     reasoning_network = Trainer.model_from_path_or_config(reasoning_network_config)
     
+    """
     return HybridNetwork(
         perception_network=perception_network,
         reasoning_network=reasoning_network
@@ -146,7 +151,7 @@ def create_model(
     perception_network=perception_network,
     reasoning_network=reasoning_network
     )
-    """
+    
     
 def pn_evaluator(model : 'HybridNetwork', x, y):
     return EvaluationResult(model.perception_network(x), y)
