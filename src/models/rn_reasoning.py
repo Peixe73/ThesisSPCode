@@ -119,6 +119,7 @@ class MaskedBCELoss(nn.Module):
     """
     def __init__(self):
         super().__init__()
+        #self.bce = nn.BCELoss(reduction="none")
         self.bce = nn.BCELoss(reduction="none")
 
     def forward(self, y_pred, y_true):
@@ -179,14 +180,18 @@ class MaskedBCELoss(nn.Module):
 
 
 class EpochDatasetUpdater:
-    def __init__(self, valid_path, feature_cols, class_cols, dataset_size, base_seed):
+    def __init__(self, valid_path, feature_cols, class_cols, dataset_size, base_seed, concept_noise_mode="binary"):
         self.valid_path = valid_path
         self.feature_cols = feature_cols
         self.class_cols = class_cols
         self.dataset_size = dataset_size
         self.base_seed = base_seed
+        self.concept_noise_mode = concept_noise_mode
+        
         self.epoch = 0
         self.latest_dataset = None
+        #print("BASE SEED:", base_seed)
+        #print("TYPE:", type(base_seed))
 
     def reset(self):
         pass
@@ -225,7 +230,8 @@ class EpochDatasetUpdater:
             self.feature_cols,
             self.class_cols,
             self.dataset_size,
-            seed=epoch_seed
+            seed=epoch_seed,
+            concept_noise_mode=self.concept_noise_mode
         )
         ds.to_csv(path)
 
@@ -255,9 +261,12 @@ def create_trainer(
     patience: int = 20,
     base_seed: int = 42,
     training_mode: str = "standard",
-    stage: str | None = None                 # used only for two_stage
+    stage: str | None = None,               # used only for two_stage
+    concept_noise_mode: str = "binary"
 ) -> Trainer:
 
+    #print("create_trainer base_seed =", base_seed, type(base_seed))
+    
     train_csv = DEBUG_DIR / "train.csv"
     
     initial_seed = base_seed * 1000003 #+ 0
@@ -267,7 +276,8 @@ def create_trainer(
         feature_cols,
         class_cols,
         dataset_size,
-        seed=initial_seed
+        seed=initial_seed,
+        concept_noise_mode=concept_noise_mode
     )
 
     init_ds.to_csv(train_csv)
@@ -289,7 +299,8 @@ def create_trainer(
         feature_cols,
         class_cols,
         dataset_size,
-        base_seed
+        base_seed,
+        concept_noise_mode
     )
 
     def metrics_factory():
@@ -361,7 +372,8 @@ def create_trainer(
     trainer = Trainer(
         #model=create_model(38, layer_sizes, num_outputs=1 + len(class_cols)),
         model=model,
-        loss_fn=MaskedBCELoss(),
+        #loss_fn=MaskedBCELoss(),
+        loss_fn=torch.nn.BCELoss(),
         optimizer=torch.optim.Adam,
         training_set=train_dataset,
         batch_size=batch_size,

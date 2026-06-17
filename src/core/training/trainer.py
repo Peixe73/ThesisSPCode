@@ -448,7 +448,9 @@ class Trainer:
         pred = self.model.forward(x)
         loss = self.loss_fn(pred, y)
         loss.backward()
-        
+        if self.debug_grad_prints < self.max_debug_grad_prints:
+            print("LOSS", loss.item())
+        """
         if self.debug_grad_prints < self.max_debug_grad_prints:
             print("LOSS", loss.item())
             
@@ -486,19 +488,6 @@ class Trainer:
             print(f"\nPN TOTAL GRAD NORM: {pn_norm:.6e}")
             print(f"RN TOTAL GRAD NORM: {rn_norm:.6e}")
             
-            """
-            if hasattr(self.model, "last_concepts"):
-                g = self.model.last_concepts.grad
-
-                if g is not None:
-                    self.logger.debug(
-                        "\nCONCEPT GRADIENT",
-                        f"mean={g.abs().mean().item():.6e}",
-                        f"min={g.min().item():.6e}",
-                        f"max={g.max().item():.6e}",
-                        f"norm={g.norm().item():.6e}"
-                    )
-            """
                     
             print("\n===== PN LAYER GRADIENT FLOW =====")
 
@@ -507,17 +496,7 @@ class Trainer:
                     print(
                         f"{name:50s} {p.grad.norm().item():.6e}"
                     )
-            """
-            for name, p in self.model.reasoning_network.named_parameters():
-                if p.grad is not None:
-                    self.logger.debug("RN", name, p.grad.abs().mean().item())
-                    break
-
-            for name, p in self.model.perception_network.named_parameters():
-                if p.grad is not None:
-                    self.logger.debug("PN", name, p.grad.abs().mean().item())
-                    break
-            """
+        """
         self.optimizer.step()
         if self.train_logger is not None:
             self.train_logger.update_loss(loss.detach())

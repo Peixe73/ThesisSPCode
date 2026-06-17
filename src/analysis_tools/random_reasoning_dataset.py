@@ -15,6 +15,7 @@ class RandomReasoningDataset(Dataset):
         class_cols: list[str],
         dataset_size: int = 640,
         seed: int | None = None,
+        concept_noise_mode: str = "binary",
     ):
         self.valid_df = pd.read_csv(valid_path)
         self.feature_cols = feature_cols
@@ -22,6 +23,7 @@ class RandomReasoningDataset(Dataset):
         self.dataset_size = dataset_size
 
         self.rng = np.random.default_rng(seed)
+        self.concept_noise_mode = concept_noise_mode
             
 
         # Extract arrays
@@ -31,11 +33,61 @@ class RandomReasoningDataset(Dataset):
         self.num_outputs = 1 + len(self.class_cols)  # valid + classes
 
         logger.info("Loaded %d valid signatures", len(self.valid_features))
+    
+    def _soften_features(self, features):
+        features = features.copy()
 
+        if self.concept_noise_mode == "binary":
+            return features
+
+        # Uniform split at 0.5
+        elif self.concept_noise_mode == "uniform":
+            return np.where(
+                features > 0.5,
+                self.rng.uniform(0.5, 1.0, size=features.shape),
+                self.rng.uniform(0.0, 0.5, size=features.shape)
+            ).astype(np.float32)
+
+        # Concentrated near 0 and 1
+        elif self.concept_noise_mode == "extremes":
+            highs = self.rng.beta(5, 1, size=features.shape)
+            lows  = self.rng.beta(1, 5, size=features.shape)
+
+            return np.where(
+                features > 0.5,
+                highs,
+                lows
+            ).astype(np.float32)
+
+        # Concentrated near 0.5
+        elif self.concept_noise_mode == "middle":
+            highs = 0.5 + 0.5 * self.rng.beta(5, 5, size=features.shape)
+            lows  = 0.5 * self.rng.beta(5, 5, size=features.shape)
+
+            return np.where(
+                features > 0.5,
+                highs,
+                lows
+            ).astype(np.float32)
+
+        raise ValueError(
+            f"Unknown concept_noise_mode: {self.concept_noise_mode}"
+        )
+
+    """
     def _sample_valid(self):
         idx = self.rng.integers(0, len(self.valid_features))
         return self.valid_features[idx], self.valid_classes[idx]
+    """
+    def _sample_valid(self):
+        idx = self.rng.integers(0, len(self.valid_features))
 
+        features = self.valid_features[idx]
+        features = self._soften_features(features)
+
+        return features, self.valid_classes[idx]
+
+    """
     def _sample_invalid(self):
         if self.rng.random() < 0.5:
             while True:
@@ -51,6 +103,40 @@ class RandomReasoningDataset(Dataset):
                 return self._sample_invalid()
 
         # invalid → no class
+        class_labels = np.zeros(len(self.class_cols), dtype=np.float32)
+        return row, class_labels
+    """
+    
+    def _sample_invalid(self):
+        # 50%: fully random invalid
+        if self.rng.random() < 0.5:
+            while True:
+                row = self.rng.integers(
+                    0, 2, size=len(self.feature_cols)
+                ).astype(np.float32)
+
+                if tuple(row) not in self.rows_set:
+                    break
+
+            class_labels = np.zeros(len(self.class_cols), dtype=np.float32)
+            row = self._soften_features(row)
+            return row, class_labels
+
+        # 50% corrupted valid sample
+        idx = self.rng.integers(0, len(self.valid_features))
+        row = self.valid_features[idx].copy()
+
+        k = self.rng.integers(1, 6)
+        feature_indices = self.rng.choice(len(row), size=k, replace=False)
+
+        for i in feature_indices:
+            row[i] = 1.0 - row[i]
+        
+        if tuple(row) in self.rows_set:
+                return self._sample_invalid()
+            
+        row = self._soften_features(row)
+
         class_labels = np.zeros(len(self.class_cols), dtype=np.float32)
         return row, class_labels
 
