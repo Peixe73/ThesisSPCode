@@ -75,8 +75,9 @@ def visualize_all(original, cropped, squared, final_manual, final_dataset, idx):
     plt.close()
 """
     
-def visualize_all(original, cropped, final_manual, final_dataset, idx):
-    fig, axes = plt.subplots(1, 4, figsize=(12, 3))
+#def visualize_all(original, cropped, final_manual, final_dataset, idx):
+def visualize_all(original, cropped, final_dataset, idx):
+    fig, axes = plt.subplots(1, 3, figsize=(12, 3))
 
     # ---- ORIGINAL ----
     axes[0].imshow(original)
@@ -85,18 +86,19 @@ def visualize_all(original, cropped, final_manual, final_dataset, idx):
 
     # ---- CROPPED ----
     axes[1].imshow(cropped)
-    axes[1].set_title(f"Cropped\n{cropped.size}")
+    axes[1].set_title(f"Resize\n{cropped.size}")
     axes[1].axis("off")
 
     # ---- FINAL (MANUAL) ----
-    axes[2].imshow(final_manual)
-    axes[2].set_title(f"Manual 128x128\n{final_manual.size}")
-    axes[2].axis("off")
+
+    #axes[2].imshow(final_manual)
+    #axes[2].set_title(f"Manual 128x128\n{final_manual.size}")
+    #axes[2].axis("off")
 
     # ---- FINAL (DATASET) ----
-    axes[3].imshow(final_dataset)
-    axes[3].set_title(f"Dataset\n{final_dataset.shape[:2]}")
-    axes[3].axis("off")
+    axes[2].imshow(final_dataset)
+    axes[2].set_title(f"Dataset\n{final_dataset.shape[:2]}")
+    axes[2].axis("off")
 
     plt.tight_layout()
     plt.savefig(DEBUG_DIR / f"debug_pipeline_{idx}.png")
@@ -110,7 +112,7 @@ def main():
     train_ds = dataset.train_data
     rows = train_ds.rows
 
-    N = 10
+    N = 100
 
     for i in range(N):
         row = rows.iloc[i]
@@ -120,7 +122,7 @@ def main():
         cropped = crop_roi(original, row)
         #squared = make_square(cropped)
         #final_manual = resize_128(squared)
-        final_manual = resize_128(cropped)
+        #final_manual = resize_128(cropped)
 
         # ---- DATASET OUTPUT ----
         features, _ = train_ds[i]
@@ -128,12 +130,13 @@ def main():
 
         # ---- DEBUG DIFFERENCE ----
         #diff = np.abs(final_manual - final_dataset).mean()
-        final_manual_np = np.array(final_manual).astype(np.float32) / 255.00
-        diff = np.abs(final_manual_np - final_dataset).mean()
-        print(f"[{i}] Mean difference manual vs dataset:", diff)
+        #final_manual_np = np.array(final_manual).astype(np.float32) / 255.00
+        #diff = np.abs(final_manual_np - final_dataset).mean()
+        #print(f"[{i}] Mean difference manual vs dataset:", diff)
 
         #visualize_all(original, cropped, squared, final_manual, final_dataset, i)
-        visualize_all(original, cropped, final_manual, final_dataset, i)
+        #visualize_all(original, cropped, final_manual, final_dataset, i)
+        visualize_all(original, cropped, final_dataset, i)
 
     print(f"Saved {N} debug images with full pipeline (including squared)")
 

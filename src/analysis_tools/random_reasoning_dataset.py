@@ -42,14 +42,18 @@ class RandomReasoningDataset(Dataset):
 
         # Uniform split at 0.5
         elif self.concept_noise_mode == "uniform":
+            return self.rng.uniform(0, 1, size=features.shape)
+            """
             return np.where(
                 features > 0.5,
                 self.rng.uniform(0.5, 1.0, size=features.shape),
                 self.rng.uniform(0.0, 0.5, size=features.shape)
             ).astype(np.float32)
+            """
 
         # Concentrated near 0 and 1
         elif self.concept_noise_mode == "extremes":
+            #return self.rng.beta(0.5, 0.5, size=features.shape)
             highs = self.rng.beta(5, 1, size=features.shape)
             lows  = self.rng.beta(1, 5, size=features.shape)
 
@@ -61,6 +65,16 @@ class RandomReasoningDataset(Dataset):
 
         # Concentrated near 0.5
         elif self.concept_noise_mode == "middle":
+            #return self.rng.beta(10, 10, size=features.shape)
+            
+            # symmetric concentration around 0.5
+            
+            noise = self.rng.beta(5, 5, size=features.shape)
+
+            # map directly into [0,1] centered at 0.5
+            return noise.astype(np.float32)
+        """
+        elif self.concept_noise_mode == "middle":
             highs = 0.5 + 0.5 * self.rng.beta(5, 5, size=features.shape)
             lows  = 0.5 * self.rng.beta(5, 5, size=features.shape)
 
@@ -69,6 +83,7 @@ class RandomReasoningDataset(Dataset):
                 highs,
                 lows
             ).astype(np.float32)
+        """
 
         raise ValueError(
             f"Unknown concept_noise_mode: {self.concept_noise_mode}"
