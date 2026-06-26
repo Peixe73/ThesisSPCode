@@ -75,20 +75,20 @@ RN_ARCHITECTURES = [
     ("ONTO_BASE",   {"type": "ontology", "pre": [], "post": []}),
     
     #("ONTO_32",     {"type": "ontology", "pre": [32], "post": [32]}),
-    #("ONTO_64",     {"type": "ontology", "pre": [64], "post": [64]}),
+    ("ONTO_64",     {"type": "ontology", "pre": [64], "post": [64]}),
     ("ONTO_64x2",   {"type": "ontology", "pre": [64, 64], "post": [64, 64]}),
-    #("ONTO_128",    {"type": "ontology", "pre": [128], "post": [128]}),
+    ("ONTO_128",    {"type": "ontology", "pre": [128], "post": [128]}),
     
     # Direct Baseline (38->30) skips the category bottleneck
     ("DIRECT_BASE", {"type": "direct"}),
 
     # CONTROL MLPs
-    #("CTRL_0",      {"type": "mlp", "layers": []}),
-    #("CTRL_16",     {"type": "mlp", "layers": [16]}),
+    ("CTRL_0",      {"type": "mlp", "layers": []}),
+    ("CTRL_16",     {"type": "mlp", "layers": [16]}),
     ("CTRL_32",     {"type": "mlp", "layers": [32]}),
-    #("CTRL_64",     {"type": "mlp", "layers": [64]}),
-    #("CTRL_64x2",   {"type": "mlp", "layers": [64, 64]}),
-    #("CTRL_128",    {"type": "mlp", "layers": [128]}),
+    ("CTRL_64",     {"type": "mlp", "layers": [64]}),
+    ("CTRL_64x2",   {"type": "mlp", "layers": [64, 64]}),
+    ("CTRL_128",    {"type": "mlp", "layers": [128]}),
 ]
 
 def make_untrained_rn_config(model_config, noise_mode="binary"):
@@ -143,7 +143,12 @@ CONVOLUTIONS = [
     ('C1', (
         [32, 32, ('pool', 2)] +
         [64, ('pool', 2)] * 2
-    ))
+    )),
+    ('C2', (
+        [32, 32, ('pool', 2)] +
+        [64, ('pool', 2)] * 2 +
+        [128, ('pool', 2)] * 2
+    )),
 ]
 
 """,
@@ -154,14 +159,14 @@ CONVOLUTIONS = [
     )),"""
 
 LINEAR_CONFIGS = [
-    #('', []),
-    #('_L16', [16]),
+    ('', []),
+    ('_L16', [16]),
     ('_L32', [32]),
-    #('_L64', [64]),
-    #('_L128', [128]),
-    #('_2L', [64, 32]),
-    #('_3L', [64, 32, 16]),
-   # ('_4L', [128, 64, 32, 16])
+    ('_L64', [64]),
+    ('_L128', [128]),
+    ('_2L', [64, 32]),
+    ('_3L', [64, 32, 16]),
+    ('_4L', [128, 64, 32, 16])
 ]
 
 NOISE_MODES = [
@@ -207,33 +212,34 @@ def make_configs():
     configs = []
 
 
-    for noise_mode in NOISE_MODES:
-        for rn_name, rn_model_cfg in RN_ARCHITECTURES:
+    for rn_name, rn_model_cfg in RN_ARCHITECTURES:
 
-            for name_linear, linear in LINEAR_CONFIGS:
+        for name_linear, linear in LINEAR_CONFIGS:
 
-                for name_conv, conv in CONVOLUTIONS:
+            for name_conv, conv in CONVOLUTIONS:
 
-                    pn_name = name_conv + name_linear
+                pn_name = name_conv + name_linear
 
-                    pn_kwargs = {
-                        "conv_layers": conv,
-                        "linear_layers": linear
-                    }
+                pn_kwargs = {
+                    "conv_layers": conv,
+                    "linear_layers": linear
+                }
 
-                    """
-                    configs.append((
-                        f"{pn_name}_{rn_name}_{noise_mode}_untRN",
-                        [],
-                        make_config(
-                            make_untrained_rn_config(rn_model_cfg, noise_mode),
-                            pn_kwargs,
-                            {
-                                "rn_learning_rate": 0.001,
-                            }
-                        )
-                    ))
-                    """
+                configs.append((
+                    #f"{pn_name}_{rn_name}_{noise_mode}_untRN",
+                    f"{pn_name}_{rn_name}_untRN",
+                    [],
+                    make_config(
+                        make_untrained_rn_config(rn_model_cfg),
+                        #make_untrained_rn_config(rn_model_cfg, noise_mode),
+                        pn_kwargs,
+                        {
+                            "rn_learning_rate": 0.001,
+                        }
+                    )
+                ))
+                
+                for noise_mode in NOISE_MODES:
 
                     configs.append((
                         f"{pn_name}_{rn_name}_{noise_mode}_preRN",
@@ -254,7 +260,7 @@ def main():
     file_manager = StudyFileManager(STUDY_NAME)
     study_manager = StudyManager(
         file_manager,
-        max_epochs=150
+        max_epochs=50
     )
 
     configs = make_configs()

@@ -16,21 +16,21 @@ CONFIGS = [
     # ONTOLOGY MODELS
     ("ONTO_BASE",   {"type": "ontology", "pre": [], "post": []}),
     
-    #("ONTO_32",     {"type": "ontology", "pre": [32], "post": [32]}),
-    #("ONTO_64",     {"type": "ontology", "pre": [64], "post": [64]}),
+    ("ONTO_32",     {"type": "ontology", "pre": [32], "post": [32]}),
+    ("ONTO_64",     {"type": "ontology", "pre": [64], "post": [64]}),
     ("ONTO_64x2",   {"type": "ontology", "pre": [64, 64], "post": [64, 64]}),
-    #("ONTO_128",    {"type": "ontology", "pre": [128], "post": [128]}),
+    ("ONTO_128",    {"type": "ontology", "pre": [128], "post": [128]}),
     
     # Direct Baseline (38->30) skips the category bottleneck
     ("DIRECT_BASE", {"type": "direct"}),
 
     # CONTROL MLPs
-    #("CTRL_0",      {"type": "mlp", "layers": []}),
-    #("CTRL_16",     {"type": "mlp", "layers": [16]}),
+    ("CTRL_0",      {"type": "mlp", "layers": []}),
+    ("CTRL_16",     {"type": "mlp", "layers": [16]}),
     ("CTRL_32",     {"type": "mlp", "layers": [32]}),
-    #("CTRL_64",     {"type": "mlp", "layers": [64]}),
-    #("CTRL_64x2",   {"type": "mlp", "layers": [64, 64]}),
-    #("CTRL_128",    {"type": "mlp", "layers": [128]}),
+    ("CTRL_64",     {"type": "mlp", "layers": [64]}),
+    ("CTRL_64x2",   {"type": "mlp", "layers": [64, 64]}),
+    ("CTRL_128",    {"type": "mlp", "layers": [128]}),
 ]
 
 NOISE_MODES = [
@@ -55,7 +55,7 @@ def make_config(cfg):
 
 def main():
     file_manager = StudyFileManager(STUDY_NAME)
-    study_manager = StudyManager(file_manager, max_epochs=1000)
+    study_manager = StudyManager(file_manager, max_epochs=100)
 
     #configs = [(name, [], make_config(cfg)) for name, cfg in CONFIGS]
     configs = []

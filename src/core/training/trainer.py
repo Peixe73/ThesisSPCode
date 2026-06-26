@@ -448,8 +448,10 @@ class Trainer:
         pred = self.model.forward(x)
         loss = self.loss_fn(pred, y)
         loss.backward()
+        """
         if self.debug_grad_prints < self.max_debug_grad_prints:
             print("LOSS", loss.item())
+        """
         """
         if self.debug_grad_prints < self.max_debug_grad_prints:
             print("LOSS", loss.item())
