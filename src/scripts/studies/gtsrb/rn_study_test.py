@@ -21,7 +21,7 @@ CONFIGS = [
     ("ONTO_64x2",   {"type": "ontology", "pre": [64, 64], "post": [64, 64]}),
     ("ONTO_128",    {"type": "ontology", "pre": [128], "post": [128]}),
     
-    # Direct Baseline (38->30) skips the category bottleneck
+    # Direct Baseline
     ("DIRECT_BASE", {"type": "direct"}),
 
     # CONTROL MLPs

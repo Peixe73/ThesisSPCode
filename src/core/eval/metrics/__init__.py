@@ -7,6 +7,7 @@ from torcheval.metrics import functional as torch_metrics
 from torcheval.metrics import Metric, BinaryConfusionMatrix
 import torcheval
 from torcheval.metrics.classification.confusion_matrix import TBinaryConfusionMatrix
+from torch import Tensor
 
 from core.datasets import SplitDataset
 from .elapsed import Elapsed
@@ -140,6 +141,94 @@ class BinaryPositiveRate(BinaryConfusionMatrix):
         negatives = tn + fn
         total = positives + negatives
         return positives / total
+    
+
+class MulticlassAccuracy(Metric):
+    def __init__(self):
+        super().__init__()
+        self.correct = torch.tensor(0.0)
+        self.total = torch.tensor(0.0)
+
+    def update(self, input: torch.Tensor, target: torch.Tensor):
+        preds = input.argmax(dim=1)
+
+        # target is already class indices [B]
+        self.correct += (preds == target).sum()
+        self.total += target.size(0)
+
+        return self
+
+    def compute(self):
+        return self.correct / self.total.clamp(min=1)
+
+    def reset(self):
+        self.correct.zero_()
+        self.total.zero_()
+
+    def merge_state(self, other):
+        self.correct += other.correct
+        self.total += other.total
+        
+"""
+class MulticlassBalancedAccuracy(Metric):
+    def __init__(self, num_classes):
+        super().__init__()
+
+        self.num_classes = num_classes
+        self.tp = torch.zeros(num_classes)
+        self.fn = torch.zeros(num_classes)
+
+    def update(self, input, target):
+        preds = input.argmax(dim=1)
+
+        for c in range(self.num_classes):
+            self.tp[c] += ((preds == c) & (target == c)).sum()
+            self.fn[c] += ((preds != c) & (target == c)).sum()
+
+        return self
+
+    def compute(self):
+        recalls = self.tp / (self.tp + self.fn).clamp(min=1)
+        return recalls.mean()
+
+    def reset(self):
+        self.tp.zero_()
+        self.fn.zero_()
+"""
+
+class MulticlassBalancedAccuracy(Metric):
+    def __init__(self, num_classes: int):
+        super().__init__()
+        self.num_classes = num_classes
+        self.confusion = torch.zeros(num_classes, num_classes)
+
+    def update(self, input: torch.Tensor, target: torch.Tensor):
+        preds = input.argmax(dim=1)
+
+        # target already [B]
+        for t, p in zip(target, preds):
+            self.confusion[t.long(), p.long()] += 1
+
+        return self
+
+    def compute(self):
+        recalls = []
+
+        for c in range(self.num_classes):
+            tp = self.confusion[c, c]
+            fn = self.confusion[c].sum() - tp
+
+            denom = tp + fn
+            if denom > 0:
+                recalls.append(tp / denom)
+
+        return torch.stack(recalls).mean()
+
+    def reset(self):
+        self.confusion.zero_()
+
+    def merge_state(self, other):
+        self.confusion += other.confusion
 
 from .pearson_correlation import PearsonCorrelationCoefficient
 
@@ -147,6 +236,8 @@ __all__=[
     'BinaryBalancedAccuracy',
     'BinarySpecificity',
     'BinaryPositiveRate',
+    'MulticlassAccuracy',
+    'MulticlassBalancedAccuracy',
     'PearsonCorrelationCoefficient',
     'Elapsed'
 ]

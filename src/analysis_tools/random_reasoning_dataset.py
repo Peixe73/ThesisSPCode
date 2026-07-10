@@ -1,3 +1,5 @@
+from pyexpat import features
+
 import torch
 from torch.utils.data import Dataset
 import pandas as pd
@@ -42,14 +44,12 @@ class RandomReasoningDataset(Dataset):
 
         # Uniform split at 0.5
         elif self.concept_noise_mode == "uniform":
-            return self.rng.uniform(0, 1, size=features.shape)
-            """
+            #return self.rng.uniform(0, 1, size=features.shape)
             return np.where(
                 features > 0.5,
                 self.rng.uniform(0.5, 1.0, size=features.shape),
                 self.rng.uniform(0.0, 0.5, size=features.shape)
             ).astype(np.float32)
-            """
 
         # Concentrated near 0 and 1
         elif self.concept_noise_mode == "extremes":
@@ -101,6 +101,9 @@ class RandomReasoningDataset(Dataset):
         features = self._soften_features(features)
 
         return features, self.valid_classes[idx]
+        #class_index = int(np.argmax(self.valid_classes[idx]))
+
+        #return features, class_index
 
     """
     def _sample_invalid(self):
@@ -136,6 +139,8 @@ class RandomReasoningDataset(Dataset):
             class_labels = np.zeros(len(self.class_cols), dtype=np.float32)
             row = self._soften_features(row)
             return row, class_labels
+            #invalid_class = len(self.class_cols)
+            #return row, invalid_class
 
         # 50% corrupted valid sample
         idx = self.rng.integers(0, len(self.valid_features))
@@ -151,6 +156,7 @@ class RandomReasoningDataset(Dataset):
                 return self._sample_invalid()
             
         row = self._soften_features(row)
+        #return row, len(self.class_cols)
 
         class_labels = np.zeros(len(self.class_cols), dtype=np.float32)
         return row, class_labels
@@ -158,16 +164,29 @@ class RandomReasoningDataset(Dataset):
     def __len__(self):
         return self.dataset_size
 
+    """
+    def __getitem__(self, idx):
+        if self.rng.random() < 0.5:
+            features, target = self._sample_valid()
+        else:
+            features, target = self._sample_invalid()
+
+        x = torch.from_numpy(features)
+        y = torch.tensor(target, dtype=torch.long)
+
+        return x, y
+    """
+
     def __getitem__(self, idx):
         if self.rng.random() < 0.5:
             features, class_labels = self._sample_valid()
-            valid = 1.0
+            invalid = 0.0
         else:
             features, class_labels = self._sample_invalid()
-            valid = 0.0
+            invalid = 1.0
 
         #y = np.concatenate([[valid], class_labels]).astype(np.float32)
-        y = np.concatenate([class_labels, [valid]]).astype(np.float32)
+        y = np.concatenate([class_labels, [invalid]]).astype(np.float32)
         x = torch.from_numpy(features)
         y = torch.from_numpy(y)
         return x, y
@@ -191,7 +210,9 @@ class RandomReasoningDataset(Dataset):
                 entry[col] = float(y[j])
 
             # valid last
-            entry["valid"] = float(y[-1])
+            entry["invalid"] = float(y[-1])
+            
+            #entry["target"] = int(y)
 
             rows.append(entry)
 

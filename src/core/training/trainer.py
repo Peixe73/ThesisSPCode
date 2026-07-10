@@ -446,6 +446,10 @@ class Trainer:
         self.model.train()
         self.optimizer.zero_grad()
         pred = self.model.forward(x)
+        #loss = self.loss_fn(pred, y)
+        if isinstance(self.loss_fn, torch.nn.CrossEntropyLoss):
+            y = y.argmax(dim=1)
+
         loss = self.loss_fn(pred, y)
         loss.backward()
         """

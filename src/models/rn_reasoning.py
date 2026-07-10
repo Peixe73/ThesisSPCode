@@ -2,6 +2,7 @@ import logging
 from pathlib import Path
 from torch import nn
 import torch
+#from torcheval.metrics import MulticlassAccuracy, MulticlassF1Score
 
 from core.datasets.csv_dataset import CSVDataset
 from core.training import Trainer, TrainingRecorder
@@ -54,7 +55,7 @@ class OntologyRN(nn.Module):
             in_dim = s
 
         post.append(nn.Linear(in_dim, num_classes + 1))  # +valid
-        post.append(nn.Sigmoid())
+        #post.append(nn.Sigmoid())
 
         self.post = nn.Sequential(*post)
 
@@ -73,7 +74,7 @@ class DirectRN(nn.Module):
         super().__init__()
         self.net = nn.Sequential(
             nn.Linear(input_size, num_outputs),
-            nn.Sigmoid()
+            #nn.Sigmoid()
         )
 
     def forward(self, x):
@@ -90,7 +91,7 @@ def create_mlp(input_size, layer_sizes, num_outputs):
         in_dim = s
 
     layers.append(nn.Linear(in_dim, num_outputs))
-    layers.append(nn.Sigmoid())
+    #layers.append(nn.Sigmoid())
 
     return nn.Sequential(*layers)
 
@@ -238,7 +239,8 @@ class EpochDatasetUpdater:
         self.latest_dataset = CSVDataset(
             path=path,
             features=self.feature_cols,
-            target=self.class_cols + ["valid"],
+            target=self.class_cols + ["invalid"],
+            #target=["target"],
             stratify_col=None
         )
 
@@ -286,10 +288,11 @@ def create_trainer(
         path=train_csv,
         features=feature_cols,
         #target=["valid"] + class_cols
-        target= class_cols + ["valid"],
+        target= class_cols + ["invalid"],
+        #target=["target"],
         stratify_col=None
     )
-
+    
     metrics_per_class = {
         "balanced_accuracy": metric_wrappers.to_int(core.eval.metrics.BinaryBalancedAccuracy)
     }
@@ -307,8 +310,13 @@ def create_trainer(
         metrics = {
             "epoch_elapsed": Elapsed(),
             #"dataset_update": dataset_updater, # this will regenerate the dataset at the end of each epoch
+            #"balanced_accuracy": core.eval.metrics.MulticlassBalancedAccuracy(
+            #num_classes=len(class_cols) + 1),
+            #"accuracy": MulticlassAccuracy(num_classes=len(class_cols) + 1),
+            #"f1": MulticlassF1Score(num_classes=len(class_cols) + 1, average="macro"),
+            #"accuracy": core.eval.metrics.MulticlassAccuracy(),
         }
-
+        
         metric_wrappers.SelectCol.col_wise(
             train_dataset,
             metrics_per_class,
@@ -367,13 +375,24 @@ def create_trainer(
 
     objective = Maximize("train", "balanced_accuracy", threshold=0.01)
     patience_objective = Minimize("train", "loss", threshold=0.001)
+    
+    num_classes = len(class_cols) + 1  # + invalid
+
+    #weights = torch.ones(num_classes)
+
+    # downweight invalid to avoid dominating the loss
+    #weights[-1] = 1.0 / len(class_cols)
+
+    #weights = weights.to(torch.get_default_device())
 
 
     trainer = Trainer(
         #model=create_model(38, layer_sizes, num_outputs=1 + len(class_cols)),
         model=model,
         #loss_fn=MaskedBCELoss(),
-        loss_fn=torch.nn.BCELoss(),
+        #loss_fn=torch.nn.BCELoss(),
+        #loss_fn=torch.nn.CrossEntropyLoss(weight=weights),
+        loss_fn=torch.nn.CrossEntropyLoss(),
         optimizer=torch.optim.Adam,
         training_set=train_dataset,
         batch_size=batch_size,
