@@ -12,7 +12,7 @@ from core.training import Trainer, MetricsRecorder, TrainingRecorder
 from core.nn.hybrid_network import HybridNetwork
 from core.nn import PartiallyPretrained
 import torch
-from torcheval.metrics import Mean
+from torcheval.metrics import Mean, MulticlassAccuracy, MulticlassRecall, MulticlassF1Score, MultilabelAccuracy
 from torch import nn
 
 from core.nn.autoencoder import AutoEncoder
@@ -141,7 +141,8 @@ def create_model(
     #perception_network = modify_perception_network(perception_network, num_concepts, dropout_last_pn, activation)
     reasoning_network = Trainer.model_from_path_or_config(reasoning_network_config)
     
-    """
+    #print("RN outputs:", reasoning_network(torch.randn(1, num_concepts)).shape)
+    
     return HybridNetwork(
         perception_network=perception_network,
         reasoning_network=reasoning_network
@@ -151,6 +152,7 @@ def create_model(
     perception_network=perception_network,
     reasoning_network=reasoning_network
     )
+    """
     
     
 def pn_evaluator(model : 'HybridNetwork', x, y):
@@ -194,9 +196,9 @@ def create_trainer(
         untrained_learning_rate : float = 0.001,
         rn_learning_rate : float | None = None,
         skip_pn_eval : bool = False,
-        valid_col_weight : float = 1,
+        invalid_col_weight : float = 1,
         **kwargs) -> Trainer:
-    dataset = dataset_wrappers.ConcatConst(datasets.get_dataset(dataset_name), 1, 'y')
+    dataset = dataset_wrappers.ConcatConst(datasets.get_dataset(dataset_name), 0, 'y')
     dataset.for_training() # make sure it is loaded
     concept_dataset = datasets.get_dataset(concept_dataset_name)
     concept_dataset.for_validation() # make sure it is loaded
@@ -205,11 +207,13 @@ def create_trainer(
     concept_col_refs = concept_dataset.get_column_references()
     logger.info(f"Column info for concept dataset: {concept_col_refs}")
     num_labels = len(col_refs.labels.columns_to_names)
-    valid_col = num_labels - 1
+    invalid_col = num_labels - 1
     weights = torch.ones(num_labels)
-    weights[valid_col] = valid_col_weight
+    weights[invalid_col] = invalid_col_weight
     logger.info(f"Loss weights: {weights}")
-    loss_fn = nn.BCELoss(weights)
+    #print("num_labels:", num_labels)
+    #loss_fn = nn.BCELoss(weights)
+    loss_fn = nn.CrossEntropyLoss(weight=weights)
     #loss_fn = nn.BCELoss(weight=weights)
     patience = kwargs.pop('patience', 20)
     threshold = kwargs.pop('threshold', 0.01)
@@ -218,12 +222,15 @@ def create_trainer(
     def metric_functions():
         metric_functions_ : dict = {
             'elapsed': metrics.Elapsed(),
-            'mean_valid': metric_wrappers.SelectCol(metric_wrappers.Unary(Mean()), valid_col)
+            'mean_invalid': metric_wrappers.SelectCol(metric_wrappers.Unary(Mean()), invalid_col),
+            "accuracy": metric_wrappers.ToMulticlass(MulticlassAccuracy(num_classes=num_labels)),
+            "recall": metric_wrappers.ToMulticlass(MulticlassRecall(num_classes=num_labels)),
+            "f1": metric_wrappers.ToMulticlass(MulticlassF1Score(num_classes=num_labels,average="macro")),
         }
         metric_functions_.update(**metric_wrappers.SelectCol.col_wise(classes, {
             'balanced_accuracy' : metric_wrappers.to_int(metrics.BinaryBalancedAccuracy),
             #'accuracy': metric_wrappers.to_int(torcheval.metrics.BinaryAccuracy),
-        }, reduction='min'))
+        }))#, reduction='min'))
         return metric_functions_
     val_metrics = MetricsRecorder(
         identifier='val',
@@ -235,6 +242,39 @@ def create_trainer(
         metric_functions=metric_functions()
     )
     metric_recorders = [train_metrics, val_metrics]
+    """
+    if not skip_pn_eval:
+        def pn_metric_functions():
+            pn_metric_functions_ : dict = {
+                #'accuracy': metric_wrappers.ToMultilabel(MultilabelAccuracy(), logits=False),
+                #'accuracy': MultilabelAccuracy(),
+                #'recall': MultilabelRecall(num_labels=len(concepts)),
+                #'f1': MultilabelF1Score(num_labels=len(concepts), average="macro"),
+            }
+            
+            pn_metric_functions_.update(**metric_wrappers.SelectCol.col_wise(concepts, {
+                'balanced_accuracy' : metric_wrappers.to_int(metrics.BinaryBalancedAccuracy),
+                #'accuracy': metric_wrappers.to_int(torcheval.metrics.BinaryAccuracy),
+            }, reduction='min'))
+            
+            for concept in concepts:
+                pn_metric_functions_.update(
+                    {
+                        f"correlation_{concept}": metric_wrappers.SelectCol(
+                            metrics.PearsonCorrelationCoefficient(),
+                            concept_col_refs.labels.names_to_column[concept]
+                        )
+                    }
+                )
+            
+            return pn_metric_functions_
+        pn_metrics = MetricsRecorder(
+            identifier='pn_val',
+            metric_functions=pn_metric_functions(),
+            dataset=concept_dataset.for_validation,
+            evaluator=pn_evaluator
+        )
+        """
     if not skip_pn_eval:
         pn_metric_functions = {}
         for concept in concepts:
@@ -257,7 +297,8 @@ def create_trainer(
             evaluator=pn_evaluator
         )
         metric_recorders.append(pn_metrics)
-    objective = Maximize('val', 'balanced_accuracy', threshold=threshold)
+    #objective = Maximize('val', 'balanced_accuracy', threshold=threshold)
+    objective = Maximize('val', 'accuracy', threshold=threshold)
     
     patience_objective = Minimize("train", "loss", threshold=0.001)
 

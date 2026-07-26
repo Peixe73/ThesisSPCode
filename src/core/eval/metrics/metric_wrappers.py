@@ -241,3 +241,41 @@ class Unary(MetricWrapper):
         else:
             self.inner.update(y_true)
         return self
+    
+class ToMulticlass(MetricWrapper):
+    def update(self, y_pred, y_true):
+        y_pred = y_pred.argmax(dim=1)
+        y_true = y_true.argmax(dim=1)
+        self.inner.update(y_pred, y_true)
+        return self
+    """
+    def update(self, y_pred, y_true):
+
+        print(y_pred.shape)
+        print(y_true.shape)
+
+        pred = y_pred.argmax(dim=1)
+        true = y_true.argmax(dim=1)
+
+        print(pred[:10])
+        print(true[:10])
+
+        self.inner.update(pred, true)
+    """
+    
+class ToMultilabel(MetricWrapper):
+    def __init__(self, inner: Metric, threshold: float = 0.5, logits: bool = True):
+        super().__init__(inner)
+        self.threshold = threshold
+        self.logits = logits
+
+    def update(self, y_pred, y_true):
+        import torch
+
+        if self.logits:
+            y_pred = torch.sigmoid(y_pred)
+
+        y_pred = (y_pred >= self.threshold).to(y_true.dtype)
+
+        self.inner.update(y_pred, y_true)
+        return self

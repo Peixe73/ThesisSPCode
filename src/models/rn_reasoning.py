@@ -2,7 +2,7 @@ import logging
 from pathlib import Path
 from torch import nn
 import torch
-#from torcheval.metrics import MulticlassAccuracy, MulticlassF1Score
+from torcheval.metrics import MulticlassAccuracy, MulticlassF1Score, MulticlassRecall#MulticlassBalancedAccuracy
 
 from core.datasets.csv_dataset import CSVDataset
 from core.training import Trainer, TrainingRecorder
@@ -266,6 +266,8 @@ def create_trainer(
     stage: str | None = None,               # used only for two_stage
     concept_noise_mode: str = "binary"
 ) -> Trainer:
+    
+    num_classes = len(class_cols) + 1
 
     #print("create_trainer base_seed =", base_seed, type(base_seed))
     
@@ -315,12 +317,31 @@ def create_trainer(
             #"accuracy": MulticlassAccuracy(num_classes=len(class_cols) + 1),
             #"f1": MulticlassF1Score(num_classes=len(class_cols) + 1, average="macro"),
             #"accuracy": core.eval.metrics.MulticlassAccuracy(),
+            
+            "accuracy": metric_wrappers.ToMulticlass(
+                MulticlassAccuracy(
+                    num_classes=num_classes
+                )
+            ),
+
+            "recall": metric_wrappers.ToMulticlass(
+                MulticlassRecall(
+                    num_classes=num_classes
+                )
+            ),
+
+            "f1": metric_wrappers.ToMulticlass(
+                MulticlassF1Score(
+                    num_classes=num_classes,
+                    average="macro"
+                )
+            ),
         }
         
         metric_wrappers.SelectCol.col_wise(
             train_dataset,
             metrics_per_class,
-            reduction="min",   # gives a global "balanced_accuracy"
+            #reduction="min",   # gives a global "balanced_accuracy"
             out_dict=metrics
         )
 
@@ -373,10 +394,11 @@ def create_trainer(
             for p in model.pre.parameters():
                 p.requires_grad = True
 
-    objective = Maximize("train", "balanced_accuracy", threshold=0.01)
+    #objective = Maximize("train", "balanced_accuracy", threshold=0.01)
+    objective = Maximize("train", "accuracy", threshold=0.01)
     patience_objective = Minimize("train", "loss", threshold=0.001)
     
-    num_classes = len(class_cols) + 1  # + invalid
+    #num_classes = len(class_cols) + 1  # + invalid
 
     #weights = torch.ones(num_classes)
 

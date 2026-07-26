@@ -164,7 +164,7 @@ class MetricsRecorder:
         }
 
     def prepare_torch_metrics(self):
-        self._update_called = False
+        self._update_called = True #False
         for metric_fn in self.torch_metrics.values():
             metric_fn.to(device=torch.get_default_device())
             metric_fn.reset()

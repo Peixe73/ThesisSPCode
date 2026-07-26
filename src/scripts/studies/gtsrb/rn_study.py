@@ -14,6 +14,7 @@ DATASET_PATH = Path("data/gtsrb_ontology_Valid_Final.csv")
 
 CONFIGS = [
     # ONTOLOGY MODELS
+    """
     ("ONTO_BASE",   {"type": "ontology", "pre": [], "post": []}),
     
     ("ONTO_32",     {"type": "ontology", "pre": [32], "post": [32]}),
@@ -31,6 +32,7 @@ CONFIGS = [
     ("CTRL_64",     {"type": "mlp", "layers": [64]}),
     ("CTRL_64x2",   {"type": "mlp", "layers": [64, 64]}),
     ("CTRL_128",    {"type": "mlp", "layers": [128]}),
+    """
 ]
 
 
