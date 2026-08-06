@@ -69,6 +69,21 @@ def main(options : Options):
     training_file = options.results_path.joinpath('train', options.target_csv)
     training_results = pd.read_csv(training_file, index_col=0)
     ranking = handle_csv_file(training_file, sort_by, maximize)
+    """
+    print("Checking rank-0 counts")
+
+    for concept in ranking.columns:
+        count = (ranking[concept] == 0).sum()
+        if count != 1:
+            print(f"{concept}: {count} rank-0 entries")
+
+        print(ranking[concept][ranking[concept] == 0])
+        print()
+        
+        print(training_results[concept].sort_values(ascending=False).head(10))
+        print()
+        print(ranking[concept].sort_values().head(10))
+    """
     validation_file = options.results_path.joinpath('val', options.target_csv)
     validation_results = pd.read_csv(validation_file, index_col=0)
     handle_csv_file(validation_file, sort_by, maximize)
@@ -143,7 +158,54 @@ def main(options : Options):
     if options.include_expectations:
         for i, concept in enumerate(ranking.columns):
             summary_best.loc[concept, 'Expected Neuron'] = i
-    best_neurons : list[tuple[str, str]] = ranking[ranking == 0].stack().index.tolist()  # type: ignore
+    #best_neurons : list[tuple[str, str]] = ranking[ranking == 0].stack().index.tolist()  # type: ignore
+    mask = ranking.eq(0)
+
+    best_neurons = [
+        (row, concept)
+        for row, concept in mask.stack()[lambda s: s].index
+    ]
+    """
+    print(ranking.shape)
+
+    print(ranking.index.is_unique)
+    print(ranking.columns.is_unique)
+
+    tmp = ranking[ranking == 0]
+
+    logger.info(f"tmp.shape = {tmp.shape}")
+    logger.info(f"tmp.count().sum() = {tmp.count().sum()}")
+    logger.info(f"tmp.isna().sum().sum() = {tmp.isna().sum().sum()}")
+
+    print(tmp.head())
+    
+    stacked = tmp.stack()
+
+    logger.info(f"stacked.shape = {stacked.shape}")
+
+    print(type(stacked))
+    print(stacked.head(20))
+
+    #print(len(best_neurons))
+    #print(f"{len(best_neurons)=}")
+    best_neurons = tmp.stack().index.tolist()
+    
+    print(type(best_neurons))
+    print(best_neurons[:10])
+    """
+    '''
+
+    from collections import Counter
+
+    counts = Counter(concept for _, concept in best_neurons)
+
+    print("Duplicate concepts:")
+    for concept, n in counts.items():
+        if n > 1:
+            print()
+            print(concept)
+            print([pair for pair in best_neurons if pair[1] == concept])
+    '''
     for row, concept in best_neurons:
         #if not pd.isna(summary_best['Best Neuron'][concept]):  # type: ignore
             #raise ValueError("Multiple rank 0 neurons found")
