@@ -35,6 +35,6 @@ ONTOLOGY_CONCEPT_MAP = {
     "Symbol_Speed100": "Speed100",
     "Symbol_Speed120": "Speed120",
 
-    # Classes (if needed)
+    
     # "ClassId_1": "ClassId_1", etc
 }

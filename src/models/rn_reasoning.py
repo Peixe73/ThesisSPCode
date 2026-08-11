@@ -224,7 +224,8 @@ class EpochDatasetUpdater:
     def on_epoch_start(self, trainer: Trainer):
         path = DEBUG_DIR / "train.csv"
 
-        epoch_seed = self.base_seed * 1000003 + self.epoch
+        #epoch_seed = self.base_seed * 1000003 + self.epoch
+        epoch_seed = self.base_seed + self.epoch
 
         ds = RandomReasoningDataset(
             self.valid_path,
@@ -396,7 +397,7 @@ def create_trainer(
 
     #objective = Maximize("train", "balanced_accuracy", threshold=0.01)
     objective = Maximize("train", "accuracy", threshold=0.01)
-    patience_objective = Minimize("train", "loss", threshold=0.001)
+    patience_objective = Minimize("train", "loss", threshold=0.01)
     
     #num_classes = len(class_cols) + 1  # + invalid
 

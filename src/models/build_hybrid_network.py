@@ -300,7 +300,7 @@ def create_trainer(
     #objective = Maximize('val', 'balanced_accuracy', threshold=threshold)
     objective = Maximize('val', 'accuracy', threshold=threshold)
     
-    patience_objective = Minimize("train", "loss", threshold=0.001)
+    patience_objective = Minimize("train", "loss", threshold=0.01)
 
     model = create_model(len(concepts), **kwargs)
     
