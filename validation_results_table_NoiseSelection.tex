@@ -1,0 +1,15 @@
+\begin{table}[t]
+\centering
+\begin{tabular}{l c c c c}
+\toprule
+Noise & Loss $\pm$ S.D. & Accuracy $\pm$ S.D. & Balanced Acc. $\pm$ S.D. & Macro F1 $\pm$ S.D. \\
+\midrule
+Binary & 0.0093 $\pm$ 0.0126 & 0.9825 $\pm$ 0.0029 & 0.8609 $\pm$ 0.0114 & 0.9824 $\pm$ 0.0029 \\
+Uniform& 0.1569 $\pm$ 0.3083 & 0.9392 $\pm$ 0.1060 & 0.8657 $\pm$ 0.0111 & 0.9338 $\pm$ 0.1177 \\
+Extremes & 1.2086 $\pm$ 1.2845 & 0.6036 $\pm$ 0.4017 & 0.7888 $\pm$ 0.0567 & 0.5645 $\pm$ 0.4440 \\
+Middle & 0.8919 $\pm$ 1.6356 & 0.7522 $\pm$ 0.4189 & 0.7823 $\pm$ 0.1630 & 0.7411 $\pm$ 0.4284 \\
+\bottomrule
+\end{tabular}
+\caption{Evaluation of different concept noise strategies for ontology guided pretraining.}
+\label{tab:noise_selection}
+\end{table}

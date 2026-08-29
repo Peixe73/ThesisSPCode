@@ -8,7 +8,7 @@ import numpy as np
 
 # Configuration
 
-JSON_FILE = Path("storage/studies/gtsrb_hn_Baseline_Multiple/results.json")
+JSON_FILE = Path("storage/studies/gtsrb_hn_EvalConfig_Multiple/results.json")
 
 # Number of decimal places in the final table
 DECIMALS = 4

@@ -1,0 +1,38 @@
+\begin{table}[t]
+\centering
+\begin{tabular}{l l c c c c}
+\toprule
+Family & Model & Loss $\pm$ S.D. & Accuracy $\pm$ S.D. & Balanced Acc. $\pm$ S.D. & Macro F1 $\pm$ S.D. \\
+\midrule
+
+\multirow{1}{*}{Ontology Baseline} &
+\textbf{ONTO\_BASE} & 0.1014 $\pm$ 0.2113 & 0.9453 $\pm$ 0.0650 & 0.8535 $\pm$ 0.0349 & 0.9413 $\pm$ 0.0732 \\
+
+\midrule
+
+\multirow{4}{*}{Ontology Extended} &
+ONTO\_32 & 0.0083 $\pm$ 0.0114 & 0.9796 $\pm$ 0.0052 & 0.8144 $\pm$ 0.0562 & 0.9796 $\pm$ 0.0052 \\
+ONTO\_64 & 0.0185 $\pm$ 0.0237 & 0.9798 $\pm$ 0.0053 & 0.8000 $\pm$ 0.0361 & 0.9798 $\pm$ 0.0053 \\
+\textbf{ONTO\_2L64} & 0.0125 $\pm$ 0.0130 & 0.9819 $\pm$ 0.0041 & 0.8365 $\pm$ 0.0722 & 0.9819 $\pm$ 0.0041 \\
+ONTO\_2L32 & 0.2626 $\pm$ 0.5488 & 0.8948 $\pm$ 0.1753 & 0.7757 $\pm$ 0.0393 & 0.8909 $\pm$ 0.1839 \\
+
+\midrule
+
+\multirow{1}{*}{Direct} &
+\textbf{DIRECT\_BASE} & 0.0077 $\pm$ 0.0058 & 0.9973 $\pm$ 0.0009 & 0.9921 $\pm$ 0.0017 & 0.9798 $\pm$ 0.0103 \\
+
+\midrule
+
+\multirow{6}{*}{Control} &
+
+CTRL\_16 & 0.0003 $\pm$ 0.0002 & 0.9886 $\pm$ 0.0024 & 0.9184 $\pm$ 0.0341 & 0.9710 $\pm$ 0.0094 \\
+CTRL\_32 & 0.0014 $\pm$ 0.0017 & 0.9919 $\pm$ 0.0017 & 0.9505 $\pm$ 0.0216 & 0.9788 $\pm$ 0.0114 \\
+\textbf{CTRL\_64} & 0.0002 $\pm$ 0.0001 & 0.9928 $\pm$ 0.0013 & 0.9540 $\pm$ 0.0315 & 0.9929 $\pm$ 0.0012 \\
+CTRL\_128 & 0.0006 $\pm$ 0.0009 & 0.9918 $\pm$ 0.0015 & 0.8898 $\pm$ 0.0681 & 0.9918 $\pm$ 0.0015 \\
+CTRL\_2L & 0.0015 $\pm$ 0.0032 & 0.9894 $\pm$ 0.0023 & 0.9236 $\pm$ 0.0225 & 0.9894 $\pm$ 0.0023 \\
+CTRL\_3L & 0.0000 $\pm$ 0.0000 & 0.9877 $\pm$ 0.0047 & 0.9045 $\pm$ 0.0335 & 0.9876 $\pm$ 0.0047 \\
+\bottomrule
+\end{tabular}
+\caption{Evaluation of different reasoning network architectures.}
+\label{tab:rn_architecture_results}
+\end{table}
