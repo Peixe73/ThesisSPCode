@@ -19,17 +19,17 @@ class Options:
     target_csv : Path = field(
         metadata=positional(Path, help_="Name of the csv files to summarize")
     )
-    mode : str = field(default='abs',
+    mode : str = field(default='max',
                        metadata=option(str, help_="The mode to use for determining the best attribution. "
                                    "Options are 'abs', 'max', 'min'."))
-    include_expectations : bool = field(default=False,
+    include_expectations : bool = field(default=True,
         metadata=option(bool, help_="Whether to include the expected concepts in the ranking.")
     )
     mid_point : Optional[float] = field(default=None,
         metadata=option(float, help_="The mid point of the range. "
                                      "If not provided attempt to determine automatically.")
     )
-    exclude_classes : bool = field(default=True,
+    exclude_classes : bool = field(default=False,
         metadata=option(bool, help_="Whether to exclude the final classes from the ranking."))
 
 def determine_mid_point(csv_file : Path) -> float:
@@ -138,6 +138,7 @@ def main(options : Options):
 
     summary_best = pd.DataFrame(index=ranking.columns, columns=pd.Index(summary_best_cols))
 
+    '''
     if options.include_expectations:
         for i, concept in enumerate(ranking.columns):
             summary_best.loc[concept, 'Expected Neuron'] = i
@@ -165,6 +166,103 @@ def main(options : Options):
         },
         na_rep = ''
     )
+    '''
+    
+    summary_best = pd.DataFrame(index=ranking.columns, columns=pd.Index(summary_best_cols))
+
+    if options.include_expectations:
+        for i, concept in enumerate(ranking.columns):
+            summary_best.loc[concept, 'Expected Neuron'] = i
+    #best_neurons : list[tuple[str, str]] = ranking[ranking == 0].stack().index.tolist()  # type: ignore
+    mask = ranking.eq(0)
+    """
+    best_neurons = [
+        (row, concept)
+        for row, concept in mask.stack()[lambda s: s].index
+    ]
+    """
+    best_neurons: list[tuple[str, str]] = [
+        (row, concept)
+        for row in ranking.index
+        for concept in ranking.columns
+        if ranking.loc[row, concept] == 0
+    ]
+    """
+    print(ranking.shape)
+
+    print(ranking.index.is_unique)
+    print(ranking.columns.is_unique)
+
+    tmp = ranking[ranking == 0]
+
+    logger.info(f"tmp.shape = {tmp.shape}")
+    logger.info(f"tmp.count().sum() = {tmp.count().sum()}")
+    logger.info(f"tmp.isna().sum().sum() = {tmp.isna().sum().sum()}")
+
+    print(tmp.head())
+    
+    stacked = tmp.stack()
+
+    logger.info(f"stacked.shape = {stacked.shape}")
+
+    print(type(stacked))
+    print(stacked.head(20))
+
+    #print(len(best_neurons))
+    #print(f"{len(best_neurons)=}")
+    best_neurons = tmp.stack().index.tolist()
+    
+    print(type(best_neurons))
+    print(best_neurons[:10])
+    """
+    '''
+
+    from collections import Counter
+
+    counts = Counter(concept for _, concept in best_neurons)
+
+    print("Duplicate concepts:")
+    for concept, n in counts.items():
+        if n > 1:
+            print()
+            print(concept)
+            print([pair for pair in best_neurons if pair[1] == concept])
+    '''
+    for row, concept in best_neurons:
+        #if not pd.isna(summary_best['Best Neuron'][concept]):  # type: ignore
+            #raise ValueError("Multiple rank 0 neurons found")
+        # Skip duplicate rank-0 neurons
+        if not pd.isna(summary_best['Best Neuron'][concept]):
+            logger.warning(
+                f"Multiple rank 0 neurons found for concept {concept}. "
+                f"Keeping first occurrence."
+            )
+            continue
+        neg_concept, train_result, val_result = handle_negation(concept, row)
+        summary_best.loc[concept, 'Best Neuron'] = f"{row} (negated)" if neg_concept != concept else row
+        summary_best.loc[concept, 'Training'] = train_result
+        summary_best.loc[concept, 'Validation'] = val_result
+
+    summary_best.loc['Mean', ['Training', 'Validation']] = summary_best[['Training', 'Validation']].mean()
+
+    csv_summary_path = (options.results_path.joinpath(
+        options.target_csv.with_suffix('').name + '_best_summary').with_suffix('.csv'))
+    summary_best.to_csv(csv_summary_path)
+    summary_best.to_latex(
+        csv_summary_path.with_suffix('.tex'),
+        formatters = {
+            'Expected Neuron' : lambda x: f"{x}",
+            'Best Neuron' : lambda x: f"{x}",
+            'Training' : lambda x: f"{x:.4f}",
+            'Validation' : lambda x: f"{x:.4f}",
+        },
+        na_rep = ''
+    )
+
+
+
+
+
 
 
 

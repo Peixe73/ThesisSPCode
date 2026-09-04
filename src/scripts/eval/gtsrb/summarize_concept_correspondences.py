@@ -21,10 +21,10 @@ class Options:
     target_csv : Path = field(
         metadata=positional(Path, help_="Name of the csv files to summarize")
     )
-    mode : str = field(default='abs',
+    mode : str = field(default='max',
                        metadata=option(str, help_="The mode to use for determining the best attribution. "
                                    "Options are 'abs', 'max', 'min'."))
-    include_expectations : bool = field(default=False,
+    include_expectations : bool = field(default=True,
         metadata=option(bool, help_="Whether to include the expected concepts in the ranking.")
     )
     mid_point : Optional[float] = field(default=None,

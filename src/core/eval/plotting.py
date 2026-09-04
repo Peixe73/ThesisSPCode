@@ -119,7 +119,7 @@ class CrossBinaryHistogram:
 
     @dataclass
     class CreateFigurePredsArgs:
-        num_rows: int = 1
+        num_rows: int = 6
         axes_width: float = 3
         axes_height: float = 3
         subplots_kw: dict = field(default_factory=lambda: {
@@ -130,7 +130,7 @@ class CrossBinaryHistogram:
         base_hist_kw: dict = field(default_factory=lambda: {
             'linestyle': '--',
             'linewidth': 0.2,
-            'edgecolor': (1, 1, 1, 1),
+            'edgecolor': (0, 0, 1, 1),
             'facecolor': (0.0, 0.0, 1.0, 0.5)
         })
 
@@ -152,11 +152,13 @@ class CrossBinaryHistogram:
             max_value = self.max_values[i].item()
             min_value = self.min_values[i].item()
             x = np.linspace(min_value, max_value, self.bins)
-            axes[i].set_title(f'{self.preds[i]}')
+            #axes[i].set_title(f'{self.preds[i]}')
+            axes[i].set_title(f'Neuron {i}')
             axes[i].set(**args.axes_kw)
             axes[i].set_xlim(min_value, max_value)
             kwargs = args.base_hist_kw
             y = density[i]
             axes[i].fill_between(x, y, **kwargs)
+            for ax in axes[len(self.preds):]: ax.set_visible(False)
         return fig
 
