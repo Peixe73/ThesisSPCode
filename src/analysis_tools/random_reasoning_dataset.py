@@ -9,6 +9,75 @@ import logging
 
 logger = logging.getLogger(__name__)
 
+SIGN_CLASS_A = {
+    "A19a",
+    "A32",
+    "A1a",
+    "A1b",
+    "A1c",
+    "A7a",
+    "A9",
+    "A4b2",
+    "A16",
+    "A17a",
+    "A33",
+    "A13",
+    "A14",
+    "A34",
+    "A15b",
+}
+
+SIGN_CLASS_B = {
+    "B1",
+    "B2a",
+    "B3",
+}
+
+SIGN_CLASS_C = {
+    "C1a",
+    "C2",
+    "C3e3",
+    "C13aa",
+    "C13bb",
+    "C14_20",
+    "C14_30",
+    "C14_50",
+    "C14_60",
+    "C14_70",
+    "C14_80",
+    "C14_100",
+    "C14_120",
+    "C17a",
+    "C17b_80",
+    "C17c",
+    "C17d",
+}
+
+SIGN_CLASS_D = {
+    "D1a1",
+    "D1a4",
+    "D1a5",
+    "D1a6",
+    "D1a7",
+    "D2a1",
+    "D2a2",
+    "D3",
+}
+
+SIGN_CLASS_TO_CATEGORY = {}
+
+for name in SIGN_CLASS_A:
+    SIGN_CLASS_TO_CATEGORY[name] = 0
+
+for name in SIGN_CLASS_B:
+    SIGN_CLASS_TO_CATEGORY[name] = 1
+
+for name in SIGN_CLASS_C:
+    SIGN_CLASS_TO_CATEGORY[name] = 2
+
+for name in SIGN_CLASS_D:
+    SIGN_CLASS_TO_CATEGORY[name] = 3
+
 class RandomReasoningDataset(Dataset):
     def __init__(
         self,
@@ -31,6 +100,29 @@ class RandomReasoningDataset(Dataset):
         # Extract arrays
         self.valid_features = self.valid_df[self.feature_cols].values.astype(np.float32)
         self.valid_classes = self.valid_df[self.class_cols].values.astype(np.float32)
+        self.sign_classes = np.zeros(
+            (len(self.valid_df), 4),
+            dtype=np.float32
+        )
+
+        for i, class_row in enumerate(self.valid_classes):
+            class_indices = np.flatnonzero(class_row)
+
+            if len(class_indices) != 1:
+                raise ValueError(
+                    f"Expected exactly one valid class, got indices {class_indices}"
+                )
+
+            class_name = self.class_cols[class_indices[0]]
+
+            category = SIGN_CLASS_TO_CATEGORY.get(class_name)
+
+            if category is None:
+                raise ValueError(
+                    f"Class {class_name!r} does not belong to A/B/C/D"
+                )
+
+            self.sign_classes[i, category] = 1.0
         self.rows_set = {tuple(row) for row in self.valid_features}
         self.num_outputs = 1 + len(self.class_cols)  # valid + classes
 
@@ -100,7 +192,12 @@ class RandomReasoningDataset(Dataset):
         features = self.valid_features[idx]
         features = self._soften_features(features)
 
-        return features, self.valid_classes[idx]
+        #return features, self.valid_classes[idx]
+        return (
+            features,
+            self.valid_classes[idx],
+            self.sign_classes[idx],
+        )
         #class_index = int(np.argmax(self.valid_classes[idx]))
 
         #return features, class_index
@@ -135,10 +232,19 @@ class RandomReasoningDataset(Dataset):
 
                 if tuple(row) not in self.rows_set:
                     break
-
+            
+            """
             class_labels = np.zeros(len(self.class_cols), dtype=np.float32)
             row = self._soften_features(row)
             return row, class_labels
+            """
+            
+            class_labels = np.zeros(len(self.class_cols), dtype=np.float32)
+            sign_classes = np.zeros(4, dtype=np.float32)
+
+            row = self._soften_features(row)
+
+            return row, class_labels, sign_classes
             #invalid_class = len(self.class_cols)
             #return row, invalid_class
 
@@ -158,8 +264,14 @@ class RandomReasoningDataset(Dataset):
         row = self._soften_features(row)
         #return row, len(self.class_cols)
 
+        """
         class_labels = np.zeros(len(self.class_cols), dtype=np.float32)
         return row, class_labels
+        """
+        class_labels = np.zeros(len(self.class_cols), dtype=np.float32)
+        sign_classes = np.zeros(4, dtype=np.float32)
+
+        return row, class_labels, sign_classes
 
     def __len__(self):
         return self.dataset_size
@@ -179,26 +291,35 @@ class RandomReasoningDataset(Dataset):
 
     def __getitem__(self, idx):
         if self.rng.random() < 0.5:
-            features, class_labels = self._sample_valid()
+            features, class_labels, sign_classes = self._sample_valid()
             invalid = 0.0
         else:
-            features, class_labels = self._sample_invalid()
+            features, class_labels, sign_classes = self._sample_invalid()
             invalid = 1.0
 
         #y = np.concatenate([[valid], class_labels]).astype(np.float32)
         y = np.concatenate([class_labels, [invalid]]).astype(np.float32)
         x = torch.from_numpy(features)
         y = torch.from_numpy(y)
-        return x, y
+        sign_classes = torch.from_numpy(sign_classes)
+        """
+        if self.return_sign_classes:
+            sign_classes = torch.from_numpy(sign_classes)
+            return x, y, sign_classes
+        """
+
+        #return x, y
+        return x, y, sign_classes
     
     def to_csv(self, path: str):
         rows = []
 
         for i in range(len(self)):
-            x, y = self[i]
+            x, y, sign_classes = self[i]
 
             x = x.detach().cpu().numpy()
             y = y.detach().cpu().numpy()
+            sign_classes = sign_classes.detach().cpu().numpy()
 
             entry = {
                 self.feature_cols[j]: float(x[j])
@@ -211,6 +332,12 @@ class RandomReasoningDataset(Dataset):
 
             # valid last
             entry["invalid"] = float(y[-1])
+            
+            entry["SignClass_A"] = float(sign_classes[0])
+            entry["SignClass_B"] = float(sign_classes[1])
+            entry["SignClass_C"] = float(sign_classes[2])
+            entry["SignClass_D"] = float(sign_classes[3])
+            
             
             #entry["target"] = int(y)
 

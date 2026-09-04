@@ -20,6 +20,13 @@ logger = logging.getLogger("RN_Reasoning")
 DEBUG_DIR = Path("reasoning_csvs")
 DEBUG_DIR.mkdir(exist_ok=True, parents=True)
 
+ONTOLOGY_COLS = [
+    "SignClass_A",
+    "SignClass_B",
+    "SignClass_C",
+    "SignClass_D",
+]
+
 # MODEL
 
 class OntologyRN(nn.Module):
@@ -73,6 +80,92 @@ class OntologyRN(nn.Module):
         self.pre_output = x
 
         return self.post(x)
+    
+class OntologyRNWithSkip(nn.Module):
+    """
+    Ontology reasoning network with a skip connection.
+
+    Input:
+        53 original features
+
+    Pre:
+        53 -> ... -> 4 intermediate concepts
+
+    Post:
+        [53 original features + 4 concepts] -> ... -> outputs
+
+    The original input is concatenated with the intermediate
+    ontology representation before entering the post network.
+    """
+
+    def __init__(
+        self,
+        input_size,
+        category_size,
+        num_classes,
+        pre_layers,
+        post_layers,
+    ):
+        super().__init__()
+
+        self.stage = "full"
+
+        # INPUT -> INTERMEDIATE CONCEPTS
+        pre = []
+        in_dim = input_size
+
+        for s in pre_layers:
+            pre.append(nn.Linear(in_dim, s))
+            pre.append(nn.ReLU())
+            in_dim = s
+
+        pre.append(nn.Linear(in_dim, category_size))
+        pre.append(nn.ReLU())
+
+        self.pre = nn.Sequential(*pre)
+
+        # ORIGINAL INPUT + INTERMEDIATE CONCEPTS -> OUTPUT
+        post = []
+
+        # IMPORTANT:
+        # The post network now receives:
+        #
+        #   input_size + category_size
+        #
+        # e.g. 53 + 4 = 57
+        in_dim = input_size + category_size
+
+        for s in post_layers:
+            post.append(nn.Linear(in_dim, s))
+            post.append(nn.ReLU())
+            in_dim = s
+
+        post.append(nn.Linear(in_dim, num_classes + 1))
+
+        self.post = nn.Sequential(*post)
+
+        self.pre_output = None
+
+    def forward(self, x):
+
+        # Keep the original input for the skip connection.
+        original_x = x
+
+        # 53 -> 4
+        x = self.pre(x)
+
+        if self.stage == "detach_pre":
+            x = x.detach()
+
+        self.pre_output = x
+
+        # 53 + 4 -> POST
+        post_input = torch.cat(
+            [original_x, x],
+            dim=1
+        )
+
+        return self.post(post_input)
     
 class DirectRN(nn.Module):
     def __init__(self, input_size, num_outputs):
@@ -183,6 +276,77 @@ class MaskedBCELoss(nn.Module):
 
         return total_loss.mean()
         '''
+        
+class OntologyReasoningLoss(nn.Module):
+    """
+    Combined loss for OntologyRN.
+
+    Final loss:
+        CrossEntropyLoss on the final class/invalid prediction.
+
+    Intermediate loss:
+        Binary classification loss on the four intermediate
+        SignClass_* predictions produced by model.pre().
+
+    Total:
+        final_loss + intermediate_weight * intermediate_loss
+    """
+
+    def __init__(self, model, intermediate_weight=1.0):
+        super().__init__()
+
+        self.model = model
+        self.intermediate_weight = intermediate_weight
+        self.final_loss = nn.CrossEntropyLoss()
+        self.intermediate_loss = nn.BCELoss()
+
+    def forward(self, y_pred, y_true):
+        # ---------------------------------------------------------
+        # FINAL CLASS LOSS
+        # ---------------------------------------------------------
+        final_loss = self.final_loss(y_pred, y_true)
+
+        # ---------------------------------------------------------
+        # INTERMEDIATE SIGN CLASS LOSS
+        # ---------------------------------------------------------
+        #
+        # OntologyRN.forward() stores the output of pre() here.
+        #
+        # Shape:
+        #   [batch_size, 4]
+        #
+        # Corresponding targets are the first four columns of y_true:
+        #   SignClass_A
+        #   SignClass_B
+        #   SignClass_C
+        #   SignClass_D
+        #
+        intermediate_pred = self.model.pre_output
+
+        if intermediate_pred is None:
+            raise RuntimeError(
+                "model.pre_output is None. "
+                "OntologyRN.forward() must be called before the loss."
+            )
+
+        sign_class_size = intermediate_pred.shape[1]
+
+        intermediate_true = y_true[:, :sign_class_size].float()
+
+        # pre_output currently ends with ReLU(), so its values are
+        # non-negative but are not probabilities. Convert them to
+        # probabilities before BCELoss.
+        intermediate_prob = torch.sigmoid(intermediate_pred)
+
+        intermediate_loss = self.intermediate_loss(
+            intermediate_prob,
+            intermediate_true
+        )
+
+        return (
+            (final_loss
+            + self.intermediate_weight * intermediate_loss) / 2
+        )
         
 class IntermediateSignClassBalancedAccuracy:
     """
@@ -360,7 +524,7 @@ class EpochDatasetUpdater:
         self.latest_dataset = CSVDataset(
             path=path,
             features=self.feature_cols,
-            target=self.class_cols + ["invalid"],
+            target=self.class_cols + ["invalid"], #+ ["SignClass_A", "SignClass_B", "SignClass_C", "SignClass_D"],
             #target=["target"],
             stratify_col=None
         )
@@ -411,7 +575,7 @@ def create_trainer(
         path=train_csv,
         features=feature_cols,
         #target=["valid"] + class_cols
-        target= class_cols + ["invalid"],
+        target= class_cols + ["invalid"], #+ ["SignClass_A", "SignClass_B", "SignClass_C", "SignClass_D"],
         #target=["target"],
         stratify_col=None
     )
@@ -430,6 +594,30 @@ def create_trainer(
             pre_layers=model_cfg["pre"],
             post_layers=model_cfg["post"]
         )
+    if model_cfg["type"] == "ontology_x":
+            model = OntologyRN(
+                input_size=53,
+                category_size=20,
+                num_classes=len(class_cols),
+                pre_layers=model_cfg["pre"],
+                post_layers=model_cfg["post"]
+            )
+    elif model_cfg["type"] == "ontology_skip":
+        model = OntologyRNWithSkip(
+            input_size=53,
+            category_size=4,
+            num_classes=len(class_cols),
+            pre_layers=model_cfg["pre"],
+            post_layers=model_cfg["post"]
+        )
+    elif model_cfg["type"] == "ontology_skip_x":
+            model = OntologyRNWithSkip(
+                input_size=53,
+                category_size=20,
+                num_classes=len(class_cols),
+                pre_layers=model_cfg["pre"],
+                post_layers=model_cfg["post"]
+            )
     elif model_cfg["type"] == "direct":
         model = DirectRN(input_size = 53,
                             num_outputs = num_outputs)
@@ -437,7 +625,7 @@ def create_trainer(
         model = create_mlp(53, model_cfg["layers"], num_outputs)
 
     # logic for two-stage training (if applicable)
-    if training_mode == "two_stage" and isinstance(model, OntologyRN):
+    if training_mode == "two_stage" and isinstance(model, (OntologyRN, OntologyRNWithSkip)):
 
         if stage == "pretrain_post":
             logger.info("Stage A: POST training")
@@ -509,7 +697,7 @@ def create_trainer(
             out_dict=metrics
         )
         
-        if isinstance(model, OntologyRN):
+        if isinstance(model, (OntologyRN, OntologyRNWithSkip)):
             sign_classes = [
                 "SignClass_A",
                 "SignClass_B",
@@ -548,7 +736,10 @@ def create_trainer(
     #weights[-1] = 1.0 / len(class_cols)
 
     #weights = weights.to(torch.get_default_device())
-
+    if isinstance(model, (OntologyRN, OntologyRNWithSkip)):
+        loss_fn = OntologyReasoningLoss(model, intermediate_weight=1.0)
+    else:
+        loss_fn = torch.nn.CrossEntropyLoss()
 
     trainer = Trainer(
         #model=create_model(38, layer_sizes, num_outputs=1 + len(class_cols)),
@@ -556,7 +747,7 @@ def create_trainer(
         #loss_fn=MaskedBCELoss(),
         #loss_fn=torch.nn.BCELoss(),
         #loss_fn=torch.nn.CrossEntropyLoss(weight=weights),
-        loss_fn=torch.nn.CrossEntropyLoss(),
+        loss_fn=loss_fn,
         optimizer=torch.optim.Adam,
         training_set=train_dataset,
         batch_size=batch_size,
