@@ -4,7 +4,7 @@ from collections import defaultdict
 #from analysis_tools.gtsrb_utils import CLASSID_BINARY, SIGNCLASS_BINARY
 import numpy as np
 
-from analysis_tools.gtsrb_utils import CLASS_COLS, CONCEPTS
+from analysis_tools.gtsrb_utils import CATEGORIES_COLS, CLASS_COLS, CONCEPTS
 from core.datasets.csv_img_dataset_gtsrb import CSVImageDatasetGTSRB
 
 PATH = Path("data/gtsrb_dataset")
@@ -15,6 +15,13 @@ IMAGE_COLUMN = "Filename"
 SPLIT_COLUMN = "train_data"
 
 CLASSES = ["ClassId"]
+
+ONTOLOGY_COLS = [
+    "SignClass_A",
+    "SignClass_B",
+    "SignClass_C",
+    "SignClass_D",
+]
 
 """ Old Version of Concepts
 CONCEPTS = [
@@ -60,7 +67,7 @@ register_datasets(
         #images_path=PATH.joinpath("train"),
         images_path=PATH,
         image_columns=[(IMAGE_COLUMN, path_getter)],
-        target=CLASS_COLS,#CLASSES,
+        target=CATEGORIES_COLS,#CLASSES,
         features=[IMAGE_COLUMN],
         #dtypes=DTYPES,
         random_state=SEED,
@@ -74,7 +81,21 @@ register_datasets(
         #images_path=PATH.joinpath("train"),
         images_path=PATH,
         image_columns=[(IMAGE_COLUMN, path_getter)],
-        target=CLASS_COLS + CONCEPTS, #CLASSES + ALL_CONCEPTS, SIGNCLASS_BINARY +
+        target=CATEGORIES_COLS + CONCEPTS, #CLASSES + ALL_CONCEPTS, SIGNCLASS_BINARY +
+        features=[IMAGE_COLUMN],
+        #dtypes=DTYPES,
+        random_state=SEED,
+        splits=(0.9,0.1),
+        use_test_set=False,
+    ),
+    
+    # ----- CLASSES + CONCEPTS + CATEGORIES -----
+    gtsrb_with_concepts_and_categories = CSVImageDatasetGTSRB(
+        csv_path=PATH.joinpath("gtsrb_concepts_Final_Version.csv"),
+        #images_path=PATH.joinpath("train"),
+        images_path=PATH,
+        image_columns=[(IMAGE_COLUMN, path_getter)],
+        target=CATEGORIES_COLS + CONCEPTS + CLASS_COLS, #CLASSES + ALL_CONCEPTS, SIGNCLASS_BINARY +
         features=[IMAGE_COLUMN],
         #dtypes=DTYPES,
         random_state=SEED,
@@ -90,6 +111,20 @@ register_datasets(
         images_path=PATH,
         image_columns=[(IMAGE_COLUMN, path_getter)],
         target=CONCEPTS,
+        features=[IMAGE_COLUMN],
+        #dtypes=DTYPES,
+        random_state=SEED,
+        splits=(0.9,0.1),
+        use_test_set=False,
+    ),
+    
+    # ----- CATEGORIES ONLY -----
+    gtsrb_categories_only = CSVImageDatasetGTSRB(
+        csv_path=PATH.joinpath("gtsrb_concepts_Final_Version.csv"),
+        #images_path=PATH.joinpath("train"),~
+        images_path=PATH,
+        image_columns=[(IMAGE_COLUMN, path_getter)],
+        target=CLASS_COLS,
         features=[IMAGE_COLUMN],
         #dtypes=DTYPES,
         random_state=SEED,

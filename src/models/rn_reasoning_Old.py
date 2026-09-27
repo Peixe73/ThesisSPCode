@@ -1,7 +1,6 @@
 import logging
 from pathlib import Path
 import pandas as pd
-from analysis_tools.gtsrb_utils import CLASS_COLS, CATEGORIES_COLS
 from torch import nn
 import torch
 from torcheval.metrics import MulticlassAccuracy, MulticlassF1Score, MulticlassRecall#MulticlassBalancedAccuracy
@@ -29,7 +28,7 @@ class OntologyRN(nn.Module):
     - pre: input -> categories
     - post: categories -> class + validity
     """
-    def __init__(self, input_size, ontology_size, num_outputs, pre_layers, post_layers):
+    def __init__(self, input_size, category_size, num_classes, pre_layers, post_layers):
         super().__init__()
         
         self.stage = "full"
@@ -43,20 +42,20 @@ class OntologyRN(nn.Module):
             in_dim = s
 
         #self.pre = nn.Sequential(*pre) if len(pre_layers) > 0 else nn.Identity()
-        pre.append(nn.Linear(in_dim, ontology_size))
-        #pre.append(nn.ReLU())
+        pre.append(nn.Linear(in_dim, category_size))
+        pre.append(nn.ReLU())
 
         self.pre = nn.Sequential(*pre)
 
         # MID -> OUTPUT (post)
         post = []
-        in_dim = ontology_size
+        in_dim = category_size
         for s in post_layers:
             post.append(nn.Linear(in_dim, s))
             post.append(nn.ReLU())
             in_dim = s
 
-        post.append(nn.Linear(in_dim, num_outputs + 1))  # +valid
+        post.append(nn.Linear(in_dim, num_classes + 1))  # +valid
         #post.append(nn.Sigmoid())
 
         self.post = nn.Sequential(*post)
@@ -74,92 +73,6 @@ class OntologyRN(nn.Module):
         self.pre_output = x
 
         return self.post(x)
-    
-class OntologyRNWithSkip(nn.Module):
-    """
-    Ontology reasoning network with a skip connection.
-
-    Input:
-        53 original features
-
-    Pre:
-        53 -> ... -> 4 intermediate concepts
-
-    Post:
-        [53 original features + 4 concepts] -> ... -> outputs
-
-    The original input is concatenated with the intermediate
-    ontology representation before entering the post network.
-    """
-
-    def __init__(
-        self,
-        input_size,
-        ontology_size,
-        num_outputs,
-        pre_layers,
-        post_layers,
-    ):
-        super().__init__()
-
-        self.stage = "full"
-
-        # INPUT -> INTERMEDIATE CONCEPTS
-        pre = []
-        in_dim = input_size
-
-        for s in pre_layers:
-            pre.append(nn.Linear(in_dim, s))
-            pre.append(nn.ReLU())
-            in_dim = s
-
-        pre.append(nn.Linear(in_dim, ontology_size))
-        #pre.append(nn.ReLU())
-
-        self.pre = nn.Sequential(*pre)
-
-        # ORIGINAL INPUT + INTERMEDIATE CONCEPTS -> OUTPUT
-        post = []
-
-        # IMPORTANT:
-        # The post network now receives:
-        #
-        #   input_size + ontology_size
-        #
-        # e.g. 53 + 4 = 57
-        in_dim = input_size + ontology_size
-
-        for s in post_layers:
-            post.append(nn.Linear(in_dim, s))
-            post.append(nn.ReLU())
-            in_dim = s
-
-        post.append(nn.Linear(in_dim, num_outputs + 1))
-
-        self.post = nn.Sequential(*post)
-
-        self.pre_output = None
-
-    def forward(self, x):
-
-        # Keep the original input for the skip connection.
-        original_x = x
-
-        # 53 -> 4
-        x = self.pre(x)
-
-        if self.stage == "detach_pre":
-            x = x.detach()
-
-        self.pre_output = x
-
-        # 53 + 4 -> POST
-        post_input = torch.cat(
-            [original_x, x],
-            dim=1
-        )
-
-        return self.post(post_input)
     
 class DirectRN(nn.Module):
     def __init__(self, input_size, num_outputs):
@@ -271,153 +184,126 @@ class MaskedBCELoss(nn.Module):
         return total_loss.mean()
         '''
         
-class OntologyReasoningLoss(nn.Module):
+class IntermediateSignClassBalancedAccuracy:
+    """
+    Auxiliary metric for the four intermediate OntologyRN neurons.
+
+    This metric deliberately does NOT use the Trainer's target tensor.
+
+    Instead, at compute time it:
+      1. Reads the currently generated train.csv.
+      2. Gets the SignClass_* labels directly from that CSV.
+      3. Runs the model's pre() network on the feature columns.
+      4. Uses one intermediate neuron as the prediction.
+      5. Computes binary balanced accuracy.
+
+    This therefore has no effect on the training loss or the Trainer.
+    """
+
     def __init__(
         self,
         model,
-        class_count,
-        ontology_weight=1.0,
-        ontology_size=43,
-    ):
-        super().__init__()
-
-        self.model = model
-        self.class_count = class_count
-        self.ontology_weight = ontology_weight
-        self.ontology_size = ontology_size
-
-        self.final_loss = nn.CrossEntropyLoss()
-        self.ontology_loss = nn.CrossEntropyLoss()
-
-    def forward(self, y_pred, y_true):
-
-        # Final classification
-        
-        expected = self.class_count + self.ontology_size
-
-        if y_true.shape[1] != expected:
-            raise RuntimeError(
-                f"Expected y_true to have {expected} columns, "
-                f"got {y_true.shape[1]}"
-            )
-
-        final_target = y_true[:, :self.class_count].argmax(dim=1).long()
-
-        if final_target.min() < 0 or final_target.max() >= self.class_count:
-            raise RuntimeError(
-                f"Invalid final target: "
-                f"min={final_target.min().item()}, "
-                f"max={final_target.max().item()}, "
-                f"expected [0, {self.class_count - 1}]"
-            )
-
-        final_loss = self.final_loss(
-            y_pred,
-            final_target
-        )
-
-        # Ontology classification
-
-        ontology_target = y_true[
-            :,
-            self.class_count:self.class_count + self.ontology_size
-        ].argmax(dim=1).long()
-
-        if ontology_target.min() < 0 or ontology_target.max() >= self.ontology_size:
-            raise RuntimeError(
-                f"Invalid ontology target: "
-                f"min={ontology_target.min().item()}, "
-                f"max={ontology_target.max().item()}, "
-                f"expected [0, {self.ontology_size - 1}]"
-            )
-
-        ontology_pred = self.model.pre_output[:, :self.ontology_size]
-
-        ontology_loss = self.ontology_loss(
-            ontology_pred,
-            ontology_target
-        )
-
-        return (final_loss + self.ontology_weight * ontology_loss) / 2
-
-class FinalMulticlassMetric(metric_wrappers.MetricWrapper):
-    def __init__(self, inner, num_classes):
-        super().__init__(inner)
-        self.num_classes = num_classes
-
-    def update(self, y_pred, y_true):
-        # y_pred contains only the final class + invalid outputs.
-        pred = y_pred.argmax(dim=1)
-
-        # y_true contains:
-        # [class_cols + invalid | SignClass_A | SignClass_B | SignClass_C | SignClass_D]
-        #
-        # Only the first num_classes columns belong to the final prediction.
-        true = y_true[:, :self.num_classes].argmax(dim=1)
-
-        self.inner.update(pred, true)
-        return self
-    
-class FinalBinaryBalancedAccuracy(metric_wrappers.MetricWrapper):
-    def __init__(self, inner, num_classes):
-        super().__init__(inner)
-        self.num_classes = num_classes
-
-    def update(self, y_pred, y_true):
-        # Keep exactly the old final outputs.
-        y_pred = y_pred[:, :self.num_classes]
-        y_true = y_true[:, :self.num_classes]
-
-        self.inner.update(y_pred.flatten(), y_true.flatten())
-        return self
-    
-class OntologyBinaryMetric(metric_wrappers.MetricWrapper):
-    def __init__(
-        self,
-        inner,
-        model,
-        ontology_start,
+        dataset_path,
+        feature_cols,
+        category_col,
         neuron_idx,
-        threshold=0.0,
+        threshold=0.5,
     ):
-        super().__init__(inner)
         self.model = model
-        self.ontology_start = ontology_start
+        self.dataset_path = dataset_path
+        self.feature_cols = feature_cols
+        self.category_col = category_col
         self.neuron_idx = neuron_idx
         self.threshold = threshold
 
-    def update(self, y_pred, y_true):
-        true = y_true[
-            :,
-            self.ontology_start + self.neuron_idx
-        ].to(torch.int32)
+    def update(self, *args, **kwargs):
+        # Intentionally empty.
+        #
+        # The normal Trainer metrics receive the model's final output.
+        # We don't need that output here because this metric evaluates
+        # OntologyRN.pre() independently during compute().
+        pass
 
-        logits = self.model.pre_output[:, self.neuron_idx]
+    def compute(self):
+        df = pd.read_csv(self.dataset_path)
 
-        # Logit threshold 0 == sigmoid probability threshold 0.5
-        pred = (logits >= self.threshold).to(torch.int32)
+        x = torch.tensor(
+            df[self.feature_cols].values,
+            dtype=torch.float32,
+        )
 
-        self.inner.update(pred, true)
-        return self
-    
-"""class FinalBinaryMetrics(metric_wrappers.MetricWrapper):
-    def __init__(self, inner, num_classes):
-        super().__init__(inner)
-        self.num_classes = num_classes
+        y_true = torch.tensor(
+            df[self.category_col].values,
+            dtype=torch.int64,
+        )
 
-    def update(self, y_pred, y_true):
-        pred = y_pred[:, :self.num_classes]
-        true = y_true[:, :self.num_classes]
+        # Find the device on which the model currently lives.
+        try:
+            device = next(self.model.parameters()).device
+        except StopIteration:
+            device = x.device
 
-        self.inner.update(pred, true)
-        return self
-"""
+        x = x.to(device)
+
+        # Preserve current training state.
+        was_training = self.model.training
+
+        self.model.eval()
+
+        with torch.no_grad():
+            # IMPORTANT:
+            # We intentionally call only the pre network.
+            pre_output = self.model.pre(x)
+
+            scores = pre_output[:, self.neuron_idx]
+
+            # The generated category labels are binary.
+            predictions = (scores >= self.threshold).to(torch.int64)
+
+        # Restore the model's previous state.
+        if was_training:
+            self.model.train()
+
+        y_true = y_true.to(device)
+        predictions = predictions.to(device)
+
+        # Binary balanced accuracy:
+        #
+        # sensitivity = TP / (TP + FN)
+        # specificity = TN / (TN + FP)
+        #
+        # balanced_accuracy = (sensitivity + specificity) / 2
+        #
+        # Handle missing positive/negative classes safely.
+        tp = ((predictions == 1) & (y_true == 1)).sum().float()
+        fn = ((predictions == 0) & (y_true == 1)).sum().float()
+        tn = ((predictions == 0) & (y_true == 0)).sum().float()
+        fp = ((predictions == 1) & (y_true == 0)).sum().float()
+
+        positive_total = tp + fn
+        negative_total = tn + fp
+
+        if positive_total > 0:
+            sensitivity = tp / positive_total
+        else:
+            sensitivity = torch.tensor(0.0, device=device)
+
+        if negative_total > 0:
+            specificity = tn / negative_total
+        else:
+            specificity = torch.tensor(0.0, device=device)
+
+        return ((sensitivity + specificity) / 2).item()
+
+    def reset(self):
+        # No accumulated state is used.
+        pass
+
 
 class EpochDatasetUpdater:
-    def __init__(self, valid_path, feature_cols, category_cols, class_cols, dataset_size, base_seed, concept_noise_mode="binary"):
+    def __init__(self, valid_path, feature_cols, class_cols, dataset_size, base_seed, concept_noise_mode="binary"):
         self.valid_path = valid_path
         self.feature_cols = feature_cols
-        self.category_cols = category_cols
         self.class_cols = class_cols
         self.dataset_size = dataset_size
         self.base_seed = base_seed
@@ -474,7 +360,7 @@ class EpochDatasetUpdater:
         self.latest_dataset = CSVDataset(
             path=path,
             features=self.feature_cols,
-            target=self.category_cols + ["invalid"] + CLASS_COLS, #+ ["SignClass_A", "SignClass_B", "SignClass_C", "SignClass_D"],
+            target=self.class_cols + ["invalid"],
             #target=["target"],
             stratify_col=None
         )
@@ -487,11 +373,9 @@ class EpochDatasetUpdater:
         self.epoch += 1
 
 
-
 def create_trainer(
     valid_path: str,
     feature_cols: list[str],
-    category_cols: list[str],
     class_cols: list[str],
     model_config: dict,
     #layer_sizes: list[int],
@@ -504,7 +388,7 @@ def create_trainer(
     concept_noise_mode: str = "binary"
 ) -> Trainer:
     
-    #num_classes = len(class_cols) + 1
+    num_classes = len(class_cols) + 1
 
     #print("create_trainer base_seed =", base_seed, type(base_seed))
     
@@ -527,13 +411,13 @@ def create_trainer(
         path=train_csv,
         features=feature_cols,
         #target=["valid"] + class_cols
-        target= category_cols + ["invalid"] + CLASS_COLS, #+ ["SignClass_A", "SignClass_B", "SignClass_C", "SignClass_D"],
+        target= class_cols + ["invalid"],
         #target=["target"],
         stratify_col=None
     )
     
     # model selection
-    num_outputs = len(category_cols) + 1
+    num_outputs = len(class_cols) + 1
 
     #if isinstance(layer_sizes, dict):
     model_cfg = model_config
@@ -541,35 +425,11 @@ def create_trainer(
     if model_cfg["type"] == "ontology":
         model = OntologyRN(
             input_size=53,
-            ontology_size=43,
-            num_outputs=len(category_cols),
+            category_size=4,
+            num_classes=len(class_cols),
             pre_layers=model_cfg["pre"],
             post_layers=model_cfg["post"]
         )
-    elif model_cfg["type"] == "ontology_x":
-            model = OntologyRN(
-                input_size=53,
-                ontology_size=50,
-                num_outputs=len(category_cols),
-                pre_layers=model_cfg["pre"],
-                post_layers=model_cfg["post"]
-            )
-    elif model_cfg["type"] == "ontology_skip":
-        model = OntologyRNWithSkip(
-            input_size=53,
-            ontology_size=43,
-            num_outputs=len(category_cols),
-            pre_layers=model_cfg["pre"],
-            post_layers=model_cfg["post"]
-        )
-    elif model_cfg["type"] == "ontology_skip_x":
-            model = OntologyRNWithSkip(
-                input_size=53,
-                ontology_size=50,
-                num_outputs=len(category_cols),
-                pre_layers=model_cfg["pre"],
-                post_layers=model_cfg["post"]
-            )
     elif model_cfg["type"] == "direct":
         model = DirectRN(input_size = 53,
                             num_outputs = num_outputs)
@@ -577,7 +437,7 @@ def create_trainer(
         model = create_mlp(53, model_cfg["layers"], num_outputs)
 
     # logic for two-stage training (if applicable)
-    if training_mode == "two_stage" and isinstance(model, (OntologyRN, OntologyRNWithSkip)):
+    if training_mode == "two_stage" and isinstance(model, OntologyRN):
 
         if stage == "pretrain_post":
             logger.info("Stage A: POST training")
@@ -606,7 +466,6 @@ def create_trainer(
     dataset_updater = EpochDatasetUpdater(
         valid_path,
         feature_cols,
-        category_cols,
         class_cols,
         dataset_size,
         base_seed,
@@ -616,45 +475,58 @@ def create_trainer(
     def metrics_factory():
         metrics = {
             "epoch_elapsed": Elapsed(),
-
-            # Final multiclass metrics
-            "accuracy": FinalMulticlassMetric(
-                MulticlassAccuracy(
-                    num_classes=num_outputs
-                ),
-                num_classes=num_outputs,
-            ),
-
-            "recall": FinalMulticlassMetric(
-                MulticlassRecall(
-                    num_classes=num_outputs
-                ),
-                num_classes=num_outputs,
-            ),
-
-            "f1": FinalMulticlassMetric(
-                MulticlassF1Score(
-                    num_classes=num_outputs,
-                    average="macro"
-                ),
-                num_classes=num_outputs,
-            ),
+            #"dataset_update": dataset_updater, # this will regenerate the dataset at the end of each epoch
+            #"balanced_accuracy": core.eval.metrics.MulticlassBalancedAccuracy(
+            #num_classes=len(class_cols) + 1),
+            #"accuracy": MulticlassAccuracy(num_classes=len(class_cols) + 1),
+            #"f1": MulticlassF1Score(num_classes=len(class_cols) + 1, average="macro"),
+            #"accuracy": core.eval.metrics.MulticlassAccuracy(),
             
-            "balanced_accuracy": FinalBinaryBalancedAccuracy(
-                metric_wrappers.to_int(
-                    core.eval.metrics.BinaryBalancedAccuracy
-                )(),
-                num_classes=num_outputs,
+            "accuracy": metric_wrappers.ToMulticlass(
+                MulticlassAccuracy(
+                    num_classes=num_classes
+                )
+            ),
+
+            "recall": metric_wrappers.ToMulticlass(
+                MulticlassRecall(
+                    num_classes=num_classes
+                )
+            ),
+
+            "f1": metric_wrappers.ToMulticlass(
+                MulticlassF1Score(
+                    num_classes=num_classes,
+                    average="macro"
+                )
             ),
         }
+        
+        metric_wrappers.SelectCol.col_wise(
+            train_dataset,
+            metrics_per_class,
+            #reduction="min",   # gives a global "balanced_accuracy"
+            out_dict=metrics
+        )
+        
+        if isinstance(model, OntologyRN):
+            sign_classes = [
+                "SignClass_A",
+                "SignClass_B",
+                "SignClass_C",
+                "SignClass_D",
+            ]
 
-        for neuron_idx, category_col in enumerate(CLASS_COLS):
-            metrics[f"{category_col}_balanced_accuracy"] = OntologyBinaryMetric(
-                core.eval.metrics.BinaryBalancedAccuracy(),
-                model=model,
-                ontology_start=num_outputs,  # start of ontology columns in y_true
-                neuron_idx=neuron_idx,
-            )
+            for neuron_idx, category_col in enumerate(sign_classes):
+                metrics[f"{category_col}_balanced_accuracy"] = (
+                    IntermediateSignClassBalancedAccuracy(
+                        model=model,
+                        dataset_path=train_csv,
+                        feature_cols=feature_cols,
+                        category_col=category_col,
+                        neuron_idx=neuron_idx,
+                    )
+                )
 
         return metrics
 
@@ -676,13 +548,7 @@ def create_trainer(
     #weights[-1] = 1.0 / len(class_cols)
 
     #weights = weights.to(torch.get_default_device())
-    """
-    if isinstance(model, (OntologyRN, OntologyRNWithSkip)):
-        loss_fn = OntologyReasoningLoss(model, intermediate_weight=1.0)
-    else:
-        loss_fn = torch.nn.CrossEntropyLoss()
-    """
-    loss_fn = OntologyReasoningLoss(model, class_count=len(category_cols) + 1, ontology_weight=1.0) if isinstance(model, (OntologyRN, OntologyRNWithSkip)) else torch.nn.CrossEntropyLoss()
+
 
     trainer = Trainer(
         #model=create_model(38, layer_sizes, num_outputs=1 + len(class_cols)),
@@ -690,7 +556,7 @@ def create_trainer(
         #loss_fn=MaskedBCELoss(),
         #loss_fn=torch.nn.BCELoss(),
         #loss_fn=torch.nn.CrossEntropyLoss(weight=weights),
-        loss_fn=loss_fn,
+        loss_fn=torch.nn.CrossEntropyLoss(),
         optimizer=torch.optim.Adam,
         training_set=train_dataset,
         batch_size=batch_size,

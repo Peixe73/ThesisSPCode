@@ -1,0 +1,17 @@
+\begin{table}[t]
+\centering
+\begin{tabular}{l c c c c}
+\toprule
+Model & Original RN $\pm$ S.D. & Original HN $\pm$ S.D. & Integrated RN $\pm$ S.D. & Integrated HN $\pm$ S.D. \\
+\midrule
+Onto\_Base & 0.4315 $\pm$ 0.0456 & 0.4924 $\pm$ 0.0331 & 0.9308 $\pm$ 0.0352 & 0.5547 $\pm$ 0.0095 \\
+Onto\_32 & 0.4500 $\pm$ 0.0150 & 0.5088 $\pm$ 0.0217 & 0.8855 $\pm$ 0.0216 & 0.6915 $\pm$ 0.0219 \\
+Onto\_64 & 0.4351 $\pm$ 0.0175 & 0.4919 $\pm$ 0.0404 & 0.8619 $\pm$ 0.0090 & 0.6949 $\pm$ 0.0163 \\
+Onto\_2L64 & 0.4545 $\pm$ 0.0300 & 0.4997 $\pm$ 0.0111 & 0.8728 $\pm$ 0.0125 & 0.7313 $\pm$ 0.0301 \\
+Onto\_2L32 & 0.4494 $\pm$ 0.0271 & 0.5030 $\pm$ 0.0193 & 0.8834 $\pm$ 0.0208 & 0.7201 $\pm$ 0.0202 \\
+Onto\_Base\_Skip & -- & -- & 0.9313 $\pm$ 0.0304 & 0.5500 $\pm$ 0.0100 \\
+\bottomrule
+\end{tabular}
+\caption{Mean balanced accuracy across the intermediate classifications for each model configuration. For each independent run, the balanced accuracy is first averaged across the intermediate classifications. The table reports the mean $\pm$ standard deviation across runs.}
+\label{tab:intermediate_balanced_accuracy_summary}
+\end{table}

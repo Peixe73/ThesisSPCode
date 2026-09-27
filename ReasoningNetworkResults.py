@@ -8,7 +8,7 @@ import numpy as np
 
 # Configuration
 
-JSON_FILE = Path("storage/studies/gtsrb_hn_EvalConfig_Multiple_WithCLoss/results.json")
+JSON_FILE = Path("storage/studies/gtsrb_rn_HN_Multiple_WithCInLoss/results.json")
 
 # Number of decimal places in the final table
 DECIMALS = 5
@@ -124,6 +124,7 @@ for model_name, runs in grouped.items():
         
         train = experiment_data["train"] 
 
+        """
         if "val" not in experiment_data:
             print(
                 f"WARNING: {experiment_name} has no 'val' section."
@@ -131,6 +132,7 @@ for model_name, runs in grouped.items():
             continue
 
         val = experiment_data["val"]
+        """
 
         # Training loss
         if "loss" in train:
@@ -140,19 +142,19 @@ for model_name, runs in grouped.items():
                 f"WARNING: {experiment_name} has no training loss."
             )
 
-        # Validation accuracy
-        if "accuracy" in val:
-            accuracies.append(val["accuracy"])
+        # Training accuracy
+        if "accuracy" in train:
+            accuracies.append(train["accuracy"])
 
-        # Validation balanced accuracy
-        if "balanced_accuracy" in val:
+        # Training balanced accuracy
+        if "balanced_accuracy" in train:
             balanced_accuracies.append(
-                val["balanced_accuracy"]
+                train["balanced_accuracy"]
             )
 
-        # Validation Macro F1
-        if "f1" in val:
-            f1_scores.append(val["f1"])
+        # Training Macro F1
+        if "f1" in train:
+            f1_scores.append(train["f1"])
 
     results[model_name] = {
         "n_runs": len(runs),
@@ -227,13 +229,13 @@ latex_lines.append(r"\bottomrule")
 latex_lines.append(r"\end{tabular}")
 
 latex_lines.append(
-    r"\caption{Validation-set performance across multiple "
+    r"\caption{Training set performance across multiple "
     r"independent runs. Results are reported as mean $\pm$ "
     r"standard deviation.}"
 )
 
 latex_lines.append(
-    r"\label{tab:validation_results}"
+    r"\label{tab:training_rn_results}"
 )
 
 latex_lines.append(r"\end{table}")
@@ -244,7 +246,7 @@ latex_table = "\n".join(latex_lines)
 
 # Save LaTeX table
 
-output_file = Path("validation_results_table.tex")
+output_file = Path("training_results_table.tex")
 
 with open(output_file, "w") as f:
     f.write(latex_table)

@@ -270,7 +270,6 @@ class ToMultilabel(MetricWrapper):
         self.logits = logits
 
     def update(self, y_pred, y_true):
-        import torch
 
         if self.logits:
             y_pred = torch.sigmoid(y_pred)
@@ -278,4 +277,24 @@ class ToMultilabel(MetricWrapper):
         y_pred = (y_pred >= self.threshold).to(y_true.dtype)
 
         self.inner.update(y_pred, y_true)
+        return self
+    
+class InvalidBinary(MetricWrapper):
+    def __init__(self, inner: Metric, invalid_col: int) -> None:
+        super().__init__(inner)
+        self.invalid_col = invalid_col
+
+    def update(self, y_pred, y_true):
+        # Convert multiclass logits to predicted class
+        import torch
+        pred_class = y_pred.argmax(dim=1)
+
+        # Convert one-hot ground truth to class index
+        true_class = y_true.argmax(dim=1)
+
+        # Binary problem: invalid = 1, everything else = 0
+        pred_invalid = (pred_class == self.invalid_col).to(torch.int32)
+        true_invalid = (true_class == self.invalid_col).to(torch.int32)
+
+        self.inner.update(pred_invalid, true_invalid)
         return self

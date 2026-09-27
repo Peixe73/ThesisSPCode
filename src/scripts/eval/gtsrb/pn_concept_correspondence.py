@@ -9,7 +9,7 @@ if TYPE_CHECKING or DO_SCRIPT_IMPORTS:
     from core.storage_management import ModelFileManager
     from core.datasets import dataset_wrappers
     from analysis_tools.perception_network import evaluate_concept_correspondence
-    from analysis_tools.gtsrb_utils import CLASSES, SHORT_CLASSES, log_short_class_correspondence
+    from analysis_tools.gtsrb_utils import CATEGORIES, SHORT_CATEGORIES, log_short_categories_correspondence #CLASSES, SHORT_CLASSES, log_short_class_correspondence
     import torch
     from core.datasets import get_dataset
     import logging
@@ -38,7 +38,7 @@ class Options:
 
 
 def main(options: Options):
-    log_short_class_correspondence(logger)
+    log_short_categories_correspondence(logger)
     model_name = options.model_name
     with torch.no_grad():
         with ModelFileManager(model_name) as file_manager:
@@ -47,15 +47,15 @@ def main(options: Options):
             model = trainer.model.perception_network
             dataset = get_dataset('gtsrb_with_concepts')
 
-            label_indices = dataset.get_column_references().get_label_indices(CLASSES)
+            label_indices = dataset.get_column_references().get_label_indices(CATEGORIES)
             selected_dataset = dataset_wrappers.SelectCols(dataset, select_y=label_indices)
             if options.expect_concepts:
-                expected_concepts = dict(enumerate(SHORT_CLASSES))
+                expected_concepts = dict(enumerate(SHORT_CATEGORIES))
             else:
                 expected_concepts = None
             evaluate_concept_correspondence(
                 trainer, model, file_manager, selected_dataset,
-                options.normalize_first, SHORT_CLASSES,
+                options.normalize_first, SHORT_CATEGORIES,
                 expected_concepts=expected_concepts,
                 with_training=options.with_training_set,
                 binary_threshold=options.threshold,

@@ -1,6 +1,7 @@
 from typing import Literal, Optional
 
 from core.training.stop_criteria.goal_reached import GoalReached
+from analysis_tools.gtsrb_utils import CATEGORIES_COLS, CLASS_COLS
 import torcheval.metrics
 
 from core import datasets
@@ -171,6 +172,38 @@ def pn_evaluator(model : 'HybridNetwork', x, y):
 
     return EvaluationResult(preds, y)
     """
+    
+def ontology_evaluator(model: 'HybridNetwork', x, y):
+    model(x)
+
+    return EvaluationResult(
+        model.reasoning_network.pre_output,
+        y
+    )
+    
+class OntologyBinaryBalancedAccuracy(metric_wrappers.MetricWrapper):
+    def __init__(
+        self,
+        inner,
+        neuron_idx,
+        target_col,
+        threshold=0.0,
+    ):
+        super().__init__(inner)
+        self.neuron_idx = neuron_idx
+        self.target_col = target_col
+        self.threshold = threshold
+
+    def update(self, y_pred, y_true):
+        scores = y_pred[:, self.neuron_idx]
+
+        pred = (scores >= self.threshold).to(torch.int32)
+        true = y_true[:, self.target_col].to(torch.int32)
+
+        self.inner.update(pred, true)
+
+        return self
+
 
 def debug_evaluator(model, x, y):
     global DEBUG_ONCE
@@ -191,6 +224,7 @@ def debug_evaluator(model, x, y):
 def create_trainer(
         dataset_name : str,
         concept_dataset_name : str,
+        ontology_dataset_name: str,
         concepts : list[str],
         pre_trained_learning_rate : float = 0.001,
         untrained_learning_rate : float = 0.001,
@@ -202,10 +236,16 @@ def create_trainer(
     dataset.for_training() # make sure it is loaded
     concept_dataset = datasets.get_dataset(concept_dataset_name)
     concept_dataset.for_validation() # make sure it is loaded
+    ontology_dataset = datasets.get_dataset(ontology_dataset_name)
+    ontology_dataset.for_validation()
     col_refs = dataset.get_column_references()
     logger.info(f"Column info for dataset: {col_refs}")
     concept_col_refs = concept_dataset.get_column_references()
     logger.info(f"Column info for concept dataset: {concept_col_refs}")
+    ontology_col_refs = ontology_dataset.get_column_references()
+    logger.info(
+        f"Column info for ontology dataset: {ontology_col_refs}"
+    )
     num_labels = len(col_refs.labels.columns_to_names)
     invalid_col = num_labels - 1
     weights = torch.ones(num_labels)
@@ -222,8 +262,7 @@ def create_trainer(
     def metric_functions():
         metric_functions_ : dict = {
             'elapsed': metrics.Elapsed(),
-            #'mean_invalid': metric_wrappers.SelectCol(metric_wrappers.Unary(Mean()), invalid_col),
-            'invalid_balanced_accuracy': metric_wrappers.InvalidBinary(metrics.BinaryBalancedAccuracy(),invalid_col),
+            'mean_invalid': metric_wrappers.SelectCol(metric_wrappers.Unary(Mean()), invalid_col),
             "accuracy": metric_wrappers.ToMulticlass(MulticlassAccuracy(num_classes=num_labels)),
             "recall": metric_wrappers.ToMulticlass(MulticlassRecall(num_classes=num_labels)),
             "f1": metric_wrappers.ToMulticlass(MulticlassF1Score(num_classes=num_labels,average="macro")),
@@ -276,6 +315,32 @@ def create_trainer(
             evaluator=pn_evaluator
         )
         """
+    def ontology_metric_functions():
+        ontology_metrics = {}
+
+        for neuron_idx, concept in enumerate(CLASS_COLS):
+            target_col = ontology_col_refs.labels.names_to_column[concept]
+
+            ontology_metrics[
+                f"balanced_accuracy_{concept}"
+            ] = OntologyBinaryBalancedAccuracy(
+                metrics.BinaryBalancedAccuracy(),
+                neuron_idx=neuron_idx,
+                target_col=target_col,
+            )
+
+        return ontology_metrics
+
+
+    rn_ontology_metrics = MetricsRecorder(
+        identifier='rn_ontology_val',
+        metric_functions=ontology_metric_functions(),
+        dataset=ontology_dataset.for_validation,
+        evaluator=ontology_evaluator,
+    )
+
+    metric_recorders.append(rn_ontology_metrics)
+    
     if not skip_pn_eval:
         pn_metric_functions = {}
         for concept in concepts:

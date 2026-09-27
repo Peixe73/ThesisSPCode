@@ -1,0 +1,15 @@
+\begin{table}[t]
+\centering
+\begin{tabular}{l c c c c}
+\toprule
+Noise & Loss $\pm$ S.D. & Accuracy $\pm$ S.D. & Balanced Acc. $\pm$ S.D. & Macro F1 $\pm$ S.D. \\
+\midrule
+Binary & 0.03171 $\pm$ 0.01513 & 0.99305 $\pm$ 0.00284 & 0.94150 $\pm$ 0.00447 & 0.99265 $\pm$ 0.00171 \\
+Uniform & 0.42588 $\pm$ 0.01390 & 0.81507 $\pm$ 0.00658 & 0.89406 $\pm$ 0.00495 & 0.78020 $\pm$ 0.01865 \\
+Extremes & 0.36485 $\pm$ 0.01823 & 0.84518 $\pm$ 0.00719 & 0.90239 $\pm$ 0.00354 & 0.83367 $\pm$ 0.01466 \\
+Middle & 1.13659 $\pm$ 0.00761 & 0.50805 $\pm$ 0.00608 & 0.78033 $\pm$ 0.00205 & 0.13475 $\pm$ 0.00107 \\
+\bottomrule
+\end{tabular}
+\caption{Reasoning Networks pretraining performance of the different concept noise strategies across independent training runs. Results are reported as mean $\pm$ standard deviation.}
+\label{tab:noise_selection_rn}
+\end{table}

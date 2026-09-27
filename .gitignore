@@ -11,3 +11,8 @@ debug/
 target/
 *config.json
 Thumbs.db
+# Generated experiment data
+storage/studies/
+
+# JVM crash logs
+hs_err_pid*.log

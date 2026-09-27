@@ -1,0 +1,24 @@
+\begin{table}[t]
+\centering
+\begin{tabular}{l c c c c}
+\toprule
+Model & Loss $\pm$ S.D. & Accuracy $\pm$ S.D. & Balanced Acc. $\pm$ S.D. & Macro F1 $\pm$ S.D. \\
+\midrule
+ONTO_BASE_binary & 0.2121 $\pm$ 0.1235 & 0.9641 $\pm$ 0.0291 & 0.9126 $\pm$ 0.0512 & 0.8477 $\pm$ 0.1679 \\
+ONTO_32_binary & 0.0233 $\pm$ 0.0075 & 0.9952 $\pm$ 0.0015 & 0.9536 $\pm$ 0.0163 & 0.9916 $\pm$ 0.0028 \\
+ONTO_64_binary & 0.0277 $\pm$ 0.0280 & 0.9936 $\pm$ 0.0075 & 0.9587 $\pm$ 0.0157 & 0.9805 $\pm$ 0.0326 \\
+ONTO_2L64_binary & 0.0291 $\pm$ 0.0133 & 0.9937 $\pm$ 0.0029 & 0.9315 $\pm$ 0.0234 & 0.9848 $\pm$ 0.0142 \\
+ONTO_2L32_binary & 0.0795 $\pm$ 0.0477 & 0.9828 $\pm$ 0.0128 & 0.8961 $\pm$ 0.0408 & 0.9423 $\pm$ 0.0823 \\
+DIRECT_BASE_binary & 0.0911 $\pm$ 0.0041 & 0.9851 $\pm$ 0.0012 & 0.9912 $\pm$ 0.0004 & 0.9837 $\pm$ 0.0019 \\
+CTRL_0_binary & 0.0941 $\pm$ 0.0097 & 0.9842 $\pm$ 0.0006 & 0.9912 $\pm$ 0.0003 & 0.9830 $\pm$ 0.0023 \\
+CTRL_16_binary & 0.0533 $\pm$ 0.0084 & 0.9878 $\pm$ 0.0016 & 0.9792 $\pm$ 0.0154 & 0.9881 $\pm$ 0.0038 \\
+CTRL_32_binary & 0.0379 $\pm$ 0.0035 & 0.9913 $\pm$ 0.0009 & 0.9922 $\pm$ 0.0007 & 0.9911 $\pm$ 0.0024 \\
+CTRL_64_binary & 0.0396 $\pm$ 0.0083 & 0.9913 $\pm$ 0.0024 & 0.9925 $\pm$ 0.0014 & 0.9910 $\pm$ 0.0017 \\
+CTRL_128_binary & 0.0242 $\pm$ 0.0104 & 0.9951 $\pm$ 0.0027 & 0.9943 $\pm$ 0.0004 & 0.9954 $\pm$ 0.0023 \\
+CTRL_2L_binary & 0.0028 $\pm$ 0.0015 & 0.9996 $\pm$ 0.0004 & 0.9932 $\pm$ 0.0015 & 0.9993 $\pm$ 0.0008 \\
+CTRL_3L_binary & 0.0030 $\pm$ 0.0032 & 0.9995 $\pm$ 0.0009 & 0.9672 $\pm$ 0.0048 & 0.9990 $\pm$ 0.0014 \\
+\bottomrule
+\end{tabular}
+\caption{Training set performance across multiple independent runs. Results are reported as mean $\pm$ standard deviation.}
+\label{tab:training_rn_results}
+\end{table}

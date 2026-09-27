@@ -1,0 +1,17 @@
+\begin{table}[t]
+\centering
+\begin{tabular}{l c c c c}
+\toprule
+Model & Loss $\pm$ S.D. & Accuracy $\pm$ S.D. & Balanced Acc. $\pm$ S.D. & Macro F1 $\pm$ S.D. \\
+\midrule
+ONTO_BASE & 0.00445 $\pm$ 0.00608 & 0.99821 $\pm$ 0.00000 & 0.94153 $\pm$ 0.10843 & 0.99784 $\pm$ 0.00059 \\
+ONTO_32 & 0.00118 $\pm$ 0.00232 & 0.99821 $\pm$ 0.00063 & 0.99591 $\pm$ 0.00518 & 0.99824 $\pm$ 0.00102 \\
+ONTO_64 & 0.00107 $\pm$ 0.00144 & 0.99767 $\pm$ 0.00102 & 0.99810 $\pm$ 0.00086 & 0.99731 $\pm$ 0.00109 \\
+ONTO_2L64 & 0.00494 $\pm$ 0.01098 & 0.99678 $\pm$ 0.00136 & 0.99703 $\pm$ 0.00297 & 0.99614 $\pm$ 0.00200 \\
+ONTO_2L32 & 0.00210 $\pm$ 0.00297 & 0.99785 $\pm$ 0.00080 & 0.99600 $\pm$ 0.00362 & 0.99755 $\pm$ 0.00123 \\
+ONTO_BASE_SKIP & 0.00008 $\pm$ 0.00005 & 0.99839 $\pm$ 0.00075 & 0.95602 $\pm$ 0.03770 & 0.99847 $\pm$ 0.00111 \\
+\bottomrule
+\end{tabular}
+\caption{Validation-set performance across multiple independent runs. Results are reported as mean $\pm$ standard deviation.}
+\label{tab:validation_results}
+\end{table}

@@ -1,0 +1,23 @@
+\begin{table}[t]
+\centering
+\begin{tabular}{l c c c c}
+\toprule
+Model & Loss $\pm$ S.D. & Accuracy $\pm$ S.D. & Balanced Acc. $\pm$ S.D. & Macro F1 $\pm$ S.D. \\
+\midrule
+ONTO_BASE & 0.00557 $\pm$ 0.01224 & 0.99803 $\pm$ 0.00117 & 0.99792 $\pm$ 0.00167 & 0.99786 $\pm$ 0.00124 \\
+ONTO_32 & 0.00004 $\pm$ 0.00004 & 0.99821 $\pm$ 0.00000 & 0.99700 $\pm$ 0.00346 & 0.99763 $\pm$ 0.00049 \\
+ONTO_64 & 0.00269 $\pm$ 0.00487 & 0.99750 $\pm$ 0.00117 & 0.99814 $\pm$ 0.00067 & 0.99707 $\pm$ 0.00134 \\
+ONTO_2L64 & 0.00186 $\pm$ 0.00196 & 0.99803 $\pm$ 0.00172 & 0.99864 $\pm$ 0.00078 & 0.99704 $\pm$ 0.00218 \\
+ONTO_2L32 & 0.00263 $\pm$ 0.00499 & 0.99857 $\pm$ 0.00049 & 0.99472 $\pm$ 0.00386 & 0.99822 $\pm$ 0.00103 \\
+DIRECT_BASE & 0.00267 $\pm$ 0.00117 & 0.99893 $\pm$ 0.00040 & 0.99597 $\pm$ 0.00386 & 0.99845 $\pm$ 0.00079 \\
+CTRL_16 & 0.00034 $\pm$ 0.00034 & 0.99857 $\pm$ 0.00049 & 0.98792 $\pm$ 0.01263 & 0.99878 $\pm$ 0.00077 \\
+CTRL_32 & 0.00077 $\pm$ 0.00098 & 0.99893 $\pm$ 0.00075 & 0.98636 $\pm$ 0.02409 & 0.99895 $\pm$ 0.00098 \\
+CTRL_64 & 0.00168 $\pm$ 0.00326 & 0.99857 $\pm$ 0.00049 & 0.99848 $\pm$ 0.00076 & 0.99879 $\pm$ 0.00057 \\
+CTRL_128 & 0.00017 $\pm$ 0.00027 & 0.99875 $\pm$ 0.00049 & 0.99839 $\pm$ 0.00070 & 0.99877 $\pm$ 0.00081 \\
+CTRL_2L & 0.00117 $\pm$ 0.00257 & 0.99839 $\pm$ 0.00075 & 0.99839 $\pm$ 0.00037 & 0.99744 $\pm$ 0.00137 \\
+CTRL_3L & 0.00031 $\pm$ 0.00058 & 0.99732 $\pm$ 0.00089 & 0.99832 $\pm$ 0.00068 & 0.99641 $\pm$ 0.00167 \\
+\bottomrule
+\end{tabular}
+\caption{Hybrid Network validation performance for the evaluated Reasoning Network architectures across multiple independent training runs. Results are reported as mean $\pm$ standard deviation.}
+\label{tab:rn_architecture_hn}
+\end{table}

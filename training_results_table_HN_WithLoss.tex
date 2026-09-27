@@ -1,0 +1,17 @@
+\begin{table}[t]
+\centering
+\begin{tabular}{l c c c c}
+\toprule
+Model & Loss $\pm$ S.D. & Accuracy $\pm$ S.D. & Balanced Acc. $\pm$ S.D. & Macro F1 $\pm$ S.D. \\
+\midrule
+ONTO_BASE & 0.57958 $\pm$ 0.07934 & 0.83232 $\pm$ 0.00372 & 0.89006 $\pm$ 0.01155 & 0.80648 $\pm$ 0.02155 \\
+ONTO_32 & 0.44963 $\pm$ 0.04720 & 0.85860 $\pm$ 0.00823 & 0.89360 $\pm$ 0.01314 & 0.85052 $\pm$ 0.01650 \\
+ONTO_64 & 0.33773 $\pm$ 0.02017 & 0.88493 $\pm$ 0.01153 & 0.90682 $\pm$ 0.00314 & 0.88047 $\pm$ 0.01397 \\
+ONTO_2L64 & 0.44677 $\pm$ 0.02255 & 0.87257 $\pm$ 0.00663 & 0.90799 $\pm$ 0.00163 & 0.86031 $\pm$ 0.00811 \\
+ONTO_2L32 & 0.54684 $\pm$ 0.04089 & 0.85224 $\pm$ 0.00220 & 0.89659 $\pm$ 0.01360 & 0.83955 $\pm$ 0.01189 \\
+ONTO_BASE_SKIP & 0.58087 $\pm$ 0.06739 & 0.83254 $\pm$ 0.00353 & 0.88555 $\pm$ 0.01068 & 0.81077 $\pm$ 0.00642 \\
+\bottomrule
+\end{tabular}
+\caption{Training set performance across multiple independent runs. Results are reported as mean $\pm$ standard deviation.}
+\label{tab:training_rn_results}
+\end{table}

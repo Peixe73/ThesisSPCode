@@ -1,6 +1,7 @@
 import logging
 from pathlib import Path
 import pandas as pd
+from analysis_tools.gtsrb_utils import CLASS_COLS
 from torch import nn
 import torch
 from torcheval.metrics import MulticlassAccuracy, MulticlassF1Score, MulticlassRecall#MulticlassBalancedAccuracy
@@ -25,10 +26,10 @@ DEBUG_DIR.mkdir(exist_ok=True, parents=True)
 class OntologyRN(nn.Module):
     """
     Two-part ontology RN:
-    - pre: input -> categories
-    - post: categories -> class + validity
+    - pre: input -> classes
+    - post: classes -> categories + validity
     """
-    def __init__(self, input_size, category_size, num_classes, pre_layers, post_layers):
+    def __init__(self, input_size, classes_size, num_categories, pre_layers, post_layers):
         super().__init__()
         
         self.stage = "full"
@@ -42,20 +43,20 @@ class OntologyRN(nn.Module):
             in_dim = s
 
         #self.pre = nn.Sequential(*pre) if len(pre_layers) > 0 else nn.Identity()
-        pre.append(nn.Linear(in_dim, category_size))
+        pre.append(nn.Linear(in_dim, classes_size))
         pre.append(nn.ReLU())
 
         self.pre = nn.Sequential(*pre)
 
         # MID -> OUTPUT (post)
         post = []
-        in_dim = category_size
+        in_dim = classes_size
         for s in post_layers:
             post.append(nn.Linear(in_dim, s))
             post.append(nn.ReLU())
             in_dim = s
 
-        post.append(nn.Linear(in_dim, num_classes + 1))  # +valid
+        post.append(nn.Linear(in_dim, num_categories + 1))  # +valid
         #post.append(nn.Sigmoid())
 
         self.post = nn.Sequential(*post)
@@ -186,13 +187,13 @@ class MaskedBCELoss(nn.Module):
         
 class IntermediateSignClassBalancedAccuracy:
     """
-    Auxiliary metric for the four intermediate OntologyRN neurons.
+    Auxiliary metric for the fourty three intermediate OntologyRN neurons.
 
     This metric deliberately does NOT use the Trainer's target tensor.
 
     Instead, at compute time it:
       1. Reads the currently generated train.csv.
-      2. Gets the SignClass_* labels directly from that CSV.
+      2. Gets the classification labels directly from that CSV.
       3. Runs the model's pre() network on the feature columns.
       4. Uses one intermediate neuron as the prediction.
       5. Computes binary balanced accuracy.
@@ -205,14 +206,14 @@ class IntermediateSignClassBalancedAccuracy:
         model,
         dataset_path,
         feature_cols,
-        category_col,
+        class_col,
         neuron_idx,
         threshold=0.5,
     ):
         self.model = model
         self.dataset_path = dataset_path
         self.feature_cols = feature_cols
-        self.category_col = category_col
+        self.class_col = class_col
         self.neuron_idx = neuron_idx
         self.threshold = threshold
 
@@ -233,7 +234,7 @@ class IntermediateSignClassBalancedAccuracy:
         )
 
         y_true = torch.tensor(
-            df[self.category_col].values,
+            df[self.class_col].values,
             dtype=torch.int64,
         )
 
@@ -301,9 +302,10 @@ class IntermediateSignClassBalancedAccuracy:
 
 
 class EpochDatasetUpdater:
-    def __init__(self, valid_path, feature_cols, class_cols, dataset_size, base_seed, concept_noise_mode="binary"):
+    def __init__(self, valid_path, feature_cols, category_cols, class_cols, dataset_size, base_seed, concept_noise_mode="binary"):
         self.valid_path = valid_path
         self.feature_cols = feature_cols
+        self.category_cols = category_cols
         self.class_cols = class_cols
         self.dataset_size = dataset_size
         self.base_seed = base_seed
@@ -360,7 +362,7 @@ class EpochDatasetUpdater:
         self.latest_dataset = CSVDataset(
             path=path,
             features=self.feature_cols,
-            target=self.class_cols + ["invalid"],
+            target=self.category_cols + ["invalid"],
             #target=["target"],
             stratify_col=None
         )
@@ -376,6 +378,7 @@ class EpochDatasetUpdater:
 def create_trainer(
     valid_path: str,
     feature_cols: list[str],
+    category_cols: list[str],
     class_cols: list[str],
     model_config: dict,
     #layer_sizes: list[int],
@@ -388,7 +391,7 @@ def create_trainer(
     concept_noise_mode: str = "binary"
 ) -> Trainer:
     
-    num_classes = len(class_cols) + 1
+    #num_classes = len(class_cols) + 1
 
     #print("create_trainer base_seed =", base_seed, type(base_seed))
     
@@ -411,13 +414,13 @@ def create_trainer(
         path=train_csv,
         features=feature_cols,
         #target=["valid"] + class_cols
-        target= class_cols + ["invalid"],
+        target= category_cols + ["invalid"],
         #target=["target"],
         stratify_col=None
     )
     
     # model selection
-    num_outputs = len(class_cols) + 1
+    num_outputs = len(category_cols) + 1
 
     #if isinstance(layer_sizes, dict):
     model_cfg = model_config
@@ -425,8 +428,8 @@ def create_trainer(
     if model_cfg["type"] == "ontology":
         model = OntologyRN(
             input_size=53,
-            category_size=4,
-            num_classes=len(class_cols),
+            classes_size=43,
+            num_categories=len(category_cols),
             pre_layers=model_cfg["pre"],
             post_layers=model_cfg["post"]
         )
@@ -466,6 +469,7 @@ def create_trainer(
     dataset_updater = EpochDatasetUpdater(
         valid_path,
         feature_cols,
+        category_cols,
         class_cols,
         dataset_size,
         base_seed,
@@ -484,19 +488,19 @@ def create_trainer(
             
             "accuracy": metric_wrappers.ToMulticlass(
                 MulticlassAccuracy(
-                    num_classes=num_classes
+                    num_classes=num_outputs
                 )
             ),
 
             "recall": metric_wrappers.ToMulticlass(
                 MulticlassRecall(
-                    num_classes=num_classes
+                    num_classes=num_outputs
                 )
             ),
 
             "f1": metric_wrappers.ToMulticlass(
                 MulticlassF1Score(
-                    num_classes=num_classes,
+                    num_classes=num_outputs,
                     average="macro"
                 )
             ),
@@ -510,20 +514,14 @@ def create_trainer(
         )
         
         if isinstance(model, OntologyRN):
-            sign_classes = [
-                "SignClass_A",
-                "SignClass_B",
-                "SignClass_C",
-                "SignClass_D",
-            ]
 
-            for neuron_idx, category_col in enumerate(sign_classes):
-                metrics[f"{category_col}_balanced_accuracy"] = (
+            for neuron_idx, class_col in enumerate(CLASS_COLS):
+                metrics[f"{class_col}_balanced_accuracy"] = (
                     IntermediateSignClassBalancedAccuracy(
                         model=model,
                         dataset_path=train_csv,
                         feature_cols=feature_cols,
-                        category_col=category_col,
+                        class_col=class_col,
                         neuron_idx=neuron_idx,
                     )
                 )

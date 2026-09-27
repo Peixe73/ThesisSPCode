@@ -1,0 +1,566 @@
+import json
+import re
+from pathlib import Path
+
+import numpy as np
+
+# Configuration
+
+RESULT_FILES = {
+    "Original RN": Path(
+        "storage/studies/gtsrb_rn_HN_Multiple_WithCMetrics/results.json"
+    ),
+    "Original HN": Path(
+        "storage/studies/gtsrb_hn_EvalConfig_Multiple_CMetrics_Onto/results.json"
+    ),
+    "Integrated RN": Path(
+        "storage/studies/gtsrb_rn_HN_Multiple_WithCInLoss/results.json"
+    ),
+    "Integrated HN": Path(
+        "storage/studies/gtsrb_hn_EvalConfig_Multiple_WithCLoss/results.json"
+    ),
+}
+
+
+# Models to include, in the desired table order.
+MODELS = [
+    "ONTO_BASE",
+    "ONTO_32",
+    "ONTO_64",
+    "ONTO_2L64",
+    "ONTO_2L32",
+    "ONTO_BASE_SKIP",
+]
+
+
+# Display names for LaTeX
+MODEL_DISPLAY_NAMES = {
+    "ONTO_BASE": r"Onto\_Base",
+    "ONTO_32": r"Onto\_32",
+    "ONTO_64": r"Onto\_64",
+    "ONTO_2L64": r"Onto\_2L64",
+    "ONTO_2L32": r"Onto\_2L32",
+    "ONTO_BASE_SKIP": r"Onto\_Base\_Skip",
+}
+
+# Intermediate classifications
+
+# The actual intermediate classification names.
+#
+# For RN:
+#     A13_balanced_accuracy
+#
+# For HN:
+#     balanced_accuracy_A13
+#
+# The same list is used for both formats.
+
+INTERMEDIATE_CATEGORIES = [
+    "A13",
+    "A14",
+    "A15b",
+    "A16",
+    "A17a",
+    "A19a",
+    "A1a",
+    "A1b",
+    "A1c",
+    "A32",
+    "A33",
+    "A34",
+    "A4b2",
+    "A7a",
+    "A9",
+    "B1",
+    "B2a",
+    "B3",
+    "C13aa",
+    "C13bb",
+    "C14_100",
+    "C14_120",
+    "C14_20",
+    "C14_30",
+    "C14_50",
+    "C14_60",
+    "C14_70",
+    "C14_80",
+    "C17a",
+    "C17b_80",
+    "C17c",
+    "C17d",
+    "C1a",
+    "C2",
+    "C3e3",
+    "D1a1",
+    "D1a4",
+    "D1a5",
+    "D1a6",
+    "D1a7",
+    "D2a1",
+    "D2a2",
+    "D3",
+]
+
+
+DECIMALS = 4
+DDOF = 1
+
+# Helper functions
+
+def mean_std(values):
+    """
+    Calculate mean and sample standard deviation,
+    ignoring NaN values.
+    """
+    values = np.asarray(values, dtype=float)
+    values = values[np.isfinite(values)]
+
+    if len(values) == 0:
+        return np.nan, np.nan
+
+    mean = np.mean(values)
+
+    if len(values) > 1:
+        std = np.std(values, ddof=DDOF)
+    else:
+        std = np.nan
+
+    return mean, std
+
+
+def format_mean_std(values, decimals=4):
+    """
+    Format a list of values as:
+
+        0.9535 $\\pm$ 0.0041
+    """
+
+    mean, std = mean_std(values)
+
+    if np.isnan(mean):
+        return "--"
+
+    if np.isnan(std):
+        return f"{mean:.{decimals}f} $\\pm$ --"
+
+    return (
+        f"{mean:.{decimals}f} "
+        f"$\\pm$ "
+        f"{std:.{decimals}f}"
+    )
+
+# Model extraction
+
+def get_model_name(experiment_name):
+    """
+    Extract one of the requested model names from an experiment name.
+
+    RN examples
+    -----------
+    ONTO_BASE_extremes_run0
+        -> ONTO_BASE
+
+    ONTO_32_extremes_run0
+        -> ONTO_32
+
+
+    HN examples
+    -----------
+    C2_L128_ONTO_BASE_extremes_preRN_run0
+        -> ONTO_BASE
+
+    C2_L128_ONTO_32_extremes_preRN_run0
+        -> ONTO_32
+
+    The function specifically looks for one of the requested model
+    names as a component of the experiment name.
+    """
+
+    # Longest first so ONTO_BASE_SKIP is checked before ONTO_BASE.
+    models_sorted = sorted(
+        MODELS,
+        key=len,
+        reverse=True,
+    )
+
+    for model in models_sorted:
+
+        # Model must occur as an underscore-delimited component.
+        pattern = rf"(?:^|_){re.escape(model)}(?:_|$)"
+
+        if re.search(pattern, experiment_name):
+            return model
+
+    return None
+
+# Determine file type
+
+def is_hn_file(result_type):
+    """
+    Return True for the HN result files.
+
+    HN files contain the intermediate metrics in:
+        rn_ontology_val
+
+    RN files contain them in:
+        train
+    """
+
+    return result_type in {
+        "Original HN",
+        "Integrated HN",
+    }
+
+
+# Extract intermediate metrics from one run
+
+def extract_run_intermediate_values(
+    experiment_name,
+    experiment_data,
+    result_type,
+):
+    """
+    Extract all intermediate balanced accuracies for one run.
+
+    RN format:
+        train
+            A13_balanced_accuracy
+            A14_balanced_accuracy
+            ...
+
+    HN format:
+        rn_ontology_val
+            balanced_accuracy_A13
+            balanced_accuracy_A14
+            ...
+    """
+
+    if is_hn_file(result_type):
+
+        # HN format
+        if "rn_ontology_val" not in experiment_data:
+            print(
+                f"WARNING: {experiment_name} has no "
+                f"'rn_ontology_val' section."
+            )
+            return []
+
+        metrics = experiment_data["rn_ontology_val"]
+
+        metric_values = []
+        missing_metrics = []
+
+        for category in INTERMEDIATE_CATEGORIES:
+
+            metric_name = f"balanced_accuracy_{category}"
+
+            if metric_name not in metrics:
+                missing_metrics.append(metric_name)
+                continue
+
+            value = metrics[metric_name]
+
+            try:
+                value = float(value)
+
+                if np.isfinite(value):
+                    metric_values.append(value)
+                else:
+                    missing_metrics.append(metric_name)
+
+            except (TypeError, ValueError):
+                missing_metrics.append(metric_name)
+
+    else:
+
+        # RN format
+        if "train" not in experiment_data:
+            print(
+                f"WARNING: {experiment_name} has no "
+                f"'train' section."
+            )
+            return []
+
+        metrics = experiment_data["train"]
+
+        metric_values = []
+        missing_metrics = []
+
+        for category in INTERMEDIATE_CATEGORIES:
+
+            metric_name = f"{category}_balanced_accuracy"
+
+            if metric_name not in metrics:
+                missing_metrics.append(metric_name)
+                continue
+
+            value = metrics[metric_name]
+
+            try:
+                value = float(value)
+
+                if np.isfinite(value):
+                    metric_values.append(value)
+                else:
+                    missing_metrics.append(metric_name)
+
+            except (TypeError, ValueError):
+                missing_metrics.append(metric_name)
+
+    # Warnings
+
+    if missing_metrics:
+        print(
+            f"WARNING: {experiment_name} "
+            f"({result_type}) is missing "
+            f"{len(missing_metrics)} intermediate metric(s)."
+        )
+
+        print(
+            "         Missing: "
+            + ", ".join(missing_metrics)
+        )
+
+    return metric_values
+
+# Process one results.json
+
+def process_results_file(json_file, result_type):
+    """
+    Process one results.json.
+
+    Returns
+    -------
+    dict
+        {
+            "ONTO_BASE": [run_average_1, run_average_2, ...],
+            "ONTO_32": [...],
+            ...
+        }
+
+    Each value in the lists is the average of all intermediate
+    classifications for ONE run.
+    """
+
+    if not json_file.exists():
+        raise FileNotFoundError(
+            f"Results file not found: {json_file}"
+        )
+
+    with open(json_file, "r") as f:
+        data = json.load(f)
+
+    experiments = data.get("experiments", {})
+
+    # Group experiments by model
+
+    grouped = {
+        model: []
+        for model in MODELS
+    }
+
+    for experiment_name, experiment_data in experiments.items():
+
+        model_name = get_model_name(experiment_name)
+
+        # Ignore all models we are not interested in.
+        if model_name is None:
+            continue
+
+        grouped[model_name].append(
+            {
+                "name": experiment_name,
+                "data": experiment_data,
+            }
+        )
+
+    # Calculate one average per run
+
+    results = {}
+
+    for model_name in MODELS:
+
+        run_averages = []
+
+        for run in grouped[model_name]:
+
+            experiment_name = run["name"]
+            experiment_data = run["data"]
+
+            metric_values = extract_run_intermediate_values(
+                experiment_name,
+                experiment_data,
+                result_type,
+            )
+
+            if len(metric_values) == 0:
+                print(
+                    f"WARNING: {experiment_name} has no valid "
+                    f"intermediate balanced accuracies."
+                )
+                continue
+
+            # Average all intermediate classifications for
+            # THIS RUN.
+
+            run_average = np.mean(metric_values)
+
+            run_averages.append(run_average)
+
+        results[model_name] = run_averages
+
+    return results
+
+
+# Process all four files
+
+all_results = {}
+
+for result_type, json_file in RESULT_FILES.items():
+
+    print("\n" + "=" * 75)
+    print(result_type)
+    print(f"File: {json_file}")
+    print("=" * 75)
+
+    all_results[result_type] = process_results_file(
+        json_file,
+        result_type,
+    )
+
+    for model_name in MODELS:
+
+        n_runs = len(
+            all_results[result_type][model_name]
+        )
+
+        print(
+            f"{model_name:18s}: {n_runs} run(s)"
+        )
+
+
+# Print numerical summary
+
+print("\n\n" + "=" * 75)
+print("NUMERICAL SUMMARY")
+print("=" * 75)
+
+for model_name in MODELS:
+
+    print(f"\n{model_name}")
+
+    for result_type in RESULT_FILES:
+
+        values = all_results[result_type][model_name]
+
+        if len(values) == 0:
+            print(
+                f"  {result_type:15s}: --"
+            )
+            continue
+
+        mean, std = mean_std(values)
+
+        if np.isnan(std):
+            print(
+                f"  {result_type:15s}: "
+                f"{mean:.{DECIMALS}f} ± -- "
+                f"(n={len(values)})"
+            )
+        else:
+            print(
+                f"  {result_type:15s}: "
+                f"{mean:.{DECIMALS}f} ± "
+                f"{std:.{DECIMALS}f} "
+                f"(n={len(values)})"
+            )
+
+
+# Generate LaTeX table
+
+latex_lines = []
+
+latex_lines.append(r"\begin{table}[t]")
+latex_lines.append(r"\centering")
+latex_lines.append(r"\begin{tabular}{l c c c c}")
+latex_lines.append(r"\toprule")
+
+latex_lines.append(
+    r"Model & "
+    r"Original RN $\pm$ S.D. & "
+    r"Original HN $\pm$ S.D. & "
+    r"Integrated RN $\pm$ S.D. & "
+    r"Integrated HN $\pm$ S.D. \\"
+)
+
+latex_lines.append(r"\midrule")
+
+
+for model_name in MODELS:
+
+    display_name = MODEL_DISPLAY_NAMES[model_name]
+
+    cells = []
+
+    for result_type in RESULT_FILES:
+
+        values = all_results[result_type][model_name]
+
+        cells.append(
+            format_mean_std(
+                values,
+                DECIMALS,
+            )
+        )
+
+    latex_lines.append(
+        f"{display_name} & "
+        f"{cells[0]} & "
+        f"{cells[1]} & "
+        f"{cells[2]} & "
+        f"{cells[3]} \\\\"
+    )
+
+
+latex_lines.append(r"\bottomrule")
+latex_lines.append(r"\end{tabular}")
+
+latex_lines.append(
+    r"\caption{Mean balanced accuracy across the intermediate "
+    r"classifications for each model configuration. For each "
+    r"independent run, the balanced accuracy is first averaged "
+    r"across the intermediate classifications. The table reports "
+    r"the mean $\pm$ standard deviation across runs.}"
+)
+
+latex_lines.append(
+    r"\label{tab:intermediate_balanced_accuracy_summary}"
+)
+
+latex_lines.append(r"\end{table}")
+
+
+latex_table = "\n".join(latex_lines)
+
+# Save LaTeX table
+
+output_file = Path(
+    "intermediate_balanced_accuracy_summary.tex"
+)
+
+with open(output_file, "w") as f:
+    f.write(latex_table)
+
+
+# Print final LaTeX table
+
+print("\n\n" + "=" * 75)
+print("LATEX TABLE")
+print("=" * 75)
+print()
+
+print(latex_table)
+
+print(
+    f"\nLaTeX table saved to: {output_file}"
+)

@@ -1,0 +1,15 @@
+\begin{table}[t]
+\centering
+\begin{tabular}{l c c c c}
+\toprule
+Noise & Loss $\pm$ S.D. & Accuracy $\pm$ S.D. & Balanced Acc. $\pm$ S.D. & Macro F1 $\pm$ S.D. \\
+\midrule
+Binary & 0.00106 $\pm$ 0.00222 & 0.99857 $\pm$ 0.00049 & 0.90615 $\pm$ 0.01930 & 0.99796 $\pm$ 0.00125 \\
+Uniform & 0.00021 $\pm$ 0.00020 & 0.99821 $\pm$ 0.00063 & 0.99761 $\pm$ 0.00138 & 0.99844 $\pm$ 0.00065 \\
+Extremes & 0.00050 $\pm$ 0.00062 & 0.99875 $\pm$ 0.00080 & 0.99776 $\pm$ 0.00072 & 0.99904 $\pm$ 0.00081 \\
+Middle & 0.00185 $\pm$ 0.00325 & 0.99893 $\pm$ 0.00040 & 0.99890 $\pm$ 0.00022 & 0.99896 $\pm$ 0.00083 \\
+\bottomrule
+\end{tabular}
+\caption{Validation set performance of the different concept noise strategies across independent training runs. Results are reported as mean $\pm$ standard deviation.}
+\label{tab:noise_selection_hn}
+\end{table}

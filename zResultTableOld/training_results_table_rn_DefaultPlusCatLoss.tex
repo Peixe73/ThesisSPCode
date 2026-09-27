@@ -1,0 +1,19 @@
+\begin{table}[t]
+\centering
+\begin{tabular}{l c c c c}
+\toprule
+Model & Loss $\pm$ S.D. & Accuracy $\pm$ S.D. & Balanced Acc. $\pm$ S.D. & Macro F1 $\pm$ S.D. \\
+\midrule
+ONTO\_BASE & 0.1579 $\pm$ 0.0156 & 0.9775 $\pm$ 0.0054 & 0.8508 $\pm$ 0.0138 & 0.9433 $\pm$ 0.0344 \\
+ONTO\_32 & 0.0261 $\pm$ 0.0119 & 0.9968 $\pm$ 0.0021 & 0.9408 $\pm$ 0.0185 & 0.9957 $\pm$ 0.0029 \\
+ONTO\_64 & 0.0203 $\pm$ 0.0119 & 0.9980 $\pm$ 0.0018 & 0.9719 $\pm$ 0.0140 & 0.9962 $\pm$ 0.0035 \\
+ONTO\_2L64 & 0.0189 $\pm$ 0.0089 & 0.9974 $\pm$ 0.0018 & 0.9526 $\pm$ 0.0202 & 0.9949 $\pm$ 0.0032 \\
+ONTO\_2L32 & 0.0321 $\pm$ 0.0097 & 0.9953 $\pm$ 0.0012 & 0.8703 $\pm$ 0.1335 & 0.9922 $\pm$ 0.0019 \\
+ONTO\_BASE\_SKIP & 0.1234 $\pm$ 0.0332 & 0.9863 $\pm$ 0.0015 & 0.9383 $\pm$ 0.0043 & 0.9864 $\pm$ 0.0013 \\
+ONTO\_BASE\_20 & 0.0848 $\pm$ 0.0099 & 0.9888 $\pm$ 0.0011 & 0.9185 $\pm$ 0.0067 & 0.9877 $\pm$ 0.0010 \\
+ONTO\_BASE\_SKIP_20 & 0.0848 $\pm$ 0.0059 & 0.9900 $\pm$ 0.0010 & 0.9484 $\pm$ 0.0031 & 0.9891 $\pm$ 0.0018 \\
+\bottomrule
+\end{tabular}
+\caption{Training set performance across multiple independent runs. Results are reported as mean $\pm$ standard deviation.}
+\label{tab:training_rn_results}
+\end{table}

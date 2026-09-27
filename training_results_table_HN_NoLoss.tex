@@ -1,0 +1,23 @@
+\begin{table}[t]
+\centering
+\begin{tabular}{l c c c c}
+\toprule
+Model & Loss $\pm$ S.D. & Accuracy $\pm$ S.D. & Balanced Acc. $\pm$ S.D. & Macro F1 $\pm$ S.D. \\
+\midrule
+ONTO\_BASE & 0.35507 $\pm$ 0.01341 & 0.85088 $\pm$ 0.00720 & 0.89990 $\pm$ 0.00708 & 0.83381 $\pm$ 0.01876 \\
+ONTO\_32 & 0.33460 $\pm$ 0.00804 & 0.86184 $\pm$ 0.00389 & 0.90156 $\pm$ 0.00727 & 0.85147 $\pm$ 0.00474 \\
+ONTO\_64 & 0.27129 $\pm$ 0.02074 & 0.89294 $\pm$ 0.00793 & 0.92166 $\pm$ 0.00547 & 0.88439 $\pm$ 0.00724 \\
+ONTO\_2L64 & 0.28686 $\pm$ 0.03403 & 0.88419 $\pm$ 0.01648 & 0.91690 $\pm$ 0.00584 & 0.87334 $\pm$ 0.01948 \\
+ONTO\_2L32 & 0.34928 $\pm$ 0.01113 & 0.85526 $\pm$ 0.00544 & 0.88598 $\pm$ 0.01684 & 0.80543 $\pm$ 0.07195 \\
+DIRECT\_BASE & 0.42918 $\pm$ 0.00988 & 0.82033 $\pm$ 0.00589 & 0.88649 $\pm$ 0.00562 & 0.77932 $\pm$ 0.01005 \\
+CTRL\_16 & 0.39058 $\pm$ 0.01515 & 0.83195 $\pm$ 0.00846 & 0.88513 $\pm$ 0.00830 & 0.79885 $\pm$ 0.02275 \\
+CTRL\_32 & 0.36987 $\pm$ 0.01636 & 0.84452 $\pm$ 0.00830 & 0.90023 $\pm$ 0.00804 & 0.82785 $\pm$ 0.01999 \\
+CTRL\_64 & 0.32745 $\pm$ 0.01616 & 0.86559 $\pm$ 0.00772 & 0.91226 $\pm$ 0.00718 & 0.85429 $\pm$ 0.00785 \\
+CTRL\_128 & 0.27154 $\pm$ 0.01211 & 0.89404 $\pm$ 0.00596 & 0.92695 $\pm$ 0.00634 & 0.88825 $\pm$ 0.00910 \\
+CTRL\_2L & 0.27482 $\pm$ 0.01299 & 0.89096 $\pm$ 0.00445 & 0.91898 $\pm$ 0.00669 & 0.87968 $\pm$ 0.00625 \\
+CTRL\_3L & 0.26100 $\pm$ 0.01589 & 0.89776 $\pm$ 0.00688 & 0.92063 $\pm$ 0.01430 & 0.88844 $\pm$ 0.00806 \\
+\bottomrule
+\end{tabular}
+\caption{Reasoning Network performance during ontology-guided pretraining across multiple independent training runs. Results are reported as mean $\pm$ standard deviation.}
+\label{tab:rn_architecture_pretraining}
+\end{table}

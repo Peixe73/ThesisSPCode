@@ -8,10 +8,10 @@ import numpy as np
 
 # Configuration
 
-JSON_FILE = Path("storage/studies/gtsrb_hn_EvalConfig_Multiple_WithCLoss/results.json")
+JSON_FILE = Path("storage/studies/gtsrb_hn_EvalConfig_Multiple_/results.json")
 
 # Number of decimal places in the final table
-DECIMALS = 5
+DECIMALS = 4
 
 # Use sample standard deviation (ddof=1)
 DDOF = 1
@@ -106,16 +106,17 @@ results = {}
 
 for model_name, runs in grouped.items():
 
-    losses = []
-    accuracies = []
-    balanced_accuracies = []
-    f1_scores = []
+    catA = []
+    catB = []
+    catC = []
+    catD = []
 
     for run in runs:
 
         experiment_name = run["name"]
         experiment_data = run["data"]
         
+        """
         if "train" not in experiment_data:
             print(
                 f"WARNING: {experiment_name} has no 'train' section."
@@ -131,35 +132,30 @@ for model_name, runs in grouped.items():
             continue
 
         val = experiment_data["val"]
+        
+        """
+        
+        ontology_val = experiment_data["rn_ontology_val"]
 
-        # Training loss
-        if "loss" in train:
-            losses.append(train["loss"])
-        else:
-            print(
-                f"WARNING: {experiment_name} has no training loss."
-            )
+        if "balanced_accuracy_SignClass_A" in ontology_val:
+            catA.append(ontology_val["balanced_accuracy_SignClass_A"])
+            
+        if "balanced_accuracy_SignClass_B" in ontology_val:
+                    catB.append(ontology_val["balanced_accuracy_SignClass_B"])
+                    
+        if "balanced_accuracy_SignClass_C" in ontology_val:
+                    catC.append(ontology_val["balanced_accuracy_SignClass_C"])
+                    
+        if "balanced_accuracy_SignClass_D" in ontology_val:
+                    catD.append(ontology_val["balanced_accuracy_SignClass_D"])
 
-        # Validation accuracy
-        if "accuracy" in val:
-            accuracies.append(val["accuracy"])
-
-        # Validation balanced accuracy
-        if "balanced_accuracy" in val:
-            balanced_accuracies.append(
-                val["balanced_accuracy"]
-            )
-
-        # Validation Macro F1
-        if "f1" in val:
-            f1_scores.append(val["f1"])
 
     results[model_name] = {
         "n_runs": len(runs),
-        "loss": losses,
-        "accuracy": accuracies,
-        "balanced_accuracy": balanced_accuracies,
-        "f1": f1_scores,
+        "Category A": catA,
+        "Category B": catB,
+        "Category C": catC,
+        "Category D": catD,
     }
 
 
@@ -185,8 +181,8 @@ latex_lines.append(r"\begin{tabular}{l c c c c}")
 latex_lines.append(r"\toprule")
 
 latex_lines.append(
-    r"Model & Loss $\pm$ S.D. & Accuracy $\pm$ S.D. "
-    r"& Balanced Acc. $\pm$ S.D. & Macro F1 $\pm$ S.D. \\"
+    r"Model & Category A $\pm$ S.D. & Category B $\pm$ S.D. "
+    r"& Category C $\pm$ S.D. & Category D $\pm$ S.D. \\"
 )
 
 latex_lines.append(r"\midrule")
@@ -194,32 +190,32 @@ latex_lines.append(r"\midrule")
 
 for model_name, result in results.items():
 
-    loss = format_mean_std(
-        result["loss"],
+    catA = format_mean_std(
+        result["Category A"],
         DECIMALS,
     )
 
-    accuracy = format_mean_std(
-        result["accuracy"],
+    catB = format_mean_std(
+        result["Category B"],
         DECIMALS,
     )
 
-    balanced_accuracy = format_mean_std(
-        result["balanced_accuracy"],
+    catC = format_mean_std(
+        result["Category C"],
         DECIMALS,
     )
 
-    f1 = format_mean_std(
-        result["f1"],
+    catD = format_mean_std(
+        result["Category D"],
         DECIMALS,
     )
 
     latex_lines.append(
         f"{model_name} & "
-        f"{loss} & "
-        f"{accuracy} & "
-        f"{balanced_accuracy} & "
-        f"{f1} \\\\"
+        f"{catA} & "
+        f"{catB} & "
+        f"{catC} & "
+        f"{catD} \\\\"
     )
 
 
@@ -227,7 +223,7 @@ latex_lines.append(r"\bottomrule")
 latex_lines.append(r"\end{tabular}")
 
 latex_lines.append(
-    r"\caption{Validation-set performance across multiple "
+    r"\caption{Validation set performance across multiple "
     r"independent runs. Results are reported as mean $\pm$ "
     r"standard deviation.}"
 )

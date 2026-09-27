@@ -134,48 +134,76 @@ class RandomReasoningDataset(Dataset):
         if self.concept_noise_mode == "binary":
             return features
 
-        # Uniform split at 0.5
-        elif self.concept_noise_mode == "uniform":
-            #return self.rng.uniform(0, 1, size=features.shape)
+        active = features > 0.5
+
+        # --------------------------------------------------
+        # Uniform
+        # --------------------------------------------------
+        if self.concept_noise_mode == "uniform":
+
+            lows = self.rng.uniform(
+                0.0, 0.5, size=features.shape
+            )
+
+            highs = self.rng.uniform(
+                0.5, 1.0, size=features.shape
+            )
+
             return np.where(
-                features > 0.5,
-                self.rng.uniform(0.5, 1.0, size=features.shape),
-                self.rng.uniform(0.0, 0.5, size=features.shape)
+                active,
+                highs,
+                lows
             ).astype(np.float32)
 
-        # Concentrated near 0 and 1
+        # --------------------------------------------------
+        # Extremes
+        # --------------------------------------------------
         elif self.concept_noise_mode == "extremes":
-            #return self.rng.beta(0.5, 0.5, size=features.shape)
-            highs = self.rng.beta(5, 1, size=features.shape)
-            lows  = self.rng.beta(1, 5, size=features.shape)
+
+            # Slightly smoother than Beta(1,5) / Beta(5,1).
+            # Still concentrated toward the extremes, but with
+            # a smoother tail extending toward the 0.5 boundary.
+
+            low = self.rng.beta(
+                1, 3, size=features.shape
+            )
+
+            high = self.rng.beta(
+                3, 1, size=features.shape
+            )
+
+            # Map into the two semantic regions.
+            lows = 0.5 * low
+            highs = 0.5 + 0.5 * high
 
             return np.where(
-                features > 0.5,
+                active,
                 highs,
                 lows
             ).astype(np.float32)
 
-        # Concentrated near 0.5
+        # --------------------------------------------------
+        # Middle
+        # --------------------------------------------------
         elif self.concept_noise_mode == "middle":
-            #return self.rng.beta(10, 10, size=features.shape)
-            
-            # symmetric concentration around 0.5
-            
-            noise = self.rng.beta(5, 5, size=features.shape)
 
-            # map directly into [0,1] centered at 0.5
-            return noise.astype(np.float32)
-        """
-        elif self.concept_noise_mode == "middle":
-            highs = 0.5 + 0.5 * self.rng.beta(5, 5, size=features.shape)
-            lows  = 0.5 * self.rng.beta(5, 5, size=features.shape)
+            noise = self.rng.beta(
+                5, 5, size=features.shape
+            )
+
+            # Fold the distribution around the 0.5 boundary.
+            distance = np.abs(noise - 0.5)
+
+            # Keep the same distance from 0.5, but force
+            # the value onto the correct semantic side.
+            lows = 0.5 - distance
+            highs = 0.5 + distance
 
             return np.where(
-                features > 0.5,
+                active,
                 highs,
                 lows
             ).astype(np.float32)
-        """
 
         raise ValueError(
             f"Unknown concept_noise_mode: {self.concept_noise_mode}"

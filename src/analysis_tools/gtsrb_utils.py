@@ -21,6 +21,7 @@ CLASS_COLS = [
 ]
 """
 
+
 CLASS_COLS = [ "C14_20", "C14_30", "C14_50", "C14_60", "C14_70",
                "C14_80", "C17b_80", "C14_100", "C14_120","C13aa",
                "C13bb", "A19a", "B3", "B1", "B2a",
@@ -31,6 +32,11 @@ CLASS_COLS = [ "C14_20", "C14_30", "C14_50", "C14_60", "C14_70",
                "D1a1", "D1a7", "D1a6", "D2a2", "D2a1",
                "D3", "C17c", "C17d"
              ]
+
+CATEGORIES_COLS = [
+    "SignClass_A", "SignClass_B", "SignClass_C", "SignClass_D"
+]
+
 
 CONCEPTS = [
     "Circular_Shape","Diamond_Shape","Triangular_Shape","Octagonal_Shape",
@@ -54,9 +60,13 @@ CONCEPTS = [
 
 CLASSES = CONCEPTS + CLASS_COLS
 
+CATEGORIES = CONCEPTS + CATEGORIES_COLS 
+
 SHORT_CONCEPTS = [c.replace('_', '') for c in CONCEPTS]  # simple short names
 
 SHORT_CLASSES = SHORT_CONCEPTS + CLASS_COLS
+
+SHORT_CATEGORIES = SHORT_CONCEPTS + CATEGORIES_COLS
 
 SHORT_TO_FULL = dict(zip(SHORT_CONCEPTS, CONCEPTS))
 
@@ -66,8 +76,8 @@ CLASS_MAP = {
     **{f"ClassId_{i}": f"ClassId_{i}" for i in range(1, 44)}
 }
 
-def log_short_class_correspondence(logger: logging.Logger):
-    correspondence = [f'\t{name} -> {short}' for name, short in zip(CLASSES, SHORT_CLASSES)]
+def log_short_categories_correspondence(logger: logging.Logger):
+    correspondence = [f'\t{name} -> {short}' for name, short in zip(CATEGORIES, SHORT_CATEGORIES)]
     logger.info('Concept names have been shortened for convenience:\n' +
                 ('\n'.join(correspondence)))
     
@@ -131,9 +141,9 @@ def class_to_latex_cmd(cls: str):
     if cls.startswith('!'):
         cls = cls[1:]
         negate = True
-    if cls in SHORT_CLASSES:
-        cls = CLASSES[SHORT_CLASSES.index(cls)]
-    elif cls not in CLASSES:
+    if cls in SHORT_CATEGORIES:
+        cls = CATEGORIES[SHORT_CATEGORIES.index(cls)]
+    elif cls not in CATEGORIES:
         raise ValueError(f"Unknown class: {cls}")
     cmd = f"\\{cls}"
     if negate:
