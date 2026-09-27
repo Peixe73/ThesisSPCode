@@ -12,7 +12,8 @@ target/
 *config.json
 Thumbs.db
 # Generated experiment data
-storage/studies/
-
+storage/studies/TargetCategoriesClassification
+storage/studies/TargetSignClassifications
+storage/studies/Xtrains
 # JVM crash logs
 hs_err_pid*.log
