@@ -1,0 +1,51 @@
+__input__ Type: (A)
+        __input__ Type: not (hasShape some Circle), 0.7256658673286438
+        __input__ Type: not (hasShape some Diamond), 0.6774660646915436
+        __input__ Type: (hasShape some Triangle), 0.7654191255569458
+        __input__ Type: (hasShape some Octagon), 0.6075214743614197
+        __input__ Type: not (hasGround some Red), 0.6380859911441803
+        __input__ Type: (hasGround some White), 0.7264429926872253
+        __input__ Type: not (hasGround some Yellow), 0.5566882193088531
+        __input__ Type: not (hasGround some Blue), 0.7861932218074799
+        __input__ Type: not (hasBorder some Black), 0.7196468412876129
+        __input__ Type: (hasBorder some Red), 0.8084484338760376
+        __input__ Type: not (hasBorder some White), 0.6889013648033142
+        __input__ Type: not (hasBar some Black), 0.80550816655159
+        __input__ Type: not (hasBar some White), 0.7276255488395691
+        __input__ Type: (hasSymbol some Black), 0.77226722240448
+        __input__ Type: not (hasSymbol some White), 0.7908980399370193
+        __input__ Type: (hasSymbol some Stop), 0.503561794757843
+        __input__ Type: not (hasSymbol some NoEntryGoods), 0.6891078650951385
+        __input__ Type: not (hasSymbol some Overtaking), 0.6498177349567413
+        __input__ Type: not (hasSymbol some OvertakingGoods), 0.7005026638507843
+        __input__ Type: not (hasSymbol some Speed20), 0.6933139860630035
+        __input__ Type: not (hasSymbol some Speed30), 0.7188650071620941
+        __input__ Type: not (hasSymbol some Speed50), 0.5204267501831055
+        __input__ Type: not (hasSymbol some Speed60), 0.6789641082286835
+        __input__ Type: not (hasSymbol some Speed70), 0.7466751933097839
+        __input__ Type: not (hasSymbol some Speed80), 0.6802341043949127
+        __input__ Type: not (hasSymbol some Speed100), 0.6437252759933472
+        __input__ Type: not (hasSymbol some Speed120), 0.6958304643630981
+        __input__ Type: not (hasSymbol some DirectionStraight), 0.7472843825817108
+        __input__ Type: not (hasSymbol some DirectionLeft), 0.7346289753913879
+        __input__ Type: not (hasSymbol some DirectionRight), 0.6814582645893097
+        __input__ Type: (hasSymbol some DirectionLeftStraight), 0.5318019390106201
+        __input__ Type: not (hasSymbol some DirectionRightStraight), 0.5880416929721832
+        __input__ Type: not (hasSymbol some PassLeft), 0.6434739828109741
+        __input__ Type: not (hasSymbol some PassRight), 0.5426570475101471
+        __input__ Type: not (hasSymbol some Roundabout), 0.661186933517456
+        __input__ Type: (hasSymbol some SingleLeftBend), 0.7129897475242615
+        __input__ Type: (hasSymbol some SingleRightBend), 0.7045122981071472
+        __input__ Type: (hasSymbol some TwoOrMoreLeftBend), 0.6959244608879089
+        __input__ Type: (hasSymbol some RightNarrow), 0.746431291103363
+        __input__ Type: (hasSymbol some RoadDeformities), 0.7674275040626526
+        __input__ Type: (hasSymbol some SlipperyRoad), 0.7658229470252991
+        __input__ Type: (hasSymbol some Children), 0.7561540603637695
+        __input__ Type: (hasSymbol some Cyclists), 0.7296328544616699
+        __input__ Type: (hasSymbol some WildAnimals), 0.752304196357727
+        __input__ Type: (hasSymbol some RoadWorks), 0.7771050333976746
+        __input__ Type: (hasSymbol some VerticalLightSignals), 0.7181172966957092
+        __input__ Type: (hasSymbol some IntersectionPriority), 0.7544693350791931
+        __input__ Type: (hasSymbol some Danger), 0.792142927646637
+        __input__ Type: (hasSymbol some Pedestrians), 0.7367609143257141
+        __input__ Type: (hasSymbol some IceSnow), 0.7767959237098694

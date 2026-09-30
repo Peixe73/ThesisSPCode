@@ -18,6 +18,8 @@ Usage `java -jar Justifier.jar ontology_file`
 #java -jar dependencies/justifier/Justifier_original.jar ontologies/gtsrb.owl
 #docker run -v $(pwd)/out:/out speixe-thesis
 
+#java -jar dependencies/justifier/Justifier_original.jar ontologies/gtsrb.owl dependencies/justifier/tests/gtsrb/test3/input dependencies/justifier/tests/gtsrb/test3/output
+
 To justify an entailment given observations, the tool input should be:
 ```
 EntailmentAxiom\n

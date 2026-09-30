@@ -1,0 +1,198 @@
+Read Observations: 
+	__input__ Type not (hasShape some Circle)
+	__input__ Type not (hasShape some Diamond)
+	__input__ Type hasShape some Triangle
+	__input__ Type hasShape some Octagon
+	__input__ Type not (hasGround some Red)
+	__input__ Type hasGround some White
+	__input__ Type not (hasGround some Yellow)
+	__input__ Type not (hasGround some Blue)
+	__input__ Type not (hasBorder some Black)
+	__input__ Type hasBorder some Red
+	__input__ Type not (hasBorder some White)
+	__input__ Type not (hasBar some Black)
+	__input__ Type not (hasBar some White)
+	__input__ Type hasSymbol some Black
+	__input__ Type not (hasSymbol some White)
+	__input__ Type hasSymbol some Stop
+	__input__ Type not (hasSymbol some NoEntryGoods)
+	__input__ Type not (hasSymbol some Overtaking)
+	__input__ Type not (hasSymbol some OvertakingGoods)
+	__input__ Type not (hasSymbol some Speed20)
+	__input__ Type not (hasSymbol some Speed30)
+	__input__ Type not (hasSymbol some Speed50)
+	__input__ Type not (hasSymbol some Speed60)
+	__input__ Type not (hasSymbol some Speed70)
+	__input__ Type not (hasSymbol some Speed80)
+	__input__ Type not (hasSymbol some Speed100)
+	__input__ Type not (hasSymbol some Speed120)
+	__input__ Type not (hasSymbol some DirectionStraight)
+	__input__ Type not (hasSymbol some DirectionLeft)
+	__input__ Type not (hasSymbol some DirectionRight)
+	__input__ Type hasSymbol some DirectionLeftStraight
+	__input__ Type not (hasSymbol some DirectionRightStraight)
+	__input__ Type not (hasSymbol some PassLeft)
+	__input__ Type not (hasSymbol some PassRight)
+	__input__ Type not (hasSymbol some Roundabout)
+	__input__ Type hasSymbol some SingleLeftBend
+	__input__ Type hasSymbol some SingleRightBend
+	__input__ Type hasSymbol some TwoOrMoreLeftBend
+	__input__ Type hasSymbol some RightNarrow
+	__input__ Type hasSymbol some RoadDeformities
+	__input__ Type hasSymbol some SlipperyRoad
+	__input__ Type hasSymbol some Children
+	__input__ Type hasSymbol some Cyclists
+	__input__ Type hasSymbol some WildAnimals
+	__input__ Type hasSymbol some RoadWorks
+	__input__ Type hasSymbol some VerticalLightSignals
+	__input__ Type hasSymbol some IntersectionPriority
+	__input__ Type hasSymbol some Danger
+	__input__ Type hasSymbol some Pedestrians
+	__input__ Type hasSymbol some IceSnow
+
+Found Justifications:
+Justification for '__input__ Type A':	(Degree of Belief: 0.35608)
+	__input__ Type hasBorder some Red	("0.80844843")
+	__input__ Type hasSymbol some Danger	("0.7921429")
+	__input__ Type hasShape some Triangle	("0.7654191")
+	__input__ Type hasGround some White	("0.726443")
+	A_a EquivalentTo (hasBorder some Red) and (hasGround some (White or Yellow)) and (hasShape some Triangle) and (hasSymbol some Thing)
+	A EquivalentTo A28 or A29 or A_a or A_b
+
+Justification for '__input__ Type A':	(Degree of Belief: 0.34932)
+	__input__ Type hasBorder some Red	("0.80844843")
+	__input__ Type hasShape some Triangle	("0.7654191")
+	__input__ Type hasGround some White	("0.726443")
+	__input__ Type hasSymbol some RoadWorks	("0.77710503")
+	A_a EquivalentTo (hasBorder some Red) and (hasGround some (White or Yellow)) and (hasShape some Triangle) and (hasSymbol some Thing)
+	A EquivalentTo A28 or A29 or A_a or A_b
+
+Justification for '__input__ Type A':	(Degree of Belief: 0.34919)
+	__input__ Type hasBorder some Red	("0.80844843")
+	__input__ Type hasSymbol some IceSnow	("0.7767959")
+	__input__ Type hasShape some Triangle	("0.7654191")
+	__input__ Type hasGround some White	("0.726443")
+	A_a EquivalentTo (hasBorder some Red) and (hasGround some (White or Yellow)) and (hasShape some Triangle) and (hasSymbol some Thing)
+	A EquivalentTo A28 or A29 or A_a or A_b
+
+Justification for '__input__ Type A':	(Degree of Belief: 0.34716)
+	__input__ Type hasBorder some Red	("0.80844843")
+	__input__ Type hasSymbol some Black	("0.7722672")
+	__input__ Type hasShape some Triangle	("0.7654191")
+	__input__ Type hasGround some White	("0.726443")
+	A_a EquivalentTo (hasBorder some Red) and (hasGround some (White or Yellow)) and (hasShape some Triangle) and (hasSymbol some Thing)
+	A EquivalentTo A28 or A29 or A_a or A_b
+
+Justification for '__input__ Type A':	(Degree of Belief: 0.34497)
+	__input__ Type hasBorder some Red	("0.80844843")
+	__input__ Type hasShape some Triangle	("0.7654191")
+	__input__ Type hasSymbol some RoadDeformities	("0.7674275")
+	__input__ Type hasGround some White	("0.726443")
+	A_a EquivalentTo (hasBorder some Red) and (hasGround some (White or Yellow)) and (hasShape some Triangle) and (hasSymbol some Thing)
+	A EquivalentTo A28 or A29 or A_a or A_b
+
+Justification for '__input__ Type A':	(Degree of Belief: 0.34425)
+	__input__ Type hasSymbol some SlipperyRoad	("0.76582295")
+	__input__ Type hasBorder some Red	("0.80844843")
+	__input__ Type hasShape some Triangle	("0.7654191")
+	__input__ Type hasGround some White	("0.726443")
+	A_a EquivalentTo (hasBorder some Red) and (hasGround some (White or Yellow)) and (hasShape some Triangle) and (hasSymbol some Thing)
+	A EquivalentTo A28 or A29 or A_a or A_b
+
+Justification for '__input__ Type A':	(Degree of Belief: 0.3399)
+	__input__ Type hasBorder some Red	("0.80844843")
+	__input__ Type hasSymbol some Children	("0.75615406")
+	__input__ Type hasShape some Triangle	("0.7654191")
+	__input__ Type hasGround some White	("0.726443")
+	A_a EquivalentTo (hasBorder some Red) and (hasGround some (White or Yellow)) and (hasShape some Triangle) and (hasSymbol some Thing)
+	A EquivalentTo A28 or A29 or A_a or A_b
+
+Justification for '__input__ Type A':	(Degree of Belief: 0.33915)
+	__input__ Type hasSymbol some IntersectionPriority	("0.75446934")
+	__input__ Type hasBorder some Red	("0.80844843")
+	__input__ Type hasShape some Triangle	("0.7654191")
+	__input__ Type hasGround some White	("0.726443")
+	A_a EquivalentTo (hasBorder some Red) and (hasGround some (White or Yellow)) and (hasShape some Triangle) and (hasSymbol some Thing)
+	A EquivalentTo A28 or A29 or A_a or A_b
+
+Justification for '__input__ Type A':	(Degree of Belief: 0.33817)
+	__input__ Type hasBorder some Red	("0.80844843")
+	__input__ Type hasSymbol some WildAnimals	("0.7523042")
+	__input__ Type hasShape some Triangle	("0.7654191")
+	__input__ Type hasGround some White	("0.726443")
+	A_a EquivalentTo (hasBorder some Red) and (hasGround some (White or Yellow)) and (hasShape some Triangle) and (hasSymbol some Thing)
+	A EquivalentTo A28 or A29 or A_a or A_b
+
+Justification for '__input__ Type A':	(Degree of Belief: 0.33554)
+	__input__ Type hasBorder some Red	("0.80844843")
+	__input__ Type hasSymbol some RightNarrow	("0.7464313")
+	__input__ Type hasShape some Triangle	("0.7654191")
+	__input__ Type hasGround some White	("0.726443")
+	A_a EquivalentTo (hasBorder some Red) and (hasGround some (White or Yellow)) and (hasShape some Triangle) and (hasSymbol some Thing)
+	A EquivalentTo A28 or A29 or A_a or A_b
+
+Justification for '__input__ Type A':	(Degree of Belief: 0.33119)
+	__input__ Type hasBorder some Red	("0.80844843")
+	__input__ Type hasSymbol some Pedestrians	("0.7367609")
+	__input__ Type hasShape some Triangle	("0.7654191")
+	__input__ Type hasGround some White	("0.726443")
+	A_a EquivalentTo (hasBorder some Red) and (hasGround some (White or Yellow)) and (hasShape some Triangle) and (hasSymbol some Thing)
+	A EquivalentTo A28 or A29 or A_a or A_b
+
+Justification for '__input__ Type A':	(Degree of Belief: 0.32798)
+	__input__ Type hasSymbol some Cyclists	("0.72963285")
+	__input__ Type hasBorder some Red	("0.80844843")
+	__input__ Type hasShape some Triangle	("0.7654191")
+	__input__ Type hasGround some White	("0.726443")
+	A_a EquivalentTo (hasBorder some Red) and (hasGround some (White or Yellow)) and (hasShape some Triangle) and (hasSymbol some Thing)
+	A EquivalentTo A28 or A29 or A_a or A_b
+
+Justification for '__input__ Type A':	(Degree of Belief: 0.32281)
+	__input__ Type hasSymbol some VerticalLightSignals	("0.7181173")
+	__input__ Type hasBorder some Red	("0.80844843")
+	__input__ Type hasShape some Triangle	("0.7654191")
+	__input__ Type hasGround some White	("0.726443")
+	A_a EquivalentTo (hasBorder some Red) and (hasGround some (White or Yellow)) and (hasShape some Triangle) and (hasSymbol some Thing)
+	A EquivalentTo A28 or A29 or A_a or A_b
+
+Justification for '__input__ Type A':	(Degree of Belief: 0.3205)
+	__input__ Type hasSymbol some SingleLeftBend	("0.71298975")
+	__input__ Type hasBorder some Red	("0.80844843")
+	__input__ Type hasShape some Triangle	("0.7654191")
+	__input__ Type hasGround some White	("0.726443")
+	A_a EquivalentTo (hasBorder some Red) and (hasGround some (White or Yellow)) and (hasShape some Triangle) and (hasSymbol some Thing)
+	A EquivalentTo A28 or A29 or A_a or A_b
+
+Justification for '__input__ Type A':	(Degree of Belief: 0.31669)
+	__input__ Type hasBorder some Red	("0.80844843")
+	__input__ Type hasSymbol some SingleRightBend	("0.7045123")
+	__input__ Type hasShape some Triangle	("0.7654191")
+	__input__ Type hasGround some White	("0.726443")
+	A_a EquivalentTo (hasBorder some Red) and (hasGround some (White or Yellow)) and (hasShape some Triangle) and (hasSymbol some Thing)
+	A EquivalentTo A28 or A29 or A_a or A_b
+
+Justification for '__input__ Type A':	(Degree of Belief: 0.31283)
+	__input__ Type hasBorder some Red	("0.80844843")
+	__input__ Type hasShape some Triangle	("0.7654191")
+	__input__ Type hasSymbol some TwoOrMoreLeftBend	("0.69592446")
+	__input__ Type hasGround some White	("0.726443")
+	A_a EquivalentTo (hasBorder some Red) and (hasGround some (White or Yellow)) and (hasShape some Triangle) and (hasSymbol some Thing)
+	A EquivalentTo A28 or A29 or A_a or A_b
+
+Justification for '__input__ Type A':	(Degree of Belief: 0.23906)
+	__input__ Type hasBorder some Red	("0.80844843")
+	__input__ Type hasSymbol some DirectionLeftStraight	("0.53180194")
+	__input__ Type hasShape some Triangle	("0.7654191")
+	__input__ Type hasGround some White	("0.726443")
+	A_a EquivalentTo (hasBorder some Red) and (hasGround some (White or Yellow)) and (hasShape some Triangle) and (hasSymbol some Thing)
+	A EquivalentTo A28 or A29 or A_a or A_b
+
+Justification for '__input__ Type A':	(Degree of Belief: 0.22637)
+	__input__ Type hasBorder some Red	("0.80844843")
+	__input__ Type hasShape some Triangle	("0.7654191")
+	__input__ Type hasGround some White	("0.726443")
+	__input__ Type hasSymbol some Stop	("0.5035618")
+	A_a EquivalentTo (hasBorder some Red) and (hasGround some (White or Yellow)) and (hasShape some Triangle) and (hasSymbol some Thing)
+	A EquivalentTo A28 or A29 or A_a or A_b
+
+

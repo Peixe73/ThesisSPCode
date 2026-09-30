@@ -1,0 +1,5 @@
+__input__ Type: A
+__input__ Type: (hasShape some Triangle), 1.0
+__input__ Type: (hasBorder some Red), 1.0
+__input__ Type: (hasGround some White), 1.0
+__input__ Type: (hasSymbol some Pedestrians), 1.0

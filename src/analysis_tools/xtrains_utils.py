@@ -127,4 +127,12 @@ def prepare_pn_with_attribution(
         layers.append(NegateMask(negate))
     order = make_order_from_attribution(concepts)
     layers.append(Reorder(order))
+    for pn_i, (attr, neg) in enumerate(zip(attribution, negate)):
+        concept = concepts[pn_i]
+        rn_i = SHORT_CONCEPTS.index(concept)
+
+        module_logger.info(
+            f"PN[{pn_i}] -> RN[{rn_i}] {concept}"
+            f" | negate={neg}"
+        )
     return nn.Sequential(*layers)

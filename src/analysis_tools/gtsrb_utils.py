@@ -89,6 +89,8 @@ def class_to_manchester_assertion(cls : str, negate : bool = False) -> str | Non
     match cls:
         case 'A1a' | 'A1b' | 'A1c' | 'A4b2' | 'A7a' | 'A9' | 'A13' | 'A14' | 'A15b' | 'A16' | 'A17a' | 'A19a' | 'A32' | 'A33' | 'A34'|'B1' | 'B2a' | 'B3' | 'C1a' | 'C2' | 'C3e3' | 'C13aa' | 'C13bb' | 'C14_20' | 'C14_30' | 'C14_50' | 'C14_60' | 'C14_70' | 'C14_80' | 'C14_100' | 'C14_120' | 'C17a' | 'C17b_80' | 'C17c' | 'C17d'| 'D1a1'| 'D1a4'| 'D1a5'| 'D1a6'| 'D1a7'| 'D2a1'| 'D2a2'| 'D3':
             concept = f"({cls})"
+        case  'SignClass_A' | 'SignClass_B' | 'SignClass_C' | 'SignClass_D':
+            concept = f"({cls.removeprefix('SignClass_')})"
         case 'Diamond_Shape':
             concept = f"(hasShape some {cls.removesuffix('_Shape')})"
         case 'Triangular_Shape':

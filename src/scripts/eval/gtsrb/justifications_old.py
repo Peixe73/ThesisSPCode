@@ -1,9 +1,8 @@
-
 from pathlib import Path
 from typing import TYPE_CHECKING, Iterable, Literal, NamedTuple, Optional
 
 
-from analysis_tools.gtsrb_utils import CLASS_COLS, CATEGORIES_COLS
+from analysis_tools.gtsrb_utils import CLASS_COLS
 from core.init import DO_SCRIPT_IMPORTS
 from dataclasses import dataclass, field
 from core.init.options_parsing import option, positional, comma_split
@@ -34,7 +33,7 @@ if TYPE_CHECKING or DO_SCRIPT_IMPORTS:
 
 COLS = ['All Correct', 'Some Correct', 'None Correct', 'No Justifications']
 #COLS = ['All Correct', 'Some Correct', 'None Correct', 'Not Entailed', 'Inconsistent']
-SEED=2
+SEED=3
 
 #Usage in Console: ./docker-run IMG python src/__init__.py   --models-path storage/studies   eval gtsrb justifications   gtsrb_hn_1_BackUp/C1_L32_DIRECT_BASE_untRN --max-samples 1
 
@@ -72,127 +71,17 @@ def build_preprocessor(concepts, classes):
 """
 
 
-"""
-def preprocessor(batch : tuple['torch.Tensor', 'torch.Tensor', int]) -> 'JustifierArgs':
-    beliefs, correct_preds, train_type = batch
-    assert correct_preds.dtype == torch.bool
-    observations = []
-    correct_dict : dict[str, bool] = {}
-    for i, concept in enumerate(CONCEPTS):
-        belief = beliefs[i].item()
-        negate = belief < 0.5
-        if negate:
-            belief = 1.0 - belief
-        manchester = class_to_manchester_assertion(concept, negate)
-        observations.append((manchester, belief))
-        correct_dict[manchester] = correct_preds[i].item() # type: ignore # (asserted above)
-    entailment = class_to_manchester_assertion(CATEGORIES_COLS[train_type])
-    return JustifierArgs(entailment, observations, metadata=(correct_dict, train_type))
-"""
-
-def preprocessor(batch):
-    beliefs, correct_preds, sign_type = batch
-
-    assert correct_preds.dtype == torch.bool
-
-    observations = []
-    correct_dict = {}
-
-    candidates = []
-
-    for i, concept in enumerate(CONCEPTS):
-        belief = beliefs[i].item()
-
-        negate = belief < 0.5
-        confidence = 1.0 - belief if negate else belief
-
-        manchester = class_to_manchester_assertion(concept, negate)
-        if manchester is None:
-            continue
-
-        candidates.append(
-            (confidence, manchester, correct_preds[i].item())
-        )
-
-    MAX_SYMBOL_OBSERVATIONS = 5
-
-    mandatory_symbols = []
-    other_symbol_candidates = []
-    other_candidates = []
-
-    for confidence, manchester, correct in candidates:
-
-        if (
-            "hasSymbol some Black" in manchester
-            or "hasSymbol some White" in manchester
-        ) and "not (hasSymbol some" not in manchester:
-
-            mandatory_symbols.append(
-                (confidence, manchester, correct)
-            )
-
-        elif (
-            "hasSymbol some" in manchester
-            and "not (hasSymbol some" not in manchester
-        ):
-            other_symbol_candidates.append(
-                (confidence, manchester, correct)
-            )
-
-        else:
-            other_candidates.append(
-                (confidence, manchester, correct)
-            )
-
-    mandatory_symbols.sort(reverse=True)
-    other_symbol_candidates.sort(reverse=True)
-
-    remaining_slots = max(
-        0,
-        MAX_SYMBOL_OBSERVATIONS - len(mandatory_symbols)
-    )
-
-    selected_symbols = (
-        mandatory_symbols
-        + other_symbol_candidates[:remaining_slots]
-    )
-
-    selected = other_candidates + selected_symbols
-
-    for confidence, manchester, correct in selected:
-        observations.append((manchester, confidence))
-        correct_dict[manchester] = correct
-
-    entailment = str(
-        class_to_manchester_assertion(CATEGORIES_COLS[sign_type])
-    )
-
-    return JustifierArgs(
-        entailment,
-        observations,
-        metadata=(correct_dict, sign_type)
-    )
-
-
-'''
 def preprocessor(batch : tuple['torch.Tensor', 'torch.Tensor', int]) -> 'JustifierArgs':
     beliefs, correct_preds, sign_type = batch
     assert correct_preds.dtype == torch.bool
-    #logger.info("=" * 80)
-    #logger.info("PREPROCESSOR")
-    #logger.info("Sign type: %s (%d)", CATEGORIES_COLS[sign_type], sign_type)
-    #logger.info("Number of concepts: %d", len(CONCEPTS))
-    #logger.info( "correct_preds tensor: %s", correct_preds.tolist() )
     observations = []
     correct_dict : dict[str, bool] = {}
     for i, concept in enumerate(CONCEPTS):
         #raw = beliefs[i].item()
-        raw_belief = beliefs[i].item()
-        negate = raw_belief < 0.5
-        if negate: 
-            belief = 1.0 - raw_belief 
-        else: 
-            belief = raw_belief
+        belief = beliefs[i].item()
+        negate = belief < 0.5
+        if negate:
+            belief = 1.0 - belief
         """
         logger.info(
             "%s raw=%.4f negated=%s final=%.4f",
@@ -206,23 +95,15 @@ def preprocessor(batch : tuple['torch.Tensor', 'torch.Tensor', int]) -> 'Justifi
         if manchester is None:
             #logger.info(f"Skipping concept {concept} for justification, as it is not an actual concept but rather a placeholder for the existence of a relation")
             continue
-        is_correct = correct_preds[i].item()
         observations.append((manchester, belief))
-        correct_dict[manchester] = is_correct # type: ignore # (asserted above)
-        #logger.info( "[%02d] %-35s | raw=%.4f | negated=%s | " "final=%.4f | correct=%s", i, concept, raw_belief, negate, belief, is_correct )
-        #logger.info( " assertion: %s", manchester )
-    #logger.info("-" * 80) 
-    #logger.info("correct_dict:") 
-    #for assertion, is_correct in correct_dict.items(): 
-    #    logger.info( " %-70s -> %s", assertion, is_correct )
-    entailment = str(class_to_manchester_assertion(CATEGORIES_COLS[sign_type]))
-    #logger.info("Entailment: %s", entailment)  
+        correct_dict[manchester] = correct_preds[i].item() # type: ignore # (asserted above)
+    entailment = str(class_to_manchester_assertion(CLASS_COLS[sign_type]))
+    #logger.info("Entailment: %s", entailment)
     #logger.info("Observations: %s", observations)
 
     #for obs, conf in observations[:10]:
     #    logger.info("Obs: %s (%f)", obs, conf)
     return JustifierArgs(entailment, observations, metadata=(correct_dict, sign_type))
-'''
 
 
 
@@ -275,7 +156,7 @@ def postprocessor(result : 'JustifierResult') -> CorrectnessCount:
         type(result.justifications)
     )
     """
-    #logger.info("Correct dict: %s", correct_dict)
+    logger.info("Correct dict: %s", correct_dict)
     series = pd.Series([0, 0, 0, 0], index=COLS)
     best_series = pd.Series([0, 0, 0, 0], index=COLS)
     #series = pd.Series([0, 0, 0, 0, 0], index=COLS)
@@ -295,7 +176,6 @@ def postprocessor(result : 'JustifierResult') -> CorrectnessCount:
         is_first = True
         for justification in justifications:
             assert isinstance(justification, Justification)
-            """
             logger.info(
                 "Justification belief: %s",
                 justification.belief
@@ -312,7 +192,6 @@ def postprocessor(result : 'JustifierResult') -> CorrectnessCount:
                 "Justification entailment: %s",
                 justification.entailment.manchester_syntax
             )
-            """
             is_correct = all(correct_dict[observation.concept_name]
                              for observation in justification.used_observations)
             if is_correct:
@@ -440,7 +319,7 @@ def run_justifier(
     if max_samples is None:
         max_samples = sum(len(d) for d in datasets) # type: ignore
     assert max_samples is not None
-    num_classes = len(CATEGORIES_COLS)
+    num_classes = len(CLASS_COLS)
     num_concepts = len(CONCEPTS)
     with justifier:
         def producer():
@@ -452,24 +331,24 @@ def run_justifier(
                         y = y.to(torch.get_default_device())
                         #y_concepts = y[:, 4:]
                         #y_classes = y[:, :4]
-                        y_classes = y[:, :len(CATEGORIES_COLS)]
-                        y_concepts = y[:, len(CATEGORIES_COLS):]
+                        y_classes = y[:, :len(CLASS_COLS)]
+                        y_concepts = y[:, len(CLASS_COLS):]
                         concepts = pn(x)
                         correct_preds = (concepts > 0.5) == (y_concepts > 0.5)
                         for i in range(min(y.size(0), max_samples - queued_samples)):
-                            for j in range(len(CATEGORIES_COLS)):
+                            for j in range(len(CLASS_COLS)):
                                 if y_classes[i][j] > 0.5:
                                     yield concepts[i].cpu(), correct_preds[i].cpu(), j
                             #for j in [0, 1, 2]:
                                 #if y_classes[i][j] > 0.5:
                                     #yield concepts[i].cpu(), correct_preds[i].cpu(), j
                             queued_samples += 1
-        result = pd.DataFrame(0, index=pd.Index(CATEGORIES_COLS), columns=pd.Index(COLS))
-        result_best = pd.DataFrame(0, index=pd.Index(CATEGORIES_COLS), columns=pd.Index(COLS))
+        result = pd.DataFrame(0, index=pd.Index(CLASS_COLS), columns=pd.Index(COLS))
+        result_best = pd.DataFrame(0, index=pd.Index(CLASS_COLS), columns=pd.Index(COLS))
         def reducer(sample_results : Iterable[CorrectnessCount]):
             for i, sample_result in enumerate(sample_results):
-                result.loc[CATEGORIES_COLS[sample_result.sign_type]] += sample_result.all_justifications
-                result_best.loc[CATEGORIES_COLS[sample_result.sign_type]] += sample_result.best_justification
+                result.loc[CLASS_COLS[sample_result.sign_type]] += sample_result.all_justifications
+                result_best.loc[CLASS_COLS[sample_result.sign_type]] += sample_result.best_justification
                 if (i+1) % 500 == 0:
                     logger.info(f'Processed {i+1} samples. Results so far:\n{result}\n'
                                 f'Best results so far:\n{result_best}')
@@ -518,7 +397,6 @@ class Options:
 
 def main(options : Options):
     justifier_config = JustifierConfig(ontology_file=options.ontology_file)
-    #justifier_config = JustifierConfig(ontology_file=options.ontology_file, restart_process=False,)
     split_dataset = get_dataset('gtsrb_with_concepts')
     with ModelFileManager(options.model_name) as mfm:
         trainer = Trainer.load_checkpoint(mfm, options.checkpoint, options.prefer)
