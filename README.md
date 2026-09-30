@@ -26,7 +26,7 @@ There is currently not an option to configure this but it should be easy to edit
 
 To reproduce the experiments regarding the GTSRB-Concepts Dataset, you will need to obtain the [GTSRB-Concepts dataset]. However, this is not enough
 and so to ease the process of building all the correct files, with all the necessary columns and several tweaks made, i made available the data folder used in
-().
+(https://drive.google.com/drive/folders/1T1VuGuh3rHG_Ltl8_HgGBp03fyjdnvEy?usp=sharing).
 
 # Repository structure
 
