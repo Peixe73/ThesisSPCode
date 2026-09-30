@@ -1,9 +1,6 @@
 from math import ceil
 from PIL import Image, ImageDraw, ImageOps
 
-# ==========================
-# CONFIG
-# ==========================
 
 EXAMPLES = [
     {

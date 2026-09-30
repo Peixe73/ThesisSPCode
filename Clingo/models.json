@@ -1,0 +1,1385 @@
+{
+  "Solver": "clingo version 5.6.2",
+  "Input": [
+    "prove_valid_ontology_rows_gtsrb.lp"
+  ],
+  "Call": [
+    {
+      "Witnesses": [
+        {
+          "Value": [
+            "yellow_ground", "border", "valid(27)", "white_border", "diamond", "class(27)"
+          ]
+        },
+        {
+          "Value": [
+            "yellow_ground", "red_border", "border", "triangular", "valid(28)", "class(28)"
+          ]
+        },
+        {
+          "Value": [
+            "white_ground", "red_border", "border", "triangular", "valid(28)", "class(28)"
+          ]
+        },
+        {
+          "Value": [
+            "bar", "white_bar", "circular", "border", "red_ground", "valid(32)", "class(32)", "black_border"
+          ]
+        },
+        {
+          "Value": [
+            "bar", "white_bar", "circular", "border", "white_border", "red_ground", "valid(32)", "class(32)"
+          ]
+        },
+        {
+          "Value": [
+            "yellow_ground", "red_border", "circular", "border", "valid(30)", "class(30)"
+          ]
+        },
+        {
+          "Value": [
+            "white_ground", "red_border", "circular", "border", "valid(30)", "class(30)"
+          ]
+        },
+        {
+          "Value": [
+            "bar", "white_bar", "red_border", "circular", "border", "red_ground", "valid(32)", "class(32)"
+          ]
+        },
+        {
+          "Value": [
+            "bar", "white_bar", "circular", "red_ground", "valid(32)", "class(32)"
+          ]
+        },
+        {
+          "Value": [
+            "bar", "yellow_ground", "circular", "black_bar", "valid(33)", "class(33)"
+          ]
+        },
+        {
+          "Value": [
+            "bar", "white_ground", "circular", "black_bar", "valid(33)", "class(33)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "black_symbol", "white_ground", "circular", "black_bar", "valid(41)", "d3", "class(41)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "blue", "circular", "black_bar", "white_symbol", "valid(41)", "d3", "class(41)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "black_symbol", "yellow_ground", "circular", "black_bar", "symbol_overtaking", "valid(42)", "class(42)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "black_symbol", "white_ground", "circular", "black_bar", "symbol_overtaking", "valid(42)", "class(42)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "yellow_ground", "circular", "symbol_speed80", "valid(7)", "black_bar", "white_symbol", "class(7)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "black_symbol", "yellow_ground", "circular", "symbol_speed80", "valid(7)", "black_bar", "class(7)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_ground", "circular", "symbol_speed80", "valid(7)", "black_bar", "white_symbol", "class(7)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "black_symbol", "white_ground", "circular", "symbol_speed80", "valid(7)", "black_bar", "class(7)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "black_symbol", "yellow_ground", "circular", "black_bar", "symbol_overtakinggoods", "valid(43)", "class(43)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "black_symbol", "white_ground", "circular", "black_bar", "symbol_overtakinggoods", "valid(43)", "class(43)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "blue", "circular", "black_bar", "white_symbol", "valid(39)", "d2a2", "class(39)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "black_symbol", "white_ground", "circular", "black_bar", "valid(39)", "d2a2", "class(39)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "black_symbol", "white_ground", "circular", "black_bar", "valid(40)", "d2a1", "class(40)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "blue", "circular", "black_bar", "white_symbol", "valid(40)", "d2a1", "class(40)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "blue", "circular", "black_bar", "white_symbol", "valid(38)", "d1a6", "class(38)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "black_symbol", "white_ground", "circular", "black_bar", "valid(38)", "d1a6", "class(38)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "black_symbol", "white_ground", "circular", "black_bar", "valid(37)", "d1a7", "class(37)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "blue", "circular", "black_bar", "white_symbol", "valid(37)", "d1a7", "class(37)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "blue", "circular", "black_bar", "white_symbol", "valid(36)", "d1a1", "class(36)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "black_symbol", "white_ground", "circular", "black_bar", "valid(36)", "d1a1", "class(36)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "black_symbol", "white_ground", "circular", "black_bar", "valid(35)", "d1a4", "class(35)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "blue", "circular", "black_bar", "white_symbol", "valid(35)", "d1a4", "class(35)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "blue", "circular", "black_bar", "white_symbol", "valid(34)", "d1a5", "class(34)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "black_symbol", "white_ground", "circular", "black_bar", "valid(34)", "d1a5", "class(34)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "yellow_ground", "circular", "valid(10)", "symbol_overtaking", "class(10)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "white_ground", "circular", "valid(10)", "symbol_overtaking", "class(10)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "red_border", "blue", "circular", "border", "valid(10)", "symbol_overtaking", "class(10)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "yellow_ground", "circular", "border", "valid(10)", "symbol_overtaking", "class(10)", "black_border"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "yellow_ground", "circular", "border", "valid(10)", "symbol_overtaking", "white_border", "class(10)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "yellow_ground", "red_border", "circular", "border", "valid(10)", "symbol_overtaking", "class(10)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "white_ground", "circular", "border", "valid(10)", "symbol_overtaking", "class(10)", "black_border"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "white_ground", "circular", "border", "valid(10)", "symbol_overtaking", "white_border", "class(10)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "white_ground", "red_border", "circular", "border", "valid(10)", "symbol_overtaking", "class(10)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "yellow_ground", "circular", "valid(11)", "symbol_overtakinggoods", "class(11)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "white_ground", "circular", "valid(11)", "symbol_overtakinggoods", "class(11)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "red_border", "blue", "circular", "border", "valid(11)", "symbol_overtakinggoods", "class(11)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "yellow_ground", "circular", "border", "valid(11)", "symbol_overtakinggoods", "class(11)", "black_border"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "yellow_ground", "circular", "border", "valid(11)", "symbol_overtakinggoods", "white_border", "class(11)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "yellow_ground", "red_border", "circular", "border", "valid(11)", "symbol_overtakinggoods", "class(11)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "white_ground", "circular", "border", "valid(11)", "symbol_overtakinggoods", "class(11)", "black_border"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "white_ground", "circular", "border", "valid(11)", "symbol_overtakinggoods", "white_border", "class(11)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "white_ground", "red_border", "circular", "border", "valid(11)", "symbol_overtakinggoods", "class(11)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "yellow_ground", "red_border", "border", "triangular", "valid(12)", "symbol_singleleftbend", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "white_ground", "red_border", "border", "triangular", "valid(12)", "symbol_singleleftbend", "class(12)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "yellow_ground", "red_border", "border", "triangular", "valid(13)", "symbol_singlerightbend", "class(13)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "white_ground", "red_border", "border", "triangular", "valid(13)", "symbol_singlerightbend", "class(13)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "yellow_ground", "red_border", "border", "triangular", "valid(14)", "symbol_twoormoreleftbend", "class(14)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "white_ground", "red_border", "border", "triangular", "valid(14)", "symbol_twoormoreleftbend", "class(14)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "yellow_ground", "red_border", "border", "triangular", "valid(15)", "symbol_rightnarrow", "class(15)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "white_ground", "red_border", "border", "triangular", "valid(15)", "symbol_rightnarrow", "class(15)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "yellow_ground", "red_border", "border", "triangular", "valid(16)", "symbol_roaddeformities", "class(16)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "white_ground", "red_border", "border", "triangular", "valid(16)", "symbol_roaddeformities", "class(16)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "yellow_ground", "red_border", "border", "triangular", "valid(17)", "symbol_slipperyroad", "class(17)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "white_ground", "red_border", "border", "triangular", "valid(17)", "symbol_slipperyroad", "class(17)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "yellow_ground", "red_border", "border", "triangular", "valid(18)", "symbol_children", "class(18)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "white_ground", "red_border", "border", "triangular", "valid(18)", "symbol_children", "class(18)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "yellow_ground", "red_border", "border", "triangular", "valid(19)", "symbol_cyclists", "class(19)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "white_ground", "red_border", "border", "triangular", "valid(19)", "symbol_cyclists", "class(19)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "blue", "circular", "white_symbol", "valid(41)", "d3", "class(41)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "white_ground", "circular", "valid(41)", "d3", "class(41)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "blue", "circular", "white_symbol", "valid(41)", "d3", "class(41)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "white_ground", "circular", "valid(41)", "d3", "class(41)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "blue", "circular", "white_symbol", "valid(40)", "d2a1", "class(40)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "blue", "circular", "white_symbol", "valid(40)", "d2a1", "class(40)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "white_ground", "circular", "valid(40)", "d2a1", "class(40)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "white_ground", "circular", "valid(40)", "d2a1", "class(40)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "blue", "circular", "white_symbol", "valid(39)", "d2a2", "class(39)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "blue", "circular", "white_symbol", "valid(39)", "d2a2", "class(39)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "white_ground", "circular", "valid(39)", "d2a2", "class(39)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "white_ground", "circular", "valid(39)", "d2a2", "class(39)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "blue", "circular", "white_symbol", "valid(38)", "d1a6", "class(38)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "blue", "circular", "white_symbol", "valid(38)", "d1a6", "class(38)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "white_ground", "circular", "valid(38)", "d1a6", "class(38)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "white_ground", "circular", "valid(38)", "d1a6", "class(38)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "blue", "circular", "white_symbol", "valid(37)", "d1a7", "class(37)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "blue", "circular", "white_symbol", "valid(37)", "d1a7", "class(37)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "white_ground", "circular", "valid(37)", "d1a7", "class(37)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "white_ground", "circular", "valid(37)", "d1a7", "class(37)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "blue", "circular", "white_symbol", "valid(36)", "d1a1", "class(36)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "blue", "circular", "white_symbol", "valid(36)", "d1a1", "class(36)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "white_ground", "circular", "valid(36)", "d1a1", "class(36)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "white_ground", "circular", "valid(36)", "d1a1", "class(36)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "blue", "circular", "white_symbol", "valid(35)", "d1a4", "class(35)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "blue", "circular", "white_symbol", "valid(35)", "d1a4", "class(35)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "white_ground", "circular", "valid(35)", "d1a4", "class(35)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "white_ground", "circular", "valid(35)", "d1a4", "class(35)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "blue", "circular", "white_symbol", "valid(34)", "d1a5", "class(34)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "blue", "circular", "white_symbol", "valid(34)", "d1a5", "class(34)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "white_ground", "circular", "valid(34)", "d1a5", "class(34)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "white_ground", "circular", "valid(34)", "d1a5", "class(34)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "red_border", "border", "valid(29)", "symbol_stop", "white_symbol", "red_ground", "octagonal", "class(29)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "valid(29)", "symbol_stop", "white_symbol", "red_ground", "octagonal", "class(29)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "border", "valid(29)", "symbol_stop", "white_symbol", "red_ground", "octagonal", "class(29)", "black_border"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "border", "white_border", "valid(29)", "symbol_stop", "white_symbol", "red_ground", "octagonal", "class(29)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "red_border", "blue", "circular", "border", "valid(31)", "symbol_noentrygoods", "class(31)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "white_ground", "red_border", "circular", "border", "valid(31)", "symbol_noentrygoods", "class(31)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "white_ground", "circular", "border", "valid(31)", "symbol_noentrygoods", "class(31)", "black_border"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "white_ground", "circular", "border", "white_border", "valid(31)", "symbol_noentrygoods", "class(31)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "white_ground", "circular", "valid(31)", "symbol_noentrygoods", "class(31)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "yellow_ground", "red_border", "circular", "border", "valid(31)", "symbol_noentrygoods", "class(31)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "yellow_ground", "circular", "valid(31)", "symbol_noentrygoods", "class(31)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "yellow_ground", "circular", "border", "valid(31)", "symbol_noentrygoods", "class(31)", "black_border"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "yellow_ground", "circular", "border", "white_border", "valid(31)", "symbol_noentrygoods", "class(31)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "red_border", "blue", "circular", "valid(3)", "symbol_speed50", "border", "class(3)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "red_border", "blue", "circular", "valid(3)", "symbol_speed50", "border", "class(3)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "white_ground", "red_border", "circular", "valid(3)", "symbol_speed50", "border", "class(3)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "white_ground", "red_border", "circular", "valid(3)", "symbol_speed50", "border", "class(3)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "white_ground", "circular", "valid(3)", "symbol_speed50", "border", "class(3)", "black_border"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "white_ground", "circular", "valid(3)", "symbol_speed50", "border", "white_border", "class(3)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "white_ground", "circular", "valid(3)", "symbol_speed50", "border", "class(3)", "black_border"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "white_ground", "circular", "valid(3)", "symbol_speed50", "border", "white_border", "class(3)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "white_ground", "circular", "valid(3)", "symbol_speed50", "class(3)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "white_ground", "circular", "valid(3)", "symbol_speed50", "class(3)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "yellow_ground", "red_border", "circular", "valid(3)", "symbol_speed50", "border", "class(3)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "yellow_ground", "red_border", "circular", "valid(3)", "symbol_speed50", "border", "class(3)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "yellow_ground", "circular", "valid(3)", "symbol_speed50", "class(3)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "yellow_ground", "circular", "valid(3)", "symbol_speed50", "border", "class(3)", "black_border"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "yellow_ground", "circular", "valid(3)", "symbol_speed50", "border", "white_border", "class(3)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "yellow_ground", "circular", "valid(3)", "symbol_speed50", "class(3)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "yellow_ground", "circular", "valid(3)", "symbol_speed50", "border", "class(3)", "black_border"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "yellow_ground", "circular", "valid(3)", "symbol_speed50", "border", "white_border", "class(3)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "red_border", "blue", "circular", "valid(5)", "symbol_speed70", "border", "class(5)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "red_border", "blue", "circular", "valid(5)", "symbol_speed70", "border", "class(5)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "white_ground", "red_border", "circular", "valid(5)", "symbol_speed70", "border", "class(5)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "white_ground", "red_border", "circular", "valid(5)", "symbol_speed70", "border", "class(5)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "white_ground", "circular", "valid(5)", "symbol_speed70", "border", "class(5)", "black_border"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "white_ground", "circular", "valid(5)", "symbol_speed70", "border", "white_border", "class(5)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "white_ground", "circular", "valid(5)", "symbol_speed70", "border", "class(5)", "black_border"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "white_ground", "circular", "valid(5)", "symbol_speed70", "border", "white_border", "class(5)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "white_ground", "circular", "valid(5)", "symbol_speed70", "class(5)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "white_ground", "circular", "valid(5)", "symbol_speed70", "class(5)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "yellow_ground", "red_border", "circular", "valid(5)", "symbol_speed70", "border", "class(5)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "yellow_ground", "red_border", "circular", "valid(5)", "symbol_speed70", "border", "class(5)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "yellow_ground", "circular", "valid(5)", "symbol_speed70", "class(5)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "yellow_ground", "circular", "valid(5)", "symbol_speed70", "border", "class(5)", "black_border"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "yellow_ground", "circular", "valid(5)", "symbol_speed70", "border", "white_border", "class(5)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "yellow_ground", "circular", "valid(5)", "symbol_speed70", "class(5)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "yellow_ground", "circular", "valid(5)", "symbol_speed70", "border", "class(5)", "black_border"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "yellow_ground", "circular", "valid(5)", "symbol_speed70", "border", "white_border", "class(5)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "red_border", "blue", "circular", "valid(2)", "symbol_speed30", "border", "class(2)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "red_border", "blue", "circular", "valid(2)", "symbol_speed30", "border", "class(2)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "white_ground", "red_border", "circular", "valid(2)", "symbol_speed30", "border", "class(2)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "white_ground", "red_border", "circular", "valid(2)", "symbol_speed30", "border", "class(2)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "white_ground", "circular", "valid(2)", "symbol_speed30", "border", "class(2)", "black_border"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "white_ground", "circular", "valid(2)", "symbol_speed30", "border", "white_border", "class(2)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "white_ground", "circular", "valid(2)", "symbol_speed30", "border", "class(2)", "black_border"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "white_ground", "circular", "valid(2)", "symbol_speed30", "border", "white_border", "class(2)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "white_ground", "circular", "valid(2)", "symbol_speed30", "class(2)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "white_ground", "circular", "valid(2)", "symbol_speed30", "class(2)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "yellow_ground", "red_border", "circular", "valid(2)", "symbol_speed30", "border", "class(2)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "yellow_ground", "red_border", "circular", "valid(2)", "symbol_speed30", "border", "class(2)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "yellow_ground", "circular", "valid(2)", "symbol_speed30", "class(2)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "yellow_ground", "circular", "valid(2)", "symbol_speed30", "border", "class(2)", "black_border"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "yellow_ground", "circular", "valid(2)", "symbol_speed30", "border", "white_border", "class(2)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "yellow_ground", "circular", "valid(2)", "symbol_speed30", "class(2)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "yellow_ground", "circular", "valid(2)", "symbol_speed30", "border", "class(2)", "black_border"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "yellow_ground", "circular", "valid(2)", "symbol_speed30", "border", "white_border", "class(2)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "red_border", "blue", "circular", "valid(4)", "symbol_speed60", "border", "class(4)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "red_border", "blue", "circular", "valid(4)", "symbol_speed60", "border", "class(4)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "white_ground", "red_border", "circular", "valid(4)", "symbol_speed60", "border", "class(4)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "white_ground", "red_border", "circular", "valid(4)", "symbol_speed60", "border", "class(4)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "white_ground", "circular", "valid(4)", "symbol_speed60", "border", "class(4)", "black_border"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "white_ground", "circular", "valid(4)", "symbol_speed60", "border", "white_border", "class(4)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "white_ground", "circular", "valid(4)", "symbol_speed60", "border", "class(4)", "black_border"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "white_ground", "circular", "valid(4)", "symbol_speed60", "border", "white_border", "class(4)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "white_ground", "circular", "valid(4)", "symbol_speed60", "class(4)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "white_ground", "circular", "valid(4)", "symbol_speed60", "class(4)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "yellow_ground", "red_border", "circular", "valid(4)", "symbol_speed60", "border", "class(4)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "yellow_ground", "red_border", "circular", "valid(4)", "symbol_speed60", "border", "class(4)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "yellow_ground", "circular", "valid(4)", "symbol_speed60", "class(4)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "yellow_ground", "circular", "valid(4)", "symbol_speed60", "border", "class(4)", "black_border"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "yellow_ground", "circular", "valid(4)", "symbol_speed60", "border", "white_border", "class(4)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "yellow_ground", "circular", "valid(4)", "symbol_speed60", "class(4)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "yellow_ground", "circular", "valid(4)", "symbol_speed60", "border", "class(4)", "black_border"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "yellow_ground", "circular", "valid(4)", "symbol_speed60", "border", "white_border", "class(4)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "red_border", "blue", "circular", "valid(6)", "symbol_speed80", "border", "class(6)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "red_border", "blue", "circular", "valid(6)", "symbol_speed80", "border", "class(6)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "white_ground", "red_border", "circular", "valid(6)", "symbol_speed80", "border", "class(6)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "white_ground", "red_border", "circular", "valid(6)", "symbol_speed80", "border", "class(6)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "white_ground", "circular", "valid(6)", "symbol_speed80", "border", "class(6)", "black_border"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "white_ground", "circular", "valid(6)", "symbol_speed80", "border", "white_border", "class(6)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "white_ground", "circular", "valid(6)", "symbol_speed80", "border", "class(6)", "black_border"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "white_ground", "circular", "valid(6)", "symbol_speed80", "border", "white_border", "class(6)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "white_ground", "circular", "valid(6)", "symbol_speed80", "class(6)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "white_ground", "circular", "valid(6)", "symbol_speed80", "class(6)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "yellow_ground", "red_border", "circular", "valid(6)", "symbol_speed80", "border", "class(6)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "yellow_ground", "red_border", "circular", "valid(6)", "symbol_speed80", "border", "class(6)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "yellow_ground", "circular", "valid(6)", "symbol_speed80", "class(6)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "yellow_ground", "circular", "valid(6)", "symbol_speed80", "border", "class(6)", "black_border"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "yellow_ground", "circular", "valid(6)", "symbol_speed80", "border", "white_border", "class(6)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "yellow_ground", "circular", "valid(6)", "symbol_speed80", "class(6)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "yellow_ground", "circular", "valid(6)", "symbol_speed80", "border", "class(6)", "black_border"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "yellow_ground", "circular", "valid(6)", "symbol_speed80", "border", "white_border", "class(6)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "red_border", "blue", "circular", "border", "valid(8)", "symbol_speed100", "class(8)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "red_border", "blue", "circular", "border", "valid(8)", "symbol_speed100", "class(8)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "white_ground", "red_border", "circular", "border", "valid(8)", "symbol_speed100", "class(8)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "white_ground", "red_border", "circular", "border", "valid(8)", "symbol_speed100", "class(8)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "white_ground", "circular", "border", "valid(8)", "symbol_speed100", "class(8)", "black_border"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "white_ground", "circular", "border", "valid(8)", "symbol_speed100", "white_border", "class(8)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "white_ground", "circular", "border", "valid(8)", "symbol_speed100", "class(8)", "black_border"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "white_ground", "circular", "border", "valid(8)", "symbol_speed100", "white_border", "class(8)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "white_ground", "circular", "valid(8)", "symbol_speed100", "class(8)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "white_ground", "circular", "valid(8)", "symbol_speed100", "class(8)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "yellow_ground", "red_border", "circular", "border", "valid(8)", "symbol_speed100", "class(8)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "yellow_ground", "red_border", "circular", "border", "valid(8)", "symbol_speed100", "class(8)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "yellow_ground", "circular", "valid(8)", "symbol_speed100", "class(8)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "yellow_ground", "circular", "border", "valid(8)", "symbol_speed100", "class(8)", "black_border"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "yellow_ground", "circular", "border", "valid(8)", "symbol_speed100", "white_border", "class(8)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "yellow_ground", "circular", "valid(8)", "symbol_speed100", "class(8)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "yellow_ground", "circular", "border", "valid(8)", "symbol_speed100", "class(8)", "black_border"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "yellow_ground", "circular", "border", "valid(8)", "symbol_speed100", "white_border", "class(8)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "white_ground", "red_border", "border", "triangular", "valid(20)", "symbol_wildanimals", "class(20)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "yellow_ground", "red_border", "border", "triangular", "valid(20)", "symbol_wildanimals", "class(20)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "white_ground", "red_border", "border", "triangular", "valid(26)", "symbol_icesnow", "class(26)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "yellow_ground", "red_border", "border", "triangular", "valid(26)", "symbol_icesnow", "class(26)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "white_ground", "red_border", "border", "triangular", "valid(25)", "symbol_pedestrians", "class(25)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "yellow_ground", "red_border", "border", "triangular", "valid(25)", "symbol_pedestrians", "class(25)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "white_ground", "red_border", "border", "triangular", "valid(24)", "symbol_danger", "class(24)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "yellow_ground", "red_border", "border", "triangular", "valid(24)", "symbol_danger", "class(24)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "white_ground", "red_border", "border", "triangular", "valid(23)", "symbol_intersectionpriority", "class(23)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "yellow_ground", "red_border", "border", "triangular", "valid(23)", "symbol_intersectionpriority", "class(23)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "white_ground", "red_border", "border", "triangular", "valid(22)", "symbol_verticallightsignals", "class(22)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "yellow_ground", "red_border", "border", "triangular", "valid(22)", "symbol_verticallightsignals", "class(22)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "white_ground", "red_border", "border", "triangular", "valid(21)", "symbol_roadworks", "class(21)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "yellow_ground", "red_border", "border", "triangular", "valid(21)", "symbol_roadworks", "class(21)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "white_ground", "red_border", "circular", "border", "valid(9)", "symbol_speed120", "class(9)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "white_ground", "red_border", "circular", "border", "valid(9)", "symbol_speed120", "class(9)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "white_ground", "circular", "border", "valid(9)", "symbol_speed120", "class(9)", "black_border"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "white_ground", "circular", "border", "valid(9)", "symbol_speed120", "white_border", "class(9)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "white_ground", "circular", "border", "valid(9)", "symbol_speed120", "class(9)", "black_border"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "white_ground", "circular", "border", "valid(9)", "symbol_speed120", "white_border", "class(9)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "white_ground", "circular", "valid(9)", "symbol_speed120", "class(9)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "white_ground", "circular", "valid(9)", "symbol_speed120", "class(9)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "yellow_ground", "red_border", "circular", "border", "valid(9)", "symbol_speed120", "class(9)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "yellow_ground", "red_border", "circular", "border", "valid(9)", "symbol_speed120", "class(9)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "yellow_ground", "circular", "valid(9)", "symbol_speed120", "class(9)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "yellow_ground", "circular", "border", "valid(9)", "symbol_speed120", "class(9)", "black_border"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "yellow_ground", "circular", "border", "valid(9)", "symbol_speed120", "white_border", "class(9)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "yellow_ground", "circular", "valid(9)", "symbol_speed120", "class(9)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "yellow_ground", "circular", "border", "valid(9)", "symbol_speed120", "class(9)", "black_border"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "yellow_ground", "circular", "border", "valid(9)", "symbol_speed120", "white_border", "class(9)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "red_border", "blue", "circular", "border", "valid(9)", "symbol_speed120", "class(9)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "red_border", "blue", "circular", "border", "valid(9)", "symbol_speed120", "class(9)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "white_ground", "red_border", "valid(1)", "symbol_speed20", "circular", "border", "class(1)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "white_ground", "red_border", "valid(1)", "symbol_speed20", "circular", "border", "class(1)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "white_ground", "valid(1)", "symbol_speed20", "circular", "border", "class(1)", "black_border"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "white_ground", "valid(1)", "symbol_speed20", "circular", "border", "white_border", "class(1)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "white_ground", "valid(1)", "symbol_speed20", "circular", "border", "class(1)", "black_border"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "white_ground", "valid(1)", "symbol_speed20", "circular", "border", "white_border", "class(1)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "white_ground", "valid(1)", "symbol_speed20", "circular", "class(1)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "white_ground", "valid(1)", "symbol_speed20", "circular", "class(1)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "yellow_ground", "red_border", "valid(1)", "symbol_speed20", "circular", "border", "class(1)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "yellow_ground", "red_border", "valid(1)", "symbol_speed20", "circular", "border", "class(1)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "yellow_ground", "valid(1)", "symbol_speed20", "circular", "class(1)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "yellow_ground", "valid(1)", "symbol_speed20", "circular", "border", "class(1)", "black_border"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "yellow_ground", "valid(1)", "symbol_speed20", "circular", "border", "white_border", "class(1)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "yellow_ground", "valid(1)", "symbol_speed20", "circular", "class(1)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "yellow_ground", "valid(1)", "symbol_speed20", "circular", "border", "class(1)", "black_border"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "yellow_ground", "valid(1)", "symbol_speed20", "circular", "border", "white_border", "class(1)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "black_symbol", "red_border", "blue", "valid(1)", "symbol_speed20", "circular", "border", "class(1)"
+          ]
+        },
+        {
+          "Value": [
+            "symbol", "bar", "white_bar", "black_symbol", "red_border", "blue", "valid(1)", "symbol_speed20", "circular", "border", "class(1)"
+          ]
+        }
+      ]
+    }
+  ],
+  "Result": "SATISFIABLE",
+  "Models": {
+    "Number": 272,
+    "More": "no"
+  },
+  "Calls": 1,
+  "Time": {
+    "Total": 0.009,
+    "Solve": 0.003,
+    "Model": 0.000,
+    "Unsat": 0.000,
+    "CPU": 0.009
+  }
+}

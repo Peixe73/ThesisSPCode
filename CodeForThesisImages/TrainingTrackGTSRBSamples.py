@@ -1,8 +1,5 @@
 from PIL import Image, ImageOps, ImageDraw, ImageFont
 
-# ==========================
-# CONFIG
-# ==========================
 TITLE = "Appearance Variations Within a Single GTSRB Track"
 
 TRACK_IMAGES = [
