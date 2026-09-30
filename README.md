@@ -1,6 +1,6 @@
 # Forked Code
 
-The original code was forked from Rafael Patronilo's thesis code repository. Thus
+The original code was forked from Rafael Patronilo's thesis code repository (https://github.com/rafael-patronilo/thesis-code/tree/main). Thus
 all credit goes to him for allowing other people to make use of it(myself included),
 providing a baseline of scripts that already were proven to work and can be continued upon.
 With that said, i tried to match the original workflow as best as possible, however
@@ -26,7 +26,7 @@ There is currently not an option to configure this but it should be easy to edit
 
 To reproduce the experiments regarding the GTSRB-Concepts Dataset, you will need to obtain the [GTSRB-Concepts dataset]. However, this is not enough
 and so to ease the process of building all the correct files, with all the necessary columns and several tweaks made, i made available the data folder used in
-(https://bitbucket.org/xtrains/dataset/src/master/).
+().
 
 # Repository structure
 
