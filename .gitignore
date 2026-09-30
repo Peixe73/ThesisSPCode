@@ -13,9 +13,9 @@ target/
 Thumbs.db
 # Generated experiment data
 #storage/studies
-storage/studies/gtsrb_hn_Baseline_Multiple
-storage/studies/gtsrb_hn_EvalConfig_Multiple_CMetrics
-storage/studies/gtsrb_hn_EvalConfig_Multiple_CMetrics_Onto
+#storage/studies/gtsrb_hn_Baseline_Multiple
+#storage/studies/gtsrb_hn_EvalConfig_Multiple_CMetrics
+#storage/studies/gtsrb_hn_EvalConfig_Multiple_CMetrics_Onto
 #storage/studies/gtsrb_hn_EvalConfig_Multiple_CMetrics_Untrained
 #storage/studies/gtsrb_hn_EvalConfig_Multiple_WithCLoss
 #storage/studies/gtsrb_hn_NoiseSelection_Multiple
